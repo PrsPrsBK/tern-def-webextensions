@@ -27,19 +27,19 @@ const apiGroups = [
     schemaList: [
       {
         name: 'browserAction',
-        schema: 'browser_action.json',
+        schema: 'browser/components/extensions/schemas/browser_action.json',
       },
       {
         name: 'browsingData',
-        schema: 'browsing_data.json',
+        schema: 'browser/components/extensions/schemas/browsing_data.json',
       },
       {
         name: 'pageAction',
-        schema: 'page_action.json',
+        schema: 'browser/components/extensions/schemas/page_action.json',
       },
       {
         name: 'tabs',
-        schema: 'tabs.json',
+        schema: 'browser/components/extensions/schemas/tabs.json',
       },
     ],
   },
@@ -127,8 +127,21 @@ const survey = () => {
   surveyJson();
 };
 
-const makeSchemaList = () => {
+const chromeUri2Path = (chromeUri) => {
   const regexSchemaPath = /.+\/([^\/]+json)$/;
+  //identity is in browser-api, and schema is in toolkit dir. only-one case.
+  if(chromeUri.startsWith('chrome://extensions/content/schemas/')) {
+    return `toolkit/components/extensions/schemas/${regexSchemaPath.exec(chromeUri)[1]}`;
+  }
+  else if(chromeUri.startsWith('chrome://browser/content/schemas/')) {
+    return `browser/components/extensions/schemas/${regexSchemaPath.exec(chromeUri)[1]}`;
+  }
+  else {
+    return '';
+  }
+};
+
+const makeSchemaList = () => {
   apiGroups.forEach((aGroup) => {
     if(aGroup.schemaList === undefined
       || Array.isArray(aGroup.schemaList) === false) {
@@ -136,13 +149,18 @@ const makeSchemaList = () => {
       const apiListFileFull = path.join(repositoryDir, aGroup.apiListFile);
       const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(apiListFileFull, 'utf8')));
       for(let apiName in apiItemList) {
-        if(apiItemList[apiName].schema !== undefined) {
-          const schema = regexSchemaPath.exec(apiItemList[apiName].schema)[1];
-          const apiItem = {
-            name: apiName,
-            schema,
+        if(apiItemList[apiName].schema !== undefined) { //only background page?
+          const schema = chromeUri2Path(apiItemList[apiName].schema);
+          if(schema !== '') {
+            const apiItem = {
+              name: apiName,
+              schema,
+            }
+            targetApiList.push(apiItem);
           }
-          targetApiList.push(apiItem);
+          else {
+            console.log(`skiped: irregular path for ${apiName}. ${apiItemList[apiName].schema}`);
+          }
         }
       }
       aGroup.schemaList = targetApiList;
@@ -154,17 +172,15 @@ const build = () => {
   makeSchemaList();
   let result = { "!name": "webextensions" };
   apiGroups.forEach((aGroup) => {
-    const files = fs.readdirSync(path.join(repositoryDir, aGroup.schemaDir));
-    files.filter(name => name.endsWith('.json')).forEach((jsonName, i, a) => {
-      const jsonNameFull = path.join(repositoryDir, aGroup.schemaDir, jsonName);
-      const orig = JSON.parse(stripJsonComments(fs.readFileSync(jsonNameFull, 'utf8')));
-      //console.log(`${jsonName}: ${orig[0].namespace}: ${orig.length}`);
-      orig.forEach((sth) => {
-        //console.log(`  namespace: ${sth.namespace}`);
+    for(let schemaItem of aGroup.schemaList) {
+      const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
+      const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
+      apiSpecList.forEach((sth) => {
+        console.log(`  namespace: ${sth.namespace}`);
       });
       let converted = {};
       //abstract and convert
-    });
+    }
   });
 
   //fs.writeFileSync('outPath here', JSON.stringify(result, null, 2));
