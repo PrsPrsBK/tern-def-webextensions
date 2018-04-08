@@ -1,6 +1,6 @@
 {
   "name": "tern-def-webextensions",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "tern definition file for WebExtensions.",
   "main": "index.js",
   "scripts": {
