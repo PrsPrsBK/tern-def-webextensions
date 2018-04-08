@@ -3,22 +3,24 @@
  * @author PrsPrsBK
  */
 
-const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
 const stripJsonComments = require('strip-json-comments');
 const targetJsons = [
   {
-    toFile: 'webextensions-general',
+    toFile: `webextensions-general-${releaseChannel}`,
     fromDir: 'toolkit/components/extensions/schemas/',
+    registry: 'toolkit/components/extensions/ext-toolkit.json',
   },
   {
-    toFile: 'webextensions-firefox-desktop',
+    toFile: `webextensions-firefox-desktop-${releaseChannel}`,
     fromDir: 'browser/components/extensions/schemas/',
+    registry: 'browser/components/extensions/ext-browser.json',
   },
   {
-    toFile: 'webextensions-firefox-android',
+    toFile: `webextensions-firefox-android-${releaseChannel}`,
     fromDir: 'mobile/android/components/extensions/schemas/',
+    registry: 'mobile/android/components/extensions/extensions-mobile.manifest',
   },
 ];
 
@@ -65,9 +67,6 @@ const hasDirs = () => {
   return notError;
 };
 
-let BSDfiles = [];
-let MPLfiles = [];
-let NeitherFiles = [];
 /*
  * json files: 31 + 22 + 4 : 57 files.
  * regex /licen[cs]{1}e/i matches 42 files.
@@ -75,21 +74,24 @@ let NeitherFiles = [];
  *   MPL: 5 files.
  *   neither included: 15 files.
  */
-const survey = () => {
+const surveyJson = () => {
+  let BsdFiles = [];
+  let MplFiles = [];
+  let NeitherFiles = [];
+  console.log('# Note: API JSON Files.\n');
   targetJsons.forEach((targetUnit) => {
-    const files = fs.readdirSync(path.join(repositoryDir, targetUnit.fromDir));
-    //console.log(`files at ${targetUnit.fromDir}: ${files.length}`);
-    files.filter(name => name.endsWith('.json')).forEach((jsonName, i, a) => {
+    const jsonFiles = fs.readdirSync(path.join(repositoryDir, targetUnit.fromDir))
+                        .filter(name => name.endsWith('.json'));
+    console.log(`## ${targetUnit.fromDir}: ${jsonFiles.length} json files.`);
+    jsonFiles.forEach((jsonName) => {
+      console.log(` * ${jsonName}`);
       const jsonNameFull = path.join(repositoryDir, targetUnit.fromDir, jsonName);
-      if(i === 0) {
-        console.log(`## ${targetUnit.fromDir}: ${a.length} json files.`);
-      }
       const origContents = fs.readFileSync(jsonNameFull, 'utf8');
       if(origContents.includes('BSD-style')) {
-        BSDfiles.push(path.join(targetUnit.fromDir, jsonName));
+        BsdFiles.push(path.join(targetUnit.fromDir, jsonName));
       }
       else if(origContents.includes('MPL')) {
-        MPLfiles.push(path.join(targetUnit.fromDir, jsonName));
+        MplFiles.push(path.join(targetUnit.fromDir, jsonName));
       }
       else {
         NeitherFiles.push(path.join(targetUnit.fromDir, jsonName));
@@ -97,53 +99,24 @@ const survey = () => {
     });
     console.log(``);
   });
-  console.log(`\n## 3-Clause BSD-Style: ${BSDfiles.length}`);
-  BSDfiles.forEach((f) => {
-    console.log(` * ${f}`);
+  console.log(`\n## 3-Clause BSD-Style: ${BsdFiles.length} files.`);
+  BsdFiles.forEach((path) => {
+    console.log(` * ${path}`);
   });
-  console.log(`\n## MPL 2.0: ${MPLfiles.length}`);
-  MPLfiles.forEach((f) => {
-    console.log(` * ${f}`);
+  console.log(`\n## MPL 2.0: ${MplFiles.length} files.`);
+  MplFiles.forEach((path) => {
+    console.log(` * ${path}`);
   });
-  console.log(`\n## Neither included: ${NeitherFiles.length}`);
-  MPLfiles.forEach((f) => {
-    console.log(` * ${f}`);
+  console.log(`\n## Neither included: ${NeitherFiles.length} files.`);
+  NeitherFiles.forEach((path) => {
+    console.log(` * ${path}`);
   });
 };
 
-/*
- * create 3 definition-files.
- *   '3' means that
- *     - genaral API
- *     - browser UI API
- *     - android UI API
- *   each API has own manifest.
- *     - toolkit/components/extensions/extensions-toolkit.manifest
- *       - ext-toolkit.json
- *       - ignore
- *         - ext-toolkit.js
- *         - ext-tabs-base.js
- *         - ext-c-toolkit.js
- *         - events.json
- *         - native_manifest.json
- *         - types.json
- *     - browser/components/extensions/extensions-browser.manifest
- *       - ext-browser.json
- *       - ignore
- *         - ext-browser.js has no registerModules()
- *         - ext-c-browser.js has registerModules()
- *           - but ignore. covered by ext-browser
- *         - menus_internal.json
- *     - mobile/android/components/extensions/extensions-mobile.manifest
- *       - no json
- *       - ext-android.js has registerModules()
- *         - browserAction
- *         - pageAction
- *         - tabs
- *       - ext-utils.js has no registerModules()
- *       - ext-c-android.js has registerModules()
- *         - tabs
- */
+const survey = () => {
+  surveyJson();
+};
+
 const build = () => {
   let result = { "!name": "webextensions" };
   targetJsons.forEach((targetUnit) => {
