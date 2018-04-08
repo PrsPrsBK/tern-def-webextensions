@@ -3,7 +3,7 @@
  * all things are very rough.
  * made of mozilla-beta repository.
  * npm package is under construction and includes only definition files.
- * github repository contains build-script, does not update definition files.
+ * github repository does not update definition files.
 
 ##how to use
 About vim, install tern-for-vim and add to `.tern-project` file.

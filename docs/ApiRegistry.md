@@ -27,6 +27,7 @@ We have 3 definition-files.
       - no json
       - ext-android.js has registerModules()
         - browserAction
+        - browsingData
         - pageAction
         - tabs
       - ext-utils.js has no registerModules()

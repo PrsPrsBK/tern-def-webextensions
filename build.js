@@ -6,27 +6,44 @@
 const fs = require('fs');
 const path = require('path');
 const stripJsonComments = require('strip-json-comments');
-const targetJsons = [
-  {
-    toFile: `webextensions-general-${releaseChannel}`,
-    fromDir: 'toolkit/components/extensions/schemas/',
-    registry: 'toolkit/components/extensions/ext-toolkit.json',
-  },
-  {
-    toFile: `webextensions-firefox-desktop-${releaseChannel}`,
-    fromDir: 'browser/components/extensions/schemas/',
-    registry: 'browser/components/extensions/ext-browser.json',
-  },
-  {
-    toFile: `webextensions-firefox-android-${releaseChannel}`,
-    fromDir: 'mobile/android/components/extensions/schemas/',
-    registry: 'mobile/android/components/extensions/extensions-mobile.manifest',
-  },
-];
 
 let repositoryDir = '';
 let isSurvey = false;
 let releaseChannel = 'beta';
+const targetJsons = [
+  {
+    toFile: `webextensions-general-${releaseChannel}`,
+    fromDir: 'toolkit/components/extensions/schemas/',
+    registryJson: 'toolkit/components/extensions/ext-toolkit.json',
+  },
+  {
+    toFile: `webextensions-firefox-desktop-${releaseChannel}`,
+    fromDir: 'browser/components/extensions/schemas/',
+    registryJson: 'browser/components/extensions/ext-browser.json',
+  },
+  {
+    toFile: `webextensions-firefox-android-${releaseChannel}`,
+    fromDir: 'mobile/android/components/extensions/schemas/',
+    fromJsons: [
+      {
+        name: 'browserAction',
+        schema: 'browser_action.json',
+      },
+      {
+        name: 'browsingData',
+        schema: 'browsing_data.json',
+      },
+      {
+        name: 'pageAction',
+        schema: 'page_action.json',
+      },
+      {
+        name: 'tabs',
+        schema: 'tabs.json',
+      },
+    ],
+  },
+];
 
 const processArgs = () => {
   process.argv.forEach((arg, idx, a) => {
@@ -41,7 +58,7 @@ const processArgs = () => {
     }
   });
   if(repositoryDir === '') {
-    console.log('please specify: npm run build -- --repo actual-your-mozilla-foo-repository-path');
+    console.log('please specify: npm run build -- --repo /path/to/mozilla-foo-repository-path');
     return false;
   }
   else {
@@ -67,13 +84,6 @@ const hasDirs = () => {
   return notError;
 };
 
-/*
- * json files: 31 + 22 + 4 : 57 files.
- * regex /licen[cs]{1}e/i matches 42 files.
- *   BSD-style: 37 files.
- *   MPL: 5 files.
- *   neither included: 15 files.
- */
 const surveyJson = () => {
   let BsdFiles = [];
   let MplFiles = [];
@@ -117,16 +127,40 @@ const survey = () => {
   surveyJson();
 };
 
+const makeJsonList = () => {
+  const regexJsonPath = /.+\/([^\/]+json)$/;
+  targetJsons.forEach((targetUnit) => {
+    if(targetUnit.fromJsons === undefined
+      || Array.isArray(targetUnit.fromJsons) === false) {
+      const targetApis = [];
+      const regJsonNameFull = path.join(repositoryDir, targetUnit.registryJson);
+      const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(regJsonNameFull, 'utf8')));
+      for(let apiName in apiItemList) {
+        if(apiItemList[apiName].schema !== undefined) {
+          const schema = regexJsonPath.exec(apiItemList[apiName].schema)[1];
+          const apiItem = {
+            name: apiName,
+            schema,
+          }
+          targetApis.push(apiItem);
+        }
+      }
+      targetUnit.fromJsons = targetApis;
+    }
+  });
+};
+
 const build = () => {
+  makeJsonList();
   let result = { "!name": "webextensions" };
   targetJsons.forEach((targetUnit) => {
     const files = fs.readdirSync(path.join(repositoryDir, targetUnit.fromDir));
     files.filter(name => name.endsWith('.json')).forEach((jsonName, i, a) => {
       const jsonNameFull = path.join(repositoryDir, targetUnit.fromDir, jsonName);
       const orig = JSON.parse(stripJsonComments(fs.readFileSync(jsonNameFull, 'utf8')));
-      console.log(`${jsonName}: ${orig[0].namespace}: ${orig.length}`);
+      //console.log(`${jsonName}: ${orig[0].namespace}: ${orig.length}`);
       orig.forEach((sth) => {
-        console.log(`  namespace: ${sth.namespace}`);
+        //console.log(`  namespace: ${sth.namespace}`);
       });
       let converted = {};
       //abstract and convert
