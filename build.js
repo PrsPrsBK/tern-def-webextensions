@@ -24,7 +24,7 @@ const apiGroups = [
   {
     outputName: `webextensions-firefox-android-${releaseChannel}`,
     schemaDir: 'mobile/android/components/extensions/schemas/',
-    fromJsons: [
+    schemaList: [
       {
         name: 'browserAction',
         schema: 'browser_action.json',
@@ -73,10 +73,10 @@ const hasDirs = () => {
     notError = false;
   }
   else {
-    apiGroups.forEach((targetUnit) => {
-      const fromDirFull = path.join(repositoryDir, targetUnit.schemaDir);
-      if(fs.existsSync(fromDirFull) === false) {
-        console.log(`repository does not have ${targetUnit.schemaDir} directory.`);
+    apiGroups.forEach((aGroup) => {
+      const schemaDirFull = path.join(repositoryDir, aGroup.schemaDir);
+      if(fs.existsSync(schemaDirFull) === false) {
+        console.log(`repository does not have ${aGroup.schemaDir} directory.`);
         notError = false;
       }
     });
@@ -89,22 +89,22 @@ const surveyJson = () => {
   let MplFiles = [];
   let NeitherFiles = [];
   console.log('# Note: API JSON Files.\n');
-  apiGroups.forEach((targetUnit) => {
-    const jsonFiles = fs.readdirSync(path.join(repositoryDir, targetUnit.schemaDir))
+  apiGroups.forEach((aGroup) => {
+    const schemaFiles = fs.readdirSync(path.join(repositoryDir, aGroup.schemaDir))
                         .filter(name => name.endsWith('.json'));
-    console.log(`## ${targetUnit.schemaDir}: ${jsonFiles.length} json files.`);
-    jsonFiles.forEach((jsonName) => {
+    console.log(`## ${aGroup.schemaDir}: ${schemaFiles.length} json files.`);
+    schemaFiles.forEach((jsonName) => {
       console.log(` * ${jsonName}`);
-      const jsonNameFull = path.join(repositoryDir, targetUnit.schemaDir, jsonName);
+      const jsonNameFull = path.join(repositoryDir, aGroup.schemaDir, jsonName);
       const origContents = fs.readFileSync(jsonNameFull, 'utf8');
       if(origContents.includes('BSD-style')) {
-        BsdFiles.push(path.join(targetUnit.schemaDir, jsonName));
+        BsdFiles.push(path.join(aGroup.schemaDir, jsonName));
       }
       else if(origContents.includes('MPL')) {
-        MplFiles.push(path.join(targetUnit.schemaDir, jsonName));
+        MplFiles.push(path.join(aGroup.schemaDir, jsonName));
       }
       else {
-        NeitherFiles.push(path.join(targetUnit.schemaDir, jsonName));
+        NeitherFiles.push(path.join(aGroup.schemaDir, jsonName));
       }
     });
     console.log(``);
@@ -127,36 +127,36 @@ const survey = () => {
   surveyJson();
 };
 
-const makeJsonList = () => {
-  const regexJsonPath = /.+\/([^\/]+json)$/;
-  apiGroups.forEach((targetUnit) => {
-    if(targetUnit.fromJsons === undefined
-      || Array.isArray(targetUnit.fromJsons) === false) {
-      const targetApis = [];
-      const regJsonNameFull = path.join(repositoryDir, targetUnit.apiListFile);
-      const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(regJsonNameFull, 'utf8')));
+const makeSchemaList = () => {
+  const regexSchemaPath = /.+\/([^\/]+json)$/;
+  apiGroups.forEach((aGroup) => {
+    if(aGroup.schemaList === undefined
+      || Array.isArray(aGroup.schemaList) === false) {
+      const targetApiList = [];
+      const apiListFileFull = path.join(repositoryDir, aGroup.apiListFile);
+      const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(apiListFileFull, 'utf8')));
       for(let apiName in apiItemList) {
         if(apiItemList[apiName].schema !== undefined) {
-          const schema = regexJsonPath.exec(apiItemList[apiName].schema)[1];
+          const schema = regexSchemaPath.exec(apiItemList[apiName].schema)[1];
           const apiItem = {
             name: apiName,
             schema,
           }
-          targetApis.push(apiItem);
+          targetApiList.push(apiItem);
         }
       }
-      targetUnit.fromJsons = targetApis;
+      aGroup.schemaList = targetApiList;
     }
   });
 };
 
 const build = () => {
-  makeJsonList();
+  makeSchemaList();
   let result = { "!name": "webextensions" };
-  apiGroups.forEach((targetUnit) => {
-    const files = fs.readdirSync(path.join(repositoryDir, targetUnit.schemaDir));
+  apiGroups.forEach((aGroup) => {
+    const files = fs.readdirSync(path.join(repositoryDir, aGroup.schemaDir));
     files.filter(name => name.endsWith('.json')).forEach((jsonName, i, a) => {
-      const jsonNameFull = path.join(repositoryDir, targetUnit.schemaDir, jsonName);
+      const jsonNameFull = path.join(repositoryDir, aGroup.schemaDir, jsonName);
       const orig = JSON.parse(stripJsonComments(fs.readFileSync(jsonNameFull, 'utf8')));
       //console.log(`${jsonName}: ${orig[0].namespace}: ${orig.length}`);
       orig.forEach((sth) => {
