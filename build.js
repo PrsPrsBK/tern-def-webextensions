@@ -12,17 +12,17 @@ let isSurvey = false;
 let releaseChannel = 'beta';
 const apiGroups = [
   {
-    outputName: `webextensions-general-${releaseChannel}`,
+    outputName: `webextensions-general-${releaseChannel}.json`,
     schemaDir: 'toolkit/components/extensions/schemas/',
     apiListFile: 'toolkit/components/extensions/ext-toolkit.json',
   },
   {
-    outputName: `webextensions-firefox-desktop-${releaseChannel}`,
+    outputName: `webextensions-firefox-desktop-${releaseChannel}.json`,
     schemaDir: 'browser/components/extensions/schemas/',
     apiListFile: 'browser/components/extensions/ext-browser.json',
   },
   {
-    outputName: `webextensions-firefox-android-${releaseChannel}`,
+    outputName: `webextensions-firefox-android-${releaseChannel}.json`,
     schemaDir: 'mobile/android/components/extensions/schemas/',
     schemaList: [
       {
@@ -168,22 +168,58 @@ const makeSchemaList = () => {
   });
 };
 
+/*
+ * {
+ *   "!name": some,
+ *   "!define": {
+ *     deffoo: {
+ *     },
+ *   },
+ *   "memberWithoutExclamation": {
+ *     "!type": "fn(url: string)",
+ *     "!url": "https://developer.mozilla.org/en/docs/DOM/window.location",
+ *     "!doc": "Load the document at the provided URL."
+ *     "nestedMember": {
+ *     }
+ *   }
+ * }
+ * original scheme
+ * [
+ *   {
+ *     "namespace": foo, // only one case of mandatory
+ *     description,
+ *     types,
+ *     permissions,
+ *     functions,
+ *     events,
+ *     properties,
+ *     allowedContexts,
+ *     defaultContexts,
+ *     $import, // menu
+ */
 const build = () => {
   makeSchemaList();
-  let result = { "!name": "webextensions" };
   apiGroups.forEach((aGroup) => {
+    let result = { "!name": "webextensions" };
     for(let schemaItem of aGroup.schemaList) {
       const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
+      //console.log(`${schemaItem.schema}`);
       apiSpecList.forEach((sth) => {
-        console.log(`  namespace: ${sth.namespace}`);
+        //console.log(`  namespace: ${sth.namespace}`);
+        if(sth.namespace !== 'manifest') { // namespace is not same between files.
+          let distilled = {};
+          //console.log(`  ${JSON.stringify(Object.keys(sth))}`);
+          if(sth.description !== undefined) {
+            distilled['!doc'] = sth.description;
+          }
+          result[sth.namespace] = distilled;
+        }
       });
-      let converted = {};
-      //abstract and convert
     }
+    //console.log(JSON.stringify(result));
+    fs.writeFileSync(`output/${aGroup.outputName}`, JSON.stringify(result, null, 2));
   });
-
-  //fs.writeFileSync('outPath here', JSON.stringify(result, null, 2));
 };
 
 if(processArgs() === false) {
