@@ -197,6 +197,21 @@ const makeSchemaList = () => {
  *     defaultContexts,
  *     $import, // menu
  */
+const distill = (sth) => {
+  let result = {};
+  if(sth.type === 'function') {
+    if(sth.description !== undefined) {
+      result['!doc'] = sth.description;
+    }
+    let paramArr = [];
+    for(let param of sth.parameters) {
+      paramArr.push(`${param.name}: ${param.type}`);
+    }
+    result['!type'] = `fn(${paramArr.join(', ')})`;
+  }
+  return result;
+};
+
 const build = () => {
   makeSchemaList();
   apiGroups.forEach((aGroup) => {
@@ -212,6 +227,11 @@ const build = () => {
           //console.log(`  ${JSON.stringify(Object.keys(sth))}`);
           if(sth.description !== undefined) {
             distilled['!doc'] = sth.description;
+          }
+          if(sth.functions !== undefined) {
+            for(let fun of sth.functions) {
+              distilled[fun.name] = distill(fun);
+            }
           }
           result[sth.namespace] = distilled;
         }
