@@ -10,20 +10,20 @@ const stripJsonComments = require('strip-json-comments');
 let repositoryDir = '';
 let isSurvey = false;
 let releaseChannel = 'beta';
-const targetJsons = [
+const apiGroups = [
   {
-    toFile: `webextensions-general-${releaseChannel}`,
-    fromDir: 'toolkit/components/extensions/schemas/',
-    registryJson: 'toolkit/components/extensions/ext-toolkit.json',
+    outputName: `webextensions-general-${releaseChannel}`,
+    schemaDir: 'toolkit/components/extensions/schemas/',
+    apiListFile: 'toolkit/components/extensions/ext-toolkit.json',
   },
   {
-    toFile: `webextensions-firefox-desktop-${releaseChannel}`,
-    fromDir: 'browser/components/extensions/schemas/',
-    registryJson: 'browser/components/extensions/ext-browser.json',
+    outputName: `webextensions-firefox-desktop-${releaseChannel}`,
+    schemaDir: 'browser/components/extensions/schemas/',
+    apiListFile: 'browser/components/extensions/ext-browser.json',
   },
   {
-    toFile: `webextensions-firefox-android-${releaseChannel}`,
-    fromDir: 'mobile/android/components/extensions/schemas/',
+    outputName: `webextensions-firefox-android-${releaseChannel}`,
+    schemaDir: 'mobile/android/components/extensions/schemas/',
     fromJsons: [
       {
         name: 'browserAction',
@@ -73,10 +73,10 @@ const hasDirs = () => {
     notError = false;
   }
   else {
-    targetJsons.forEach((targetUnit) => {
-      const fromDirFull = path.join(repositoryDir, targetUnit.fromDir);
+    apiGroups.forEach((targetUnit) => {
+      const fromDirFull = path.join(repositoryDir, targetUnit.schemaDir);
       if(fs.existsSync(fromDirFull) === false) {
-        console.log(`repository does not have ${targetUnit.fromDir} directory.`);
+        console.log(`repository does not have ${targetUnit.schemaDir} directory.`);
         notError = false;
       }
     });
@@ -89,22 +89,22 @@ const surveyJson = () => {
   let MplFiles = [];
   let NeitherFiles = [];
   console.log('# Note: API JSON Files.\n');
-  targetJsons.forEach((targetUnit) => {
-    const jsonFiles = fs.readdirSync(path.join(repositoryDir, targetUnit.fromDir))
+  apiGroups.forEach((targetUnit) => {
+    const jsonFiles = fs.readdirSync(path.join(repositoryDir, targetUnit.schemaDir))
                         .filter(name => name.endsWith('.json'));
-    console.log(`## ${targetUnit.fromDir}: ${jsonFiles.length} json files.`);
+    console.log(`## ${targetUnit.schemaDir}: ${jsonFiles.length} json files.`);
     jsonFiles.forEach((jsonName) => {
       console.log(` * ${jsonName}`);
-      const jsonNameFull = path.join(repositoryDir, targetUnit.fromDir, jsonName);
+      const jsonNameFull = path.join(repositoryDir, targetUnit.schemaDir, jsonName);
       const origContents = fs.readFileSync(jsonNameFull, 'utf8');
       if(origContents.includes('BSD-style')) {
-        BsdFiles.push(path.join(targetUnit.fromDir, jsonName));
+        BsdFiles.push(path.join(targetUnit.schemaDir, jsonName));
       }
       else if(origContents.includes('MPL')) {
-        MplFiles.push(path.join(targetUnit.fromDir, jsonName));
+        MplFiles.push(path.join(targetUnit.schemaDir, jsonName));
       }
       else {
-        NeitherFiles.push(path.join(targetUnit.fromDir, jsonName));
+        NeitherFiles.push(path.join(targetUnit.schemaDir, jsonName));
       }
     });
     console.log(``);
@@ -129,11 +129,11 @@ const survey = () => {
 
 const makeJsonList = () => {
   const regexJsonPath = /.+\/([^\/]+json)$/;
-  targetJsons.forEach((targetUnit) => {
+  apiGroups.forEach((targetUnit) => {
     if(targetUnit.fromJsons === undefined
       || Array.isArray(targetUnit.fromJsons) === false) {
       const targetApis = [];
-      const regJsonNameFull = path.join(repositoryDir, targetUnit.registryJson);
+      const regJsonNameFull = path.join(repositoryDir, targetUnit.apiListFile);
       const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(regJsonNameFull, 'utf8')));
       for(let apiName in apiItemList) {
         if(apiItemList[apiName].schema !== undefined) {
@@ -153,10 +153,10 @@ const makeJsonList = () => {
 const build = () => {
   makeJsonList();
   let result = { "!name": "webextensions" };
-  targetJsons.forEach((targetUnit) => {
-    const files = fs.readdirSync(path.join(repositoryDir, targetUnit.fromDir));
+  apiGroups.forEach((targetUnit) => {
+    const files = fs.readdirSync(path.join(repositoryDir, targetUnit.schemaDir));
     files.filter(name => name.endsWith('.json')).forEach((jsonName, i, a) => {
-      const jsonNameFull = path.join(repositoryDir, targetUnit.fromDir, jsonName);
+      const jsonNameFull = path.join(repositoryDir, targetUnit.schemaDir, jsonName);
       const orig = JSON.parse(stripJsonComments(fs.readFileSync(jsonNameFull, 'utf8')));
       //console.log(`${jsonName}: ${orig[0].namespace}: ${orig.length}`);
       orig.forEach((sth) => {
