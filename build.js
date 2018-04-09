@@ -7,7 +7,6 @@ const fs = require('fs');
 const path = require('path');
 const stripJsonComments = require('strip-json-comments');
 const bcd = require('mdn-browser-compat-data').webextensions.api;
-//bcd.alarms.xxx.__compat.mdn_url: string
 
 let repositoryDir = '';
 let isSurvey = false;
@@ -279,6 +278,7 @@ const distill = (sth) => {
   return result;
 };
 
+//bcd.alarms.xxx.__compat.mdn_url: string
 const build = () => {
   makeSchemaList();
   apiGroups.forEach((aGroup) => {
@@ -288,13 +288,11 @@ const build = () => {
         '!type': '+browser',
       },
       //insert later 'browser': {}
-      //insert later '!define': {}
     };
     let browserObj = {
-      //foo: {},...
-    };
-    let defineObj = {
-      //foo: {},...
+      //foo: {
+      //  '!define': {},
+      //},...
     };
     for(let schemaItem of aGroup.schemaList) {
       const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
@@ -304,6 +302,7 @@ const build = () => {
         //console.log(`  namespace: ${sth.namespace}`);
         if(sth.namespace !== 'manifest') { // namespace is not same between files.
           let distilled = {};
+          let defineObj = {};
           //console.log(`  ${JSON.stringify(Object.keys(sth))}`);
           if(sth.description !== undefined) {
             distilled['!doc'] = sth.description;
@@ -312,6 +311,7 @@ const build = () => {
             for(let typ of sth.types) {
               defineObj[typ.id] = distillDefine(typ);
             }
+            distilled['!define'] = defineObj;
           }
           if(sth.functions !== undefined) {
             for(let fun of sth.functions) {
@@ -332,7 +332,7 @@ const build = () => {
         }
       });
       //"!define" works below "browser"
-      browserObj['!define'] = defineObj;
+      //browserObj['!define'] = defineObj;
       result.browser = browserObj;
     }
     //console.log(JSON.stringify(result));
