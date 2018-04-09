@@ -6,6 +6,8 @@
 const fs = require('fs');
 const path = require('path');
 const stripJsonComments = require('strip-json-comments');
+const bcd = require('mdn-browser-compat-data').webextensions.api;
+//bcd.alarms.xxx.__compat.mdn_url: string
 
 let repositoryDir = '';
 let isSurvey = false;
