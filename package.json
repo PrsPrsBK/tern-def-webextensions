@@ -18,6 +18,7 @@
   "author": "PrsPrsBK",
   "license": "MIT",
   "devDependencies": {
+    "mdn-browser-compat-data": "0.0.30",
     "strip-json-comments": "^2.0.1"
   }
 }
