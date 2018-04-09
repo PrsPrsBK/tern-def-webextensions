@@ -1,12 +1,14 @@
 # tern-def-webextensions
- * WebExtensions definition for tern.
- * all things are very rough, and not yet enough for use.
- * made of mozilla-beta repository.
+ * WebExtensions definition files for tern.
+   * auto-complete
+   * document look-up
+ * all things are very rough.
  * github repository does not contain definition files.
  * npm package is planned (not yet published), and it will include only definition files.
+   * made of mozilla-beta repository.
 
 ## how to use
-About vim, install tern-for-vim and add to `.tern-project` file.
+I confirmed only with vim. install tern-for-vim and add to project's `.tern-project` file.
 
 ```.tern-project
 {
@@ -23,7 +25,7 @@ About vim, install tern-for-vim and add to `.tern-project` file.
 
 `npm run build -- --repository /path/to/local/repository`
 
-create 3 definition-files. '3' means that
+create 3 definition-files. '3' means following groups.
 
  * genaral API
  * browser UI API
