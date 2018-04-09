@@ -324,9 +324,9 @@ const build = () => {
           browserObj[sth.namespace] = distilled;
         }
       });
+      //"!define" works below "browser"
+      browserObj['!define'] = defineObj;
       result.browser = browserObj;
-      //anyway, if "!define": {} is not empty, not work. existence itself is not problem.
-      //result['!define'] = defineObj;
     }
     //console.log(JSON.stringify(result));
     fs.writeFileSync(`output/${aGroup.outputName}`, JSON.stringify(result, null, 2));
