@@ -316,6 +316,11 @@ const build = () => {
               distilled[fun.name] = distill(fun);
             }
           }
+          if(sth.events !== undefined) {
+            for(let evt of sth.events) {
+              distilled[evt.name] = distill(evt);
+            }
+          }
           if(sth.properties !== undefined) {
             for(let prop in sth.properties) {
               distilled[prop] = distill(sth.properties[prop]);
