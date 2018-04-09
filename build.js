@@ -169,35 +169,6 @@ const makeSchemaList = () => {
   });
 };
 
-/*
- * {
- *   "!name": some,
- *   "!define": {
- *     deffoo: {
- *     },
- *   },
- *   "memberWithoutExclamation": {
- *     "!type": "fn(arg1: string, arg2: object)",
- *     "!url": "https://developer.mozilla.org/en/docs/DOM/something",
- *     "!doc": "some document. appear in auto-complete window of vim"
- *     "nestedMember": {
- *     }
- *   }
- * }
- * original scheme
- * [
- *   {
- *     "namespace": foo, // only one case of mandatory
- *     description,
- *     types,
- *     permissions,
- *     functions,
- *     events,
- *     properties,
- *     allowedContexts,
- *     defaultContexts,
- *     $import, // menu
- */
 const distillDefine = (sth) => {
   let result = {};
   if(sth.description !== undefined) {
@@ -278,7 +249,6 @@ const distill = (sth) => {
   return result;
 };
 
-//bcd.alarms.xxx.__compat.mdn_url: string
 const keySkipList = ['!doc', '!url', '!type', '!proto', '!effects'];
 const setDocUrl = (routeStack, subTree) => {
   if(routeStack[routeStack.length - 1] === '!define') {
@@ -322,54 +292,54 @@ const build = () => {
       'chrome': {
         '!type': '+browser',
       },
-      //insert later 'browser': {}
     };
-    let browserObj = {
-      //foo: {
-      //  '!define': {},
-      //},...
-    };
+    let browserObj = {};
     for(let schemaItem of aGroup.schemaList) {
       const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
-      //console.log(`${schemaItem.schema}`);
-      apiSpecList.forEach((sth) => {
-        //console.log(`  namespace: ${sth.namespace}`);
-        if(sth.namespace !== 'manifest') { // namespace is not same between files.
-          let distilled = {};
-          let defineObj = {};
-          //console.log(`  ${JSON.stringify(Object.keys(sth))}`);
-          if(sth.description !== undefined) {
-            distilled['!doc'] = sth.description;
+      apiSpecList.forEach((apiSpec) => {
+        if(apiSpec.namespace !== 'manifest') { // namespace is not common between files. except 'manifest'
+          let ternApiObj = {};
+          let ternDefineObj = {};
+          if(apiSpec.description !== undefined) {
+            ternApiObj['!doc'] = apiSpec.description;
           }
           /*
            * !define looks like 'no pros'.
            * refernce as a variable... i do not know how to.
            * and can not look up document.
-           * e.g. Geolocaion (not webextensions. built-in one). but Geolocation.clearWatch can. confusing.
+           * e.g. Geolocaion (not webextensions. built-in one). but Geolocation.clearWatch can.
            */
-          if(sth.types !== undefined) { //maybe only at top level
-            for(let typ of sth.types) {
-              defineObj[typ.id] = distillDefine(typ);
+          if(apiSpec.types !== undefined) { //maybe only at top level
+            for(let typ of apiSpec.types) {
+              ternDefineObj[typ.id] = distillDefine(typ);
             }
-            distilled['!define'] = defineObj;
+            ternApiObj['!define'] = ternDefineObj;
           }
-          if(sth.functions !== undefined) {
-            for(let fun of sth.functions) {
-              distilled[fun.name] = distill(fun);
-            }
-          }
-          if(sth.events !== undefined) {
-            for(let evt of sth.events) {
-              distilled[evt.name] = distill(evt);
+          if(apiSpec.functions !== undefined) {
+            for(let fun of apiSpec.functions) {
+              ternApiObj[fun.name] = distill(fun);
             }
           }
-          if(sth.properties !== undefined) {
-            for(let prop in sth.properties) {
-              distilled[prop] = distill(sth.properties[prop]);
+          if(apiSpec.events !== undefined) {
+            for(let evt of apiSpec.events) {
+              ternApiObj[evt.name] = distill(evt);
             }
           }
-          browserObj[sth.namespace] = distilled;
+          if(apiSpec.properties !== undefined) {
+            for(let prop in apiSpec.properties) {
+              ternApiObj[prop] = distill(apiSpec.properties[prop]);
+            }
+          }
+          //privacy.xxx, devtools.xxx.... not match tern and not go straight with compat-table
+          if(apiSpec.namespace.indexOf('.') === -1) {
+            browserObj[apiSpec.namespace] = ternApiObj;
+          }
+          else {
+            console.log(`${apiSpec.namespace}`);
+            const registerRoutes = apiSpec.namespace.split('.');
+            browserObj[registerRoutes[0]][registerRoutes[1]] = ternApiObj;
+          }
         }
       });
     }
