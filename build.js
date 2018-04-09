@@ -129,7 +129,7 @@ const survey = () => {
 
 const chromeUri2Path = (chromeUri) => {
   const regexSchemaPath = /.+\/([^\/]+json)$/;
-  //identity is in browser-api, and schema is in toolkit dir. only-one case.
+  //identity is in browser-ui api, and its schema is in toolkit dir. only-one case.
   if(chromeUri.startsWith('chrome://extensions/content/schemas/')) {
     return `toolkit/components/extensions/schemas/${regexSchemaPath.exec(chromeUri)[1]}`;
   }
@@ -176,9 +176,9 @@ const makeSchemaList = () => {
  *     },
  *   },
  *   "memberWithoutExclamation": {
- *     "!type": "fn(url: string)",
- *     "!url": "https://developer.mozilla.org/en/docs/DOM/window.location",
- *     "!doc": "Load the document at the provided URL."
+ *     "!type": "fn(arg1: string, arg2: object)",
+ *     "!url": "https://developer.mozilla.org/en/docs/DOM/something",
+ *     "!doc": "some document. appear in auto-complete window of vim"
  *     "nestedMember": {
  *     }
  *   }
@@ -197,17 +197,82 @@ const makeSchemaList = () => {
  *     defaultContexts,
  *     $import, // menu
  */
-const distill = (sth) => {
+const distillDefine = (sth) => {
   let result = {};
+  if(sth.description !== undefined) {
+    result['!doc'] = sth.description;
+  }
   if(sth.type === 'function') {
-    if(sth.description !== undefined) {
-      result['!doc'] = sth.description;
-    }
     let paramArr = [];
-    for(let param of sth.parameters) {
-      paramArr.push(`${param.name}: ${param.type}`);
+    if(sth.parameters !== undefined) {
+      for(let param of sth.parameters) {
+        if(param.type !== undefined) {
+          paramArr.push(`${param.name}: ${param.type}`);
+        }
+        else if(param['$ref'] !== undefined) {
+          paramArr.push(`${param.name}: +${param['$ref']}`);
+        }
+      }
     }
     result['!type'] = `fn(${paramArr.join(', ')})`;
+  }
+  else {
+    if(sth.type !== undefined) {
+      result['!type'] = sth.type;
+    }
+    else if(sth['$ref'] !== undefined) {
+      result['!type'] = `+${sth['$ref']}`;
+    }
+    if(sth.functions !== undefined) {
+      for(let fun of sth.functions) {
+        result[fun.name] = distillDefine(fun);
+      }
+    }
+    if(sth.properties !== undefined) {
+      for(let prop in sth.properties) {
+        result[prop] = distillDefine(sth.properties[prop]);
+      }
+    }
+  }
+  return result;
+};
+
+const distill = (sth) => {
+  let result = {};
+  if(sth.description !== undefined) {
+    result['!doc'] = sth.description;
+  }
+  if(sth.type === 'function') {
+    let paramArr = [];
+    if(sth.parameters !== undefined) {
+      for(let param of sth.parameters) {
+        if(param.type !== undefined) {
+          paramArr.push(`${param.name}: ${param.type}`);
+        }
+        else if(param['$ref'] !== undefined) {
+          paramArr.push(`${param.name}: +${param['$ref']}`);
+        }
+      }
+    }
+    result['!type'] = `fn(${paramArr.join(', ')})`;
+  }
+  else {
+    if(sth.type !== undefined) {
+      result['!type'] = sth.type;
+    }
+    else if(sth['$ref'] !== undefined) {
+      result['!type'] = `+${sth['$ref']}`;
+    }
+    //if(sth.functions !== undefined) {
+    //  for(let fun of sth.functions) {
+    //    result[fun.name] = distill(fun);
+    //  }
+    //}
+    //if(sth.properties !== undefined) {
+    //  for(let prop in sth.properties) {
+    //    result[prop] = distill(sth.properties[prop]);
+    //  }
+    //}
   }
   return result;
 };
@@ -215,7 +280,20 @@ const distill = (sth) => {
 const build = () => {
   makeSchemaList();
   apiGroups.forEach((aGroup) => {
-    let result = { "!name": "webextensions" };
+    let result = {
+      '!name': 'webextensions',
+      'chrome': {
+        '!type': '+browser',
+      },
+      //insert later 'browser': {}
+      //insert later '!define': {}
+    };
+    let browserObj = {
+      //foo: {},...
+    };
+    let defineObj = {
+      //foo: {},...
+    };
     for(let schemaItem of aGroup.schemaList) {
       const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
@@ -228,14 +306,27 @@ const build = () => {
           if(sth.description !== undefined) {
             distilled['!doc'] = sth.description;
           }
+          if(sth.types !== undefined) { //maybe only at top level
+            for(let typ of sth.types) {
+              defineObj[typ.id] = distillDefine(typ);
+            }
+          }
           if(sth.functions !== undefined) {
             for(let fun of sth.functions) {
               distilled[fun.name] = distill(fun);
             }
           }
-          result[sth.namespace] = distilled;
+          if(sth.properties !== undefined) {
+            for(let prop in sth.properties) {
+              distilled[prop] = distill(sth.properties[prop]);
+            }
+          }
+          browserObj[sth.namespace] = distilled;
         }
       });
+      result.browser = browserObj;
+      //anyway, if "!define": {} is not empty, not work. existence itself is not problem.
+      //result['!define'] = defineObj;
     }
     //console.log(JSON.stringify(result));
     fs.writeFileSync(`output/${aGroup.outputName}`, JSON.stringify(result, null, 2));
