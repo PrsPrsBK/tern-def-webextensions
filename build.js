@@ -279,6 +279,41 @@ const distill = (sth) => {
 };
 
 //bcd.alarms.xxx.__compat.mdn_url: string
+const keySkipList = ['!doc', '!url', '!type', '!proto', '!effects'];
+const setDocUrl = (routeStack, subTree) => {
+  if(routeStack[routeStack.length - 1] === '!define') {
+    for(let key in subTree) {
+      if(keySkipList.includes(key) === false) {
+        setDocUrl(routeStack.concat(key), subTree[key]);
+      }
+    }
+  }
+  else {
+    let urlTree = bcd;
+    for(let nd of routeStack) {
+      if(urlTree === undefined) {
+        break;
+      }
+      if(nd !== '!define') {
+        urlTree = urlTree[nd];
+      }
+    }
+    if(urlTree !== undefined) {
+      if(urlTree.__compat !== undefined) {
+        subTree['!url'] = urlTree.__compat.mdn_url;
+      }
+      for(let key in subTree) {
+        if(keySkipList.includes(key) === false) {
+          setDocUrl(routeStack.concat(key), subTree[key]);
+        }
+      }
+    }
+    else {
+      console.log(`  err or not yet documented ${JSON.stringify(routeStack)}`);
+    }
+  }
+};
+
 const build = () => {
   makeSchemaList();
   apiGroups.forEach((aGroup) => {
@@ -307,6 +342,12 @@ const build = () => {
           if(sth.description !== undefined) {
             distilled['!doc'] = sth.description;
           }
+          /*
+           * !define looks like 'no pros'.
+           * refernce as a variable... i do not know how to.
+           * and can not look up document.
+           * e.g. Geolocaion (not webextensions. built-in one). but Geolocation.clearWatch can. confusing.
+           */
           if(sth.types !== undefined) { //maybe only at top level
             for(let typ of sth.types) {
               defineObj[typ.id] = distillDefine(typ);
@@ -331,11 +372,11 @@ const build = () => {
           browserObj[sth.namespace] = distilled;
         }
       });
-      //"!define" works below "browser"
-      //browserObj['!define'] = defineObj;
-      result.browser = browserObj;
     }
-    //console.log(JSON.stringify(result));
+    for(let key in browserObj) {
+      setDocUrl([key], browserObj[key]);
+    }
+    result.browser = browserObj;
     fs.writeFileSync(`output/${aGroup.outputName}`, JSON.stringify(result, null, 2));
   });
 };
