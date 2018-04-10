@@ -169,7 +169,7 @@ const makeSchemaList = () => {
   });
 };
 
-const distillDefine = (sth, step) => {
+const distillDefine = (routeStack, sth, step) => {
   let result = {};
   if(sth.description !== undefined) {
     result['!doc'] = sth.description;
@@ -218,15 +218,27 @@ const distillDefine = (sth, step) => {
       console.log(`----${sth.type}`);
     }
   }
+  let urlTree = bcd;
+  for(let nd of routeStack) {
+    if(urlTree === undefined) {
+      break;
+    }
+    urlTree = urlTree[nd];
+  }
+  if(urlTree !== undefined) {
+    if(urlTree.__compat !== undefined) {
+      result['!url'] = urlTree.__compat.mdn_url;
+    }
+  }
 
   if(sth.functions !== undefined) {
     for(let fun of sth.functions) {
-      result[fun.name] = distillDefine(fun, (step + 1));
+      result[fun.name] = distillDefine(routeStack.concat(fun.name), fun, (step + 1));
     }
   }
   if(sth.properties !== undefined) {
     for(let prop in sth.properties) {
-      result[prop] = distillDefine(sth.properties[prop], (step + 1));
+      result[prop] = distillDefine(routeStack.concat(prop), sth.properties[prop], (step + 1));
     }
   }
   return result;
@@ -330,12 +342,15 @@ const build = () => {
           if(apiSpec.description !== undefined) {
             ternApiObj['!doc'] = apiSpec.description;
           }
-          if(apiSpec.types !== undefined) { //maybe only at top level
+          if(apiSpec.types !== undefined) { // !define is common in specific apiGroup
+            //privacy.xxx, devtools.xxx.... not match tern and not go straight with compat-table
+            const initRoute = apiSpec.namespace.split('.');
             for(let typ of apiSpec.types) {
               if(ternDefineObj[typ.id] !== undefined) {
+                // giving up. little loss
                 console.log(`  -- !define ${typ.id} is overwrited by ${apiSpec.namespace}`);
               }
-              const curDefObj = distillDefine(typ, 0);
+              const curDefObj = distillDefine(initRoute.concat(typ.id), typ, 0);
               if(Object.keys(curDefObj).length !==0) {
                 ternDefineObj[typ.id] = curDefObj;
               }
