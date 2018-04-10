@@ -31,5 +31,13 @@ create 3 definition-files. '3' means following groups.
  * browser UI API
  * android UI API
 
+# License
+MPL-2.0.
+
+npm package includes json files. These contains contents which come from 
+json schema files of mozilla-beta repository. 
+Some ones are under 3-Clause BSD License, others are under MPL-2.0 License. 
+Both are in `LICENSE` directory.
+
 <!-- vim:expandtab ff=unix fenc=utf-8 sw=2 -->
 

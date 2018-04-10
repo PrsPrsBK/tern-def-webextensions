@@ -1,4 +1,4 @@
-# Note: API JSON Files.
+# Note: Original API JSON Files at mozilla-beta.
 
 ## toolkit/components/extensions/schemas/: 31 json files.
  * alarms.json
