@@ -169,41 +169,64 @@ const makeSchemaList = () => {
   });
 };
 
-const distillDefine = (sth) => {
+const distillDefine = (sth, step) => {
   let result = {};
   if(sth.description !== undefined) {
     result['!doc'] = sth.description;
   }
-  if(sth.type === 'function') {
-    let paramArr = [];
-    if(sth.parameters !== undefined) {
-      for(let param of sth.parameters) {
-        if(param.type !== undefined) {
-          paramArr.push(`${param.name}: ${param.type}`);
-        }
-        else if(param['$ref'] !== undefined) {
-          paramArr.push(`${param.name}: +${param['$ref']}`);
+  if(step > 0) { // top level can not have !type. knowing need for long hours.
+    if(sth.type === 'function') {
+      let paramArr = [];
+      if(sth.parameters !== undefined) {
+        for(let param of sth.parameters) {
+          if(param.type !== undefined) {
+            paramArr.push(`${param.name}: ${param.type}`);
+          }
+          else if(param['$ref'] !== undefined) {
+            paramArr.push(`${param.name}: +${param['$ref']}`);
+          }
         }
       }
+      result['!type'] = `fn(${paramArr.join(', ')})`;
+      //result['!type'] = `fn()`; // temporary ope
     }
-    result['!type'] = `fn(${paramArr.join(', ')})`;
-  }
-  else {
-    if(sth.type !== undefined) {
+    else if(sth.type === 'any') {
+      //result['!type'] = sth.type; // for data shrink
+    }
+    else if(sth.type === 'array') {
+      result['!type'] = '[number]'; // temporary ope
+    }
+    else if(sth.type === 'boolean') {
+      result['!type'] = 'bool';
+    }
+    else if(sth.type === 'integer') {
+      result['!type'] = 'number';
+    }
+    else if(sth.type === 'number') {
+      result['!type'] = sth.type;
+    }
+    else if(sth.type === 'object') {
+      //result['!type'] = sth.type; // for data shrink
+    }
+    else if(sth.type === 'string') {
       result['!type'] = sth.type;
     }
     else if(sth['$ref'] !== undefined) {
       result['!type'] = `+${sth['$ref']}`;
     }
-    if(sth.functions !== undefined) {
-      for(let fun of sth.functions) {
-        result[fun.name] = distillDefine(fun);
-      }
+    else if(sth.type !== undefined) {
+      console.log(`----${sth.type}`);
     }
-    if(sth.properties !== undefined) {
-      for(let prop in sth.properties) {
-        result[prop] = distillDefine(sth.properties[prop]);
-      }
+  }
+
+  if(sth.functions !== undefined) {
+    for(let fun of sth.functions) {
+      result[fun.name] = distillDefine(fun, (step + 1));
+    }
+  }
+  if(sth.properties !== undefined) {
+    for(let prop in sth.properties) {
+      result[prop] = distillDefine(sth.properties[prop], (step + 1));
     }
   }
   return result;
@@ -279,7 +302,9 @@ const setDocUrl = (routeStack, subTree) => {
       }
     }
     else {
-      console.log(`  err or not yet documented ${JSON.stringify(routeStack)}`);
+      if(routeStack[0] !== '!define') {
+        console.log(`  err or not yet documented ${JSON.stringify(routeStack)}`);
+      }
     }
   }
 };
@@ -289,32 +314,32 @@ const build = () => {
   apiGroups.forEach((aGroup) => {
     let result = {
       '!name': 'webextensions',
+      '!define': {},
       'chrome': {
         '!type': '+browser',
       },
     };
     let browserObj = {};
+    let ternDefineObj = {};
     for(let schemaItem of aGroup.schemaList) {
       const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
       apiSpecList.forEach((apiSpec) => {
         if(apiSpec.namespace !== 'manifest') { // namespace is not common between files. except 'manifest'
           let ternApiObj = {};
-          let ternDefineObj = {};
           if(apiSpec.description !== undefined) {
             ternApiObj['!doc'] = apiSpec.description;
           }
-          /*
-           * !define looks like 'no pros'.
-           * refernce as a variable... i do not know how to.
-           * and can not look up document.
-           * e.g. Geolocaion (not webextensions. built-in one). but Geolocation.clearWatch can.
-           */
           if(apiSpec.types !== undefined) { //maybe only at top level
             for(let typ of apiSpec.types) {
-              ternDefineObj[typ.id] = distillDefine(typ);
+              if(ternDefineObj[typ.id] !== undefined) {
+                console.log(`  -- !define ${typ.id} is overwrited by ${apiSpec.namespace}`);
+              }
+              const curDefObj = distillDefine(typ, 0);
+              if(Object.keys(curDefObj).length !==0) {
+                ternDefineObj[typ.id] = curDefObj;
+              }
             }
-            ternApiObj['!define'] = ternDefineObj;
           }
           if(apiSpec.functions !== undefined) {
             for(let fun of apiSpec.functions) {
@@ -336,13 +361,14 @@ const build = () => {
             browserObj[apiSpec.namespace] = ternApiObj;
           }
           else {
-            console.log(`${apiSpec.namespace}`);
+            console.log(`  namespace contains dot ${apiSpec.namespace}`);
             const registerRoutes = apiSpec.namespace.split('.');
             browserObj[registerRoutes[0]][registerRoutes[1]] = ternApiObj;
           }
         }
       });
     }
+    result['!define'] = ternDefineObj;
     for(let key in browserObj) {
       setDocUrl([key], browserObj[key]);
     }
