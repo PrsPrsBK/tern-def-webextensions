@@ -169,7 +169,7 @@ const makeSchemaList = () => {
   });
 };
 
-const distillDefine = (routeStack, sth, step) => {
+const distillDefine = (nameTree, sth, step) => {
   let result = {};
   if(sth.description !== undefined) {
     result['!doc'] = sth.description;
@@ -211,40 +211,40 @@ const distillDefine = (routeStack, sth, step) => {
     else if(sth.type === 'string') {
       result['!type'] = sth.type;
     }
-    else if(sth['$ref'] !== undefined) {
-      result['!type'] = `+${sth['$ref']}`;
-    }
     else if(sth.type !== undefined) {
       console.log(`----${sth.type}`);
     }
+    else if(sth['$ref'] !== undefined) {
+      result['!type'] = `+${sth['$ref']}`;
+    }
   }
-  let urlTree = bcd;
-  for(let nd of routeStack) {
-    if(urlTree === undefined) {
+  let bcdTree = bcd;
+  for(let nd of nameTree) {
+    if(bcdTree === undefined) {
       break;
     }
-    urlTree = urlTree[nd];
+    bcdTree = bcdTree[nd];
   }
-  if(urlTree !== undefined) {
-    if(urlTree.__compat !== undefined) {
-      result['!url'] = urlTree.__compat.mdn_url;
+  if(bcdTree !== undefined) {
+    if(bcdTree.__compat !== undefined) {
+      result['!url'] = bcdTree.__compat.mdn_url;
     }
   }
 
   if(sth.functions !== undefined) {
     for(let fun of sth.functions) {
-      result[fun.name] = distillDefine(routeStack.concat(fun.name), fun, (step + 1));
+      result[fun.name] = distillDefine(nameTree.concat(fun.name), fun, (step + 1));
     }
   }
   if(sth.properties !== undefined) {
     for(let prop in sth.properties) {
-      result[prop] = distillDefine(routeStack.concat(prop), sth.properties[prop], (step + 1));
+      result[prop] = distillDefine(nameTree.concat(prop), sth.properties[prop], (step + 1));
     }
   }
   return result;
 };
 
-const distill = (sth) => {
+const distill = (nameTree, sth) => {
   let result = {};
   if(sth.description !== undefined) {
     result['!doc'] = sth.description;
@@ -263,24 +263,56 @@ const distill = (sth) => {
     }
     result['!type'] = `fn(${paramArr.join(', ')})`;
   }
-  else {
-    if(sth.type !== undefined) {
-      result['!type'] = sth.type;
-    }
-    else if(sth['$ref'] !== undefined) {
-      result['!type'] = `+${sth['$ref']}`;
-    }
-    //if(sth.functions !== undefined) {
-    //  for(let fun of sth.functions) {
-    //    result[fun.name] = distill(fun);
-    //  }
-    //}
-    //if(sth.properties !== undefined) {
-    //  for(let prop in sth.properties) {
-    //    result[prop] = distill(sth.properties[prop]);
-    //  }
-    //}
+  else if(sth.type === 'any') {
+    //result['!type'] = sth.type; // for data shrink
   }
+  else if(sth.type === 'array') {
+    result['!type'] = '[number]'; // temporary ope
+  }
+  else if(sth.type === 'boolean') {
+    result['!type'] = 'bool';
+  }
+  else if(sth.type === 'integer') {
+    result['!type'] = 'number';
+  }
+  else if(sth.type === 'number') {
+    result['!type'] = sth.type;
+  }
+  else if(sth.type === 'object') {
+    //result['!type'] = sth.type; // for data shrink
+  }
+  else if(sth.type === 'string') {
+    result['!type'] = sth.type;
+  }
+  else if(sth.type !== undefined) {
+    result['!type'] = sth.type;
+  }
+  else if(sth['$ref'] !== undefined) {
+    result['!type'] = `+${sth['$ref']}`;
+  }
+  let bcdTree = bcd;
+  for(let nd of nameTree) {
+    if(bcdTree === undefined) {
+      break;
+    }
+    bcdTree = bcdTree[nd];
+  }
+  if(bcdTree !== undefined) {
+    if(bcdTree.__compat !== undefined) {
+      result['!url'] = bcdTree.__compat.mdn_url;
+    }
+  }
+
+  //if(sth.functions !== undefined) {
+  //  for(let fun of sth.functions) {
+  //    result[fun.name] = distill(fun);
+  //  }
+  //}
+  //if(sth.properties !== undefined) {
+  //  for(let prop in sth.properties) {
+  //    result[prop] = distill(sth.properties[prop]);
+  //  }
+  //}
   return result;
 };
 
@@ -342,51 +374,53 @@ const build = () => {
           if(apiSpec.description !== undefined) {
             ternApiObj['!doc'] = apiSpec.description;
           }
+
+          //privacy.xxx, devtools.xxx.... not match tern and not go straight with compat-table
+          const nameTreeTop = apiSpec.namespace.split('.');
+
           if(apiSpec.types !== undefined) { // !define is common in specific apiGroup
-            //privacy.xxx, devtools.xxx.... not match tern and not go straight with compat-table
-            const initRoute = apiSpec.namespace.split('.');
             for(let typ of apiSpec.types) {
               if(ternDefineObj[typ.id] !== undefined) {
                 // giving up. little loss
                 console.log(`  -- !define ${typ.id} is overwrited by ${apiSpec.namespace}`);
               }
-              const curDefObj = distillDefine(initRoute.concat(typ.id), typ, 0);
+              const curDefObj = distillDefine(nameTreeTop.concat(typ.id), typ, 0);
               if(Object.keys(curDefObj).length !==0) {
                 ternDefineObj[typ.id] = curDefObj;
               }
             }
           }
+
           if(apiSpec.functions !== undefined) {
             for(let fun of apiSpec.functions) {
-              ternApiObj[fun.name] = distill(fun);
+              ternApiObj[fun.name] = distill(nameTreeTop.concat(fun.name), fun);
             }
           }
           if(apiSpec.events !== undefined) {
             for(let evt of apiSpec.events) {
-              ternApiObj[evt.name] = distill(evt);
+              ternApiObj[evt.name] = distill(nameTreeTop.concat(evt.name), evt);
             }
           }
           if(apiSpec.properties !== undefined) {
             for(let prop in apiSpec.properties) {
-              ternApiObj[prop] = distill(apiSpec.properties[prop]);
+              ternApiObj[prop] = distill(nameTreeTop.concat(prop), apiSpec.properties[prop]);
             }
           }
-          //privacy.xxx, devtools.xxx.... not match tern and not go straight with compat-table
-          if(apiSpec.namespace.indexOf('.') === -1) {
+
+          if(nameTreeTop.length === 1) {
             browserObj[apiSpec.namespace] = ternApiObj;
           }
           else {
             console.log(`  namespace contains dot ${apiSpec.namespace}`);
-            const registerRoutes = apiSpec.namespace.split('.');
-            browserObj[registerRoutes[0]][registerRoutes[1]] = ternApiObj;
+            browserObj[nameTreeTop[0]][nameTreeTop[1]] = ternApiObj; // length 2 is maybe enough
           }
         }
       });
     }
     result['!define'] = ternDefineObj;
-    for(let key in browserObj) {
-      setDocUrl([key], browserObj[key]);
-    }
+    //for(let key in browserObj) {
+    //  setDocUrl([key], browserObj[key]);
+    //}
     result.browser = browserObj;
     if(fs.existsSync('defs') === false) {
       fs.mkdir('defs');
