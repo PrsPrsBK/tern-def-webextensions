@@ -347,7 +347,10 @@ const build = () => {
       setDocUrl([key], browserObj[key]);
     }
     result.browser = browserObj;
-    fs.writeFileSync(`output/${aGroup.outputName}`, JSON.stringify(result, null, 2));
+    if(fs.existsSync('defs') === false) {
+      fs.mkdir('defs');
+    }
+    fs.writeFileSync(`defs/${aGroup.outputName}`, JSON.stringify(result, null, 2));
   });
 };
 
