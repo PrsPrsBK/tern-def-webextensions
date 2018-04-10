@@ -1,5 +1,4 @@
 *.log
-.npmignore
 node_modules/
-output/*.json
+defs/*.json
 
