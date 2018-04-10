@@ -1,14 +1,16 @@
 # tern-def-webextensions
- * WebExtensions definition files for tern.
+ * WebExtensions definition files for [tern](http://ternjs.net/).
    * auto-complete
    * document look-up
  * all things are very rough.
  * github repository does not contain definition files.
  * npm package is planned (not yet published), and it will include only definition files.
-   * made of mozilla-beta repository.
+   * data are made of mozilla-beta repository.
+   * URLs of MDN come from [mdn-browser-compat-data](https://www.npmjs.com/package/mdn-browser-compat-data).
 
 ## how to use
-I confirmed only with vim. install tern-for-vim and add to project's `.tern-project` file.
+I confirmed only with vim. install [tern-for-vim](https://github.com/ternjs/tern_for_vim) 
+and add to project's `.tern-project` file.
 
 ```.tern-project
 {

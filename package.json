@@ -1,30 +1,31 @@
 {
   "name": "tern-def-webextensions",
-  "version": "0.1.0",
   "description": "tern definition file for WebExtensions.",
-  "main": "index.js",
-  "scripts": {
-    "build": "node build.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/PrsPrsBK/tern-def-webextensions"
-  },
-  "keywords": [
-    "webextensions",
-    "tern"
-  ],
+  "version": "0.1.0",
   "author": "PrsPrsBK",
-  "license": "MPL-2.0",
   "devDependencies": {
     "mdn-browser-compat-data": "0.0.30",
     "strip-json-comments": "^2.0.1"
   },
   "files": [
-    "README.md"
+    "README.md",
     "defs/webextensions-general-beta.json",
     "defs/webextensions-firefox-desktop-beta.json",
     "defs/webextensions-firefox-android-beta.json",
     "LICENSE/"
-  ]
+  ],
+  "keywords": [
+    "webextensions",
+    "tern"
+  ],
+  "license": "MPL-2.0",
+  "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PrsPrsBK/tern-def-webextensions"
+  },
+  "scripts": {
+    "build": "node build.js"
+  }
 }
