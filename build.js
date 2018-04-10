@@ -302,6 +302,9 @@ const distill = (nameTree, sth) => {
       result['!url'] = bcdTree.__compat.mdn_url;
     }
   }
+  else {
+    console.log(`  err or not yet documented ${JSON.stringify(nameTree)}`);
+  }
 
   //if(sth.functions !== undefined) {
   //  for(let fun of sth.functions) {
@@ -314,43 +317,6 @@ const distill = (nameTree, sth) => {
   //  }
   //}
   return result;
-};
-
-const keySkipList = ['!doc', '!url', '!type', '!proto', '!effects'];
-const setDocUrl = (routeStack, subTree) => {
-  if(routeStack[routeStack.length - 1] === '!define') {
-    for(let key in subTree) {
-      if(keySkipList.includes(key) === false) {
-        setDocUrl(routeStack.concat(key), subTree[key]);
-      }
-    }
-  }
-  else {
-    let urlTree = bcd;
-    for(let nd of routeStack) {
-      if(urlTree === undefined) {
-        break;
-      }
-      if(nd !== '!define') {
-        urlTree = urlTree[nd];
-      }
-    }
-    if(urlTree !== undefined) {
-      if(urlTree.__compat !== undefined) {
-        subTree['!url'] = urlTree.__compat.mdn_url;
-      }
-      for(let key in subTree) {
-        if(keySkipList.includes(key) === false) {
-          setDocUrl(routeStack.concat(key), subTree[key]);
-        }
-      }
-    }
-    else {
-      if(routeStack[0] !== '!define') {
-        console.log(`  err or not yet documented ${JSON.stringify(routeStack)}`);
-      }
-    }
-  }
 };
 
 const build = () => {
@@ -418,9 +384,6 @@ const build = () => {
       });
     }
     result['!define'] = ternDefineObj;
-    //for(let key in browserObj) {
-    //  setDocUrl([key], browserObj[key]);
-    //}
     result.browser = browserObj;
     if(fs.existsSync('defs') === false) {
       fs.mkdir('defs');
