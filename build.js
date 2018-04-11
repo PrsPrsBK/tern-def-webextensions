@@ -12,7 +12,7 @@ let repositoryDir = '';
 let isSurvey = false;
 let releaseChannel = 'beta';
 let isPublish = false;
-const largeFileName = `webextensions-mozilla-${releaseChannel}.json`;
+const largeFileName = `webextensions-desktop-${releaseChannel}.json`;
 const apiGroups = [
   {
     outputName: `webextensions-general-${releaseChannel}.json`,
@@ -321,9 +321,10 @@ const build = () => {
   };
   let browserObj = {};
   let ternDefineObj = {};
+  //console.log('# used files at first published');
   apiGroups.forEach((aGroup) => {
     for(let schemaItem of aGroup.schemaList) {
-      console.log(`=== process ${schemaItem.schema}`);
+      //console.log(` * ${schemaItem.schema}`);
       const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
       apiSpecList.forEach((apiSpec) => {
@@ -367,7 +368,7 @@ const build = () => {
             browserObj[apiSpec.namespace] = ternApiObj;
           }
           else {
-            console.log(`  namespace contains dot ${apiSpec.namespace}`);
+            //console.log(`  namespace contains dot ${apiSpec.namespace}`);
             browserObj[nameTreeTop[0]][nameTreeTop[1]] = ternApiObj; // length 2 is maybe enough
           }
         }
