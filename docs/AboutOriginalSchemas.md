@@ -127,5 +127,5 @@
  * browser\components\extensions\schemas\pkcs11.json
  * browser\components\extensions\schemas\url_overrides.json
 
-[//]: # ( vim:expandtab ff=unix fenc=utf-8 sw=2)
+[//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
 

@@ -6,7 +6,7 @@
    * open [MDN](https://developer.mozilla.org/en-US/Add-ons/WebExtensions) document
  * all things are rough.
  * [github repository](https://github.com/PrsPrsBK/tern-def-webextensions) does not contain definition-files.
- * npm package is planned (not yet published), and it will include only definition-files.
+ * [npm package](https://www.npmjs.com/package/tern-def-webextensions) includes only definition-files.
    * data are made of mozilla-beta repository.
    * URLs of MDN come from [mdn-browser-compat-data](https://www.npmjs.com/package/mdn-browser-compat-data).
 
@@ -43,5 +43,5 @@ json schema files of mozilla-beta repository.
 Some ones are under 3-Clause BSD License, others are under MPL-2.0 License. 
 Both are in `LICENSE` directory.
 
-[//]: # ( vim:expandtab ff=unix fenc=utf-8 sw=2)
+[//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
 

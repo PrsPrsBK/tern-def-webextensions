@@ -179,5 +179,5 @@ Except 'namespace: manifest', contents are extracted.
    * namespace: windows
      * presence of prop: ["namespace","description","types","properties","functions","events"]
 
-[//]: # ( vim:expandtab ff=unix fenc=utf-8 sw=2)
+[//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
 
