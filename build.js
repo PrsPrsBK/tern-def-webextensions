@@ -201,8 +201,7 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
         ternAtom = 'number';
       }
       else if(exprAtSchema.type === 'any') {
-        ternAtom = 'object';
-        //ternAtom = exprAtSchema.type;
+        ternAtom = '?';
       }
       else if(exprAtSchema.type === 'array') { // array only exists in definition
         // choices may only in events.UrlFilter.ports
