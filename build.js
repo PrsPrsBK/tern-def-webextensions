@@ -207,6 +207,9 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
         ternAtom = exprAtSchema.type;
       }
     }
+    else if(exprAtSchema.value !== undefined) {
+      ternAtom = 'number';
+    }
     else if(exprAtSchema['$ref'] !== undefined) {
       if(exprAtSchema['$ref'].indexOf('.') !== -1) {
         ternAtom = `+${exprAtSchema['$ref']}`; // tabs.Tab or so
@@ -235,23 +238,7 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
       let paramArr = [];
       if(curItem.parameters !== undefined) {
         for(let param of curItem.parameters) {
-          if(param.type === 'boolean') {
-            paramArr.push(`${param.name}: bool`);
-          }
-          else if(param.type === 'integer') {
-            paramArr.push(`${param.name}: number`);
-          }
-          else if(param.type !== undefined) {
-            paramArr.push(`${param.name}: ${param.type}`);
-          }
-          else if(param['$ref'] !== undefined) {
-            if(param['$ref'].indexOf('.') !== -1) {
-              paramArr.push(`${param.name}: +${param['$ref']}`); // events.Event or so
-            }
-            else {
-              paramArr.push(`${param.name}: +${declaredAt}.${param['$ref']}`);
-            }
-          }
+          paramArr.push(`${param.name}: ${toTernAtom(param)}`);
         }
       }
       result['!type'] = `fn(${paramArr.join(', ')})`;
