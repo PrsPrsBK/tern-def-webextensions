@@ -186,7 +186,13 @@ const makeTernDefTree = (nameTree, curItem, options = {}) => {
       let paramArr = [];
       if(curItem.parameters !== undefined) {
         for(let param of curItem.parameters) {
-          if(param.type !== undefined) {
+          if(param.type === 'boolean') {
+            paramArr.push(`${param.name}: bool`);
+          }
+          else if(param.type === 'integer') {
+            paramArr.push(`${param.name}: number`);
+          }
+          else if(param.type !== undefined) {
             paramArr.push(`${param.name}: ${param.type}`);
           }
           else if(param['$ref'] !== undefined) {
@@ -195,13 +201,12 @@ const makeTernDefTree = (nameTree, curItem, options = {}) => {
         }
       }
       result['!type'] = `fn(${paramArr.join(', ')})`;
-      //result['!type'] = `fn()`; // temporary ope
     }
     else if(curItem.type === 'any') {
       //result['!type'] = curItem.type; // for data shrink
     }
     else if(curItem.type === 'array') {
-      result['!type'] = '[number]'; // temporary ope
+      result['!type'] = '[object]'; // temporary ope
     }
     else if(curItem.type === 'boolean') {
       result['!type'] = 'bool';
