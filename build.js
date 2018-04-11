@@ -243,7 +243,14 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
       let paramArr = [];
       if(curItem.parameters !== undefined) {
         for(let param of curItem.parameters) {
-          paramArr.push(`${param.name}: ${toTernAtom(param)}`);
+          if(param.choices !== undefined) {
+            for(let cho of param.choices) {
+              paramArr.push(`${param.name}?: ${toTernAtom(cho)}`);
+            }
+          }
+          else {
+            paramArr.push(`${param.name}: ${toTernAtom(param)}`);
+          }
         }
       }
       result['!type'] = `fn(${paramArr.join(', ')})`;
