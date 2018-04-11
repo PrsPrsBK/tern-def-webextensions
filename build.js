@@ -217,6 +217,22 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
           ternAtom = `[${toTernAtom(exprAtSchema.items)}]`;
         }
       }
+      else if(exprAtSchema.type === 'function') {
+        let paramArr = [];
+        if(exprAtSchema.parameters !== undefined) {
+          for(let param of exprAtSchema.parameters) {
+            if(param.choices !== undefined) {
+              for(let cho of param.choices) {
+                paramArr.push(`${param.name}?: ${toTernAtom(cho)}`);
+              }
+            }
+            else {
+              paramArr.push(`${param.name}: ${toTernAtom(param)}`);
+            }
+          }
+        }
+        ternAtom = `fn(${paramArr.join(', ')})`;
+      }
       else {
         ternAtom = exprAtSchema.type;
       }
@@ -241,7 +257,7 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
   }
   // top level can not have tern !type. knowing need for long hours.
   if(isDefZone === false || (isDefZone && defZoneStep > 0)) {
-    if(curItem.type === 'function') {
+    if(curItem.type === 'functioners') {
       let paramArr = [];
       if(curItem.parameters !== undefined) {
         for(let param of curItem.parameters) {
@@ -259,7 +275,8 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
     }
     else {
       const atomString = toTernAtom(curItem);
-      if(atomString !== 'object') { // anyway avoid. [object] is not problemsome.
+      // anyway avoid "!type": "object". [object] is not problemsome.
+      if(atomString !== 'object') {
         result['!type'] = atomString;
       }
     }
