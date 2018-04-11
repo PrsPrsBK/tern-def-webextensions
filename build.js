@@ -205,7 +205,18 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
         //ternAtom = exprAtSchema.type;
       }
       else if(exprAtSchema.type === 'array') { // array only exists in definition
-        ternAtom = `[${toTernAtom(exprAtSchema.items)}]`; // choices may only in events.UrlFilter.ports
+        // choices may only in events.UrlFilter.ports
+        // and "!type": "[number]?, [[number]]?" has no error...
+        if(exprAtSchema.items.choices !== undefined) {
+          let ternChoices = [];
+          for(let cho of exprAtSchema.items.choices) {
+            ternChoices.push(`[${toTernAtom(cho)}]?`);
+          }
+          ternAtom = `${ternChoices.join(', ')}`;
+        }
+        else {
+          ternAtom = `[${toTernAtom(exprAtSchema.items)}]`;
+        }
       }
       else {
         ternAtom = exprAtSchema.type;
@@ -221,14 +232,6 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
       else {
         ternAtom = `+${declaredAt}.${exprAtSchema['$ref']}`;
       }
-    }
-    else if(exprAtSchema.choices !== undefined) { // somename.items.choices = []
-      let ternChoices = [];
-      ternAtom = toTernAtom(exprAtSchema.choices[0]); // maybe append '?' is ok
-      //for(let cho of exprAtSchema.choices) {
-      //  ternChoices.push(toTernAtom(cho));
-      //}
-      //ternAtom = ternChoices.join(' | ');
     }
     return ternAtom;
   };
