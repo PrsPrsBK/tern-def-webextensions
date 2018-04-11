@@ -200,6 +200,10 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
       else if(exprAtSchema.type === 'integer') {
         ternAtom = 'number';
       }
+      else if(exprAtSchema.type === 'any') {
+        ternAtom = 'object';
+        //ternAtom = exprAtSchema.type;
+      }
       else if(exprAtSchema.type === 'array') { // array only exists in definition
         ternAtom = `[${toTernAtom(exprAtSchema.items)}]`; // choices may only in events.UrlFilter.ports
       }
@@ -212,7 +216,12 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
     }
     else if(exprAtSchema['$ref'] !== undefined) {
       if(exprAtSchema['$ref'].indexOf('.') !== -1) {
-        ternAtom = `+${exprAtSchema['$ref']}`; // tabs.Tab or so
+        if(exprAtSchema['$ref'].startsWith('manifest')) {
+          ternAtom = 'object';
+        }
+        else {
+          ternAtom = `+${exprAtSchema['$ref']}`; // tabs.Tab or so
+        }
       }
       else {
         ternAtom = `+${declaredAt}.${exprAtSchema['$ref']}`;
@@ -220,10 +229,11 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
     }
     else if(exprAtSchema.choices !== undefined) {
       let ternChoices = [];
-      for(let cho of exprAtSchema.choices) {
-        ternChoices.push(toTernAtom(cho));
-      }
-      ternAtom = ternChoices.join(' | ');
+      ternAtom = toTernAtom(exprAtSchema.choices[0]); // maybe append '?' is ok
+      //for(let cho of exprAtSchema.choices) {
+      //  ternChoices.push(toTernAtom(cho));
+      //}
+      //ternAtom = ternChoices.join(' | ');
     }
     return ternAtom;
   };
@@ -233,7 +243,7 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
     result['!doc'] = curItem.description;
   }
   // top level can not have tern !type. knowing need for long hours.
-  if(isDefZone === false || defZoneStep > 0) {
+  if(isDefZone === false || (isDefZone && defZoneStep > 0)) {
     if(curItem.type === 'function') {
       let paramArr = [];
       if(curItem.parameters !== undefined) {
@@ -244,7 +254,10 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
       result['!type'] = `fn(${paramArr.join(', ')})`;
     }
     else {
-      result['!type'] = toTernAtom(curItem);
+      const atomString = toTernAtom(curItem);
+      if(atomString !== 'object') { // anyway avoid. [object] is not problemsome.
+        result['!type'] = atomString;
+      }
     }
   }
   let bcdTree = bcd;
