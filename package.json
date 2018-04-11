@@ -9,9 +9,9 @@
   },
   "files": [
     "README.md",
-    "defs/webextensions-general-beta.json",
-    "defs/webextensions-firefox-desktop-beta.json",
-    "defs/webextensions-firefox-android-beta.json",
+    "images/2018-04-12_readme-img_01.jpg",
+    "defs/webextensions-desktop-beta.json",
+    "defs/which_is_used.txt",
     "LICENSE/"
   ],
   "keywords": [
