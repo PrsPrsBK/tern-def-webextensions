@@ -11,6 +11,7 @@ const bcd = require('mdn-browser-compat-data').webextensions.api;
 let repositoryDir = '';
 let isSurvey = false;
 let releaseChannel = 'beta';
+let isPublish = false;
 const apiGroups = [
   {
     outputName: `webextensions-general-${releaseChannel}.json`,
@@ -56,6 +57,9 @@ const processArgs = () => {
     }
     else if(arg === '--channel') {
       releaseChannel = process.argv[idx + 1];
+    }
+    else if(arg === '--publish') {
+      isPublish = true;
     }
   });
   if(repositoryDir === '') {
@@ -325,7 +329,12 @@ const build = () => {
     if(fs.existsSync('defs') === false) {
       fs.mkdir('defs');
     }
-    fs.writeFileSync(`defs/${aGroup.outputName}`, JSON.stringify(result, null, 2));
+    if(isPublish) {
+      fs.writeFileSync(`defs/${aGroup.outputName}`, JSON.stringify(result));
+    }
+    else {
+      fs.writeFileSync(`defs/${aGroup.outputName}`, JSON.stringify(result, null, 2));
+    }
   });
 };
 
