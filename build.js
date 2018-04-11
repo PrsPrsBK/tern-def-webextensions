@@ -190,6 +190,41 @@ const makeSchemaList = () => {
 const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
   const isDefZone = ('isDefZone' in options) ? options.isDefZone : false;
   const defZoneStep = ('defZoneStep' in options) ? options.defZoneStep : 0;
+
+  const toTernAtom = (exprAtSchema) => {
+    let ternAtom = exprAtSchema;
+    if(exprAtSchema.type !== undefined) {
+      if(exprAtSchema.type === 'boolean') {
+        ternAtom = 'bool';
+      }
+      else if(exprAtSchema.type === 'integer') {
+        ternAtom = 'number';
+      }
+      else if(exprAtSchema.type === 'array') { // array only exists in definition
+        ternAtom = `[${toTernAtom(exprAtSchema.items)}]`; // choices may only in events.UrlFilter.ports
+      }
+      else {
+        ternAtom = exprAtSchema.type;
+      }
+    }
+    else if(exprAtSchema['$ref'] !== undefined) {
+      if(exprAtSchema['$ref'].indexOf('.') !== -1) {
+        ternAtom = `+${exprAtSchema['$ref']}`; // tabs.Tab or so
+      }
+      else {
+        ternAtom = `+${declaredAt}.${exprAtSchema['$ref']}`;
+      }
+    }
+    else if(exprAtSchema.choices !== undefined) {
+      let ternChoices = [];
+      for(let cho of exprAtSchema.choices) {
+        ternChoices.push(toTernAtom(cho));
+      }
+      ternAtom = ternChoices.join(' | ');
+    }
+    return ternAtom;
+  };
+
   let result = {};
   if(curItem.description !== undefined) {
     result['!doc'] = curItem.description;
@@ -221,37 +256,8 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
       }
       result['!type'] = `fn(${paramArr.join(', ')})`;
     }
-    else if(curItem.type === 'any') {
-      //result['!type'] = curItem.type; // for data shrink
-    }
-    else if(curItem.type === 'array') {
-      result['!type'] = '[object]'; // temporary ope
-    }
-    else if(curItem.type === 'boolean') {
-      result['!type'] = 'bool';
-    }
-    else if(curItem.type === 'integer') {
-      result['!type'] = 'number';
-    }
-    else if(curItem.type === 'number') {
-      result['!type'] = curItem.type;
-    }
-    else if(curItem.type === 'object') {
-      //result['!type'] = curItem.type; // for data shrink
-    }
-    else if(curItem.type === 'string') {
-      result['!type'] = curItem.type;
-    }
-    else if(curItem.type !== undefined) {
-      console.log(`----${curItem.type}`);
-    }
-    else if(curItem['$ref'] !== undefined) {
-      if(curItem['$ref'].indexOf('.') !== -1) {
-        result['!type'] = `+${curItem['$ref']}`; // tabs.Tab or so
-      }
-      else {
-        result['!type'] = `+${declaredAt}.${curItem['$ref']}`;
-      }
+    else {
+      result['!type'] = toTernAtom(curItem);
     }
   }
   let bcdTree = bcd;
