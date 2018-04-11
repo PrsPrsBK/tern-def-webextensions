@@ -12,6 +12,7 @@ let repositoryDir = '';
 let isSurvey = false;
 let releaseChannel = 'beta';
 let isPublish = false;
+const largeFileName = `webextensions-mozilla-${releaseChannel}.json`;
 const apiGroups = [
   {
     outputName: `webextensions-general-${releaseChannel}.json`,
@@ -39,28 +40,28 @@ const apiGroups = [
       },
     ],
   },
-  {
-    outputName: `webextensions-firefox-android-${releaseChannel}.json`,
-    schemaDir: 'mobile/android/components/extensions/schemas/',
-    schemaList: [
-      {
-        name: 'browserAction',
-        schema: 'browser/components/extensions/schemas/browser_action.json',
-      },
-      {
-        name: 'browsingData',
-        schema: 'browser/components/extensions/schemas/browsing_data.json',
-      },
-      {
-        name: 'pageAction',
-        schema: 'browser/components/extensions/schemas/page_action.json',
-      },
-      {
-        name: 'tabs',
-        schema: 'browser/components/extensions/schemas/tabs.json',
-      },
-    ],
-  },
+  //{
+  //  outputName: `webextensions-firefox-android-${releaseChannel}.json`,
+  //  schemaDir: 'mobile/android/components/extensions/schemas/',
+  //  schemaList: [
+  //    {
+  //      name: 'browserAction',
+  //      schema: 'browser/components/extensions/schemas/browser_action.json',
+  //    },
+  //    {
+  //      name: 'browsingData',
+  //      schema: 'browser/components/extensions/schemas/browsing_data.json',
+  //    },
+  //    {
+  //      name: 'pageAction',
+  //      schema: 'browser/components/extensions/schemas/page_action.json',
+  //    },
+  //    {
+  //      name: 'tabs',
+  //      schema: 'browser/components/extensions/schemas/tabs.json',
+  //    },
+  //  ],
+  //},
 ];
 
 const processArgs = () => {
@@ -311,16 +312,16 @@ const makeTernNonDefZone = (declaredAt, nameTree, curItem) => {
 
 const build = () => {
   makeSchemaList();
+  let result = {
+    '!name': 'webextensions',
+    '!define': {},
+    'chrome': {
+      '!type': '+browser',
+    },
+  };
+  let browserObj = {};
+  let ternDefineObj = {};
   apiGroups.forEach((aGroup) => {
-    let result = {
-      '!name': 'webextensions',
-      '!define': {},
-      'chrome': {
-        '!type': '+browser',
-      },
-    };
-    let browserObj = {};
-    let ternDefineObj = {};
     for(let schemaItem of aGroup.schemaList) {
       console.log(`=== process ${schemaItem.schema}`);
       const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
@@ -372,18 +373,18 @@ const build = () => {
         }
       });
     }
-    result['!define'] = ternDefineObj;
-    result.browser = browserObj;
-    if(fs.existsSync('defs') === false) {
-      fs.mkdir('defs');
-    }
-    if(isPublish) {
-      fs.writeFileSync(`defs/${aGroup.outputName}`, JSON.stringify(result));
-    }
-    else {
-      fs.writeFileSync(`defs/${aGroup.outputName}`, JSON.stringify(result, null, 2));
-    }
   });
+  result['!define'] = ternDefineObj;
+  result.browser = browserObj;
+  if(fs.existsSync('defs') === false) {
+    fs.mkdir('defs');
+  }
+  if(isPublish) {
+    fs.writeFileSync(`defs/${largeFileName}`, JSON.stringify(result));
+  }
+  else {
+    fs.writeFileSync(`defs/${largeFileName}`, JSON.stringify(result, null, 2));
+  }
 };
 
 if(processArgs() === false) {
