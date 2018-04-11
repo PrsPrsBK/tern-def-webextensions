@@ -1,14 +1,16 @@
 # tern-def-webextensions
+![Screenshot](images/2018-04-12_readme-img_01.jpg)
+
  * WebExtensions definition files for [tern](http://ternjs.net/).
    * auto-complete
-   * document look-up
- * all things are very rough.
- * github repository does not contain definition files.
- * npm package is planned (not yet published), and it will include only definition files.
+   * open [MDN](https://developer.mozilla.org/en-US/Add-ons) document
+ * all things are rough.
+ * [github repository](https://github.com/PrsPrsBK/tern-def-webextensions) does not contain definition-files.
+ * npm package is planned (not yet published), and it will include only definition-files.
    * data are made of mozilla-beta repository.
    * URLs of MDN come from [mdn-browser-compat-data](https://www.npmjs.com/package/mdn-browser-compat-data).
 
-## how to use
+## how to use with tern
 I confirmed only with vim. install [tern-for-vim](https://github.com/ternjs/tern_for_vim) 
 and add to project's `.tern-project` file.
 
@@ -16,9 +18,7 @@ and add to project's `.tern-project` file.
 {
   "libs": [
     "browser",
-    "path/to/webextensions-general-beta",
-    "path/to/webextensions-firefox-desktop-beta"
-    // or "path/to/webextensions-firefox-android-beta"
+    "path/to/webextensions-desktop-beta"
   ]
 }
 ```
@@ -27,7 +27,9 @@ and add to project's `.tern-project` file.
 
 `npm run build -- --repository /path/to/local/repository`
 
-create 3 definition-files. '3' means following groups.
+create 1 definition-file.
+There are three API group, but I do not know how to refer between definition-files. 
+So two groups are integrated, and android UI is dropped (but included in browser desktop ui).
 
  * genaral API
  * browser UI API
