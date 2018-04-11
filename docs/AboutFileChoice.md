@@ -35,5 +35,5 @@ I looked into referenced files and picked up ones seemed necessary.
    * ext-c-android.js has registerModules()
      * tabs
 
-<!-- vim:expandtab ff=unix fenc=utf-8 sw=2 -->
+[//]: # ( vim:expandtab ff=unix fenc=utf-8 sw=2)
 

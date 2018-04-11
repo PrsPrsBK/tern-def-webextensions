@@ -1,11 +1,13 @@
 # tern-def-webextensions
- * tern 用の WebExtensions 定義ファイルです。
-   * オートコンプリートとドキュメント(MDN)表示が目的です。
+![Screenshot](images/2018-04-12_readme-img_01.jpg)
+
+ * [tern](http://ternjs.net/) 用の WebExtensions 定義ファイルです。
+   * エディタ上の補完とドキュメント([MDN](https://developer.mozilla.org/en-US/Add-ons/WebExtensions))表示が目的です。
    * tern に何をしてやればうまくいくのかが明確でなく、ソースのスキーマファイルの意味も把握していないので「まあまあ動作する」程度の出来です。
    * 定義ファイルも作成用スクリプトもすべて完成度を高めず「ないよりとても良い」くらいでやっています。
- * github には定義ファイルを置かない予定です。作成用スクリプトだけです。
+ * [github](https://github.com/PrsPrsBK/tern-def-webextensions) には定義ファイルを置かない予定です。作成用スクリプトだけです。
  * npm に定義ファイルだけパッケージにして置けばいいかと思っていますが、まだそこまでできていません。
- * mozilla-betaでやる予定です。nightlyではないです。
+ * mozilla-betaでやっています。nightly ではないです。
  * Language Server の存在は知っていますし良いと思いますが、それにブラウザのソースを読ませるのを各自でやるのは採用できないので違う方法を採っています。
 
 ## 定義ファイルの使い方
@@ -18,9 +20,7 @@ Vim なら tern-for-vim をインストールして(nodejs と python スクリ�
 {
   "libs": [
     "browser",
-    "path/to/webextensions-general-beta",
-    "path/to/webextensions-firefox-desktop-beta"
-    // or "path/to/webextensions-firefox-android-beta"
+    "path/to/webextensions-desktop-beta"
   ]
 }
 ```
@@ -29,10 +29,13 @@ Vim なら tern-for-vim をインストールして(nodejs と python スクリ�
 
 `npm run build -- --repository /path/to/local/repository`
 
-定義ファイルは 3 つあります。下記のグループに対応したものです。
+定義ファイルは 1 つです。下記のグループ別にしたかったのですが、定義ファイルの間で参照させる方法が
+分からなかったので一つにしました。android UI は省略されましたが、多分 browser UI (デスクトップ) に
+含まれているだろうからいいかな、ということです。
 
  * genaral API
  * browser UI API
  * android UI API
 
-<!-- vim:expandtab ff=unix fenc=utf-8 sw=2 -->
+[//]: # ( vim:expandtab ff=unix fenc=utf-8 sw=2)
+

@@ -2,8 +2,8 @@
 ![Screenshot](images/2018-04-12_readme-img_01.jpg)
 
  * WebExtensions definition files for [tern](http://ternjs.net/).
-   * auto-complete
-   * open [MDN](https://developer.mozilla.org/en-US/Add-ons) document
+   * for completion
+   * open [MDN](https://developer.mozilla.org/en-US/Add-ons/WebExtensions) document
  * all things are rough.
  * [github repository](https://github.com/PrsPrsBK/tern-def-webextensions) does not contain definition-files.
  * npm package is planned (not yet published), and it will include only definition-files.
@@ -43,5 +43,5 @@ json schema files of mozilla-beta repository.
 Some ones are under 3-Clause BSD License, others are under MPL-2.0 License. 
 Both are in `LICENSE` directory.
 
-<!-- vim:expandtab ff=unix fenc=utf-8 sw=2 -->
+[//]: # ( vim:expandtab ff=unix fenc=utf-8 sw=2)
 
