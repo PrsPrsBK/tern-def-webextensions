@@ -17,11 +17,27 @@ const apiGroups = [
     outputName: `webextensions-general-${releaseChannel}.json`,
     schemaDir: 'toolkit/components/extensions/schemas/',
     apiListFile: 'toolkit/components/extensions/ext-toolkit.json',
+    schemaList: [
+      {
+        name: 'events',
+        schema: 'toolkit/components/extensions/schemas/events.json',
+      },
+      {
+        name: 'types',
+        schema: 'toolkit/components/extensions/schemas/types.json',
+      },
+    ],
   },
   {
     outputName: `webextensions-firefox-desktop-${releaseChannel}.json`,
     schemaDir: 'browser/components/extensions/schemas/',
     apiListFile: 'browser/components/extensions/ext-browser.json',
+    schemaList: [
+      {
+        name: 'menusInternal',
+        schema: 'browser/components/extensions/schemas/menus_internal.json',
+      },
+    ],
   },
   {
     outputName: `webextensions-firefox-android-${releaseChannel}.json`,
@@ -148,8 +164,7 @@ const chromeUri2Path = (chromeUri) => {
 
 const makeSchemaList = () => {
   apiGroups.forEach((aGroup) => {
-    if(aGroup.schemaList === undefined
-      || Array.isArray(aGroup.schemaList) === false) {
+    if(aGroup.apiListFile !== undefined) {
       const targetApiList = [];
       const apiListFileFull = path.join(repositoryDir, aGroup.apiListFile);
       const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(apiListFileFull, 'utf8')));
@@ -161,14 +176,13 @@ const makeSchemaList = () => {
               name: apiName,
               schema,
             }
-            targetApiList.push(apiItem);
+            aGroup.schemaList.push(apiItem);
           }
           else {
             console.log(`skiped: irregular path for ${apiName}. ${apiItemList[apiName].schema}`);
           }
         }
       }
-      aGroup.schemaList = targetApiList;
     }
   });
 };
