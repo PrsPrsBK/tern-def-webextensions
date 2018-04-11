@@ -169,16 +169,19 @@ const makeSchemaList = () => {
   });
 };
 
-const distillDefine = (nameTree, sth, step) => {
+const makeTernDefTree = (nameTree, curItem, options = {}) => {
+  const isDefZone = ('isDefZone' in options) ? options.isDefZone : false;
+  const defZoneStep = ('defZoneStep' in options) ? options.defZoneStep : 0;
   let result = {};
-  if(sth.description !== undefined) {
-    result['!doc'] = sth.description;
+  if(curItem.description !== undefined) {
+    result['!doc'] = curItem.description;
   }
-  if(step > 0) { // top level can not have !type. knowing need for long hours.
-    if(sth.type === 'function') {
+  // top level can not have tern !type. knowing need for long hours.
+  if(isDefZone === false || defZoneStep > 0) {
+    if(curItem.type === 'function') {
       let paramArr = [];
-      if(sth.parameters !== undefined) {
-        for(let param of sth.parameters) {
+      if(curItem.parameters !== undefined) {
+        for(let param of curItem.parameters) {
           if(param.type !== undefined) {
             paramArr.push(`${param.name}: ${param.type}`);
           }
@@ -190,32 +193,32 @@ const distillDefine = (nameTree, sth, step) => {
       result['!type'] = `fn(${paramArr.join(', ')})`;
       //result['!type'] = `fn()`; // temporary ope
     }
-    else if(sth.type === 'any') {
-      //result['!type'] = sth.type; // for data shrink
+    else if(curItem.type === 'any') {
+      //result['!type'] = curItem.type; // for data shrink
     }
-    else if(sth.type === 'array') {
+    else if(curItem.type === 'array') {
       result['!type'] = '[number]'; // temporary ope
     }
-    else if(sth.type === 'boolean') {
+    else if(curItem.type === 'boolean') {
       result['!type'] = 'bool';
     }
-    else if(sth.type === 'integer') {
+    else if(curItem.type === 'integer') {
       result['!type'] = 'number';
     }
-    else if(sth.type === 'number') {
-      result['!type'] = sth.type;
+    else if(curItem.type === 'number') {
+      result['!type'] = curItem.type;
     }
-    else if(sth.type === 'object') {
-      //result['!type'] = sth.type; // for data shrink
+    else if(curItem.type === 'object') {
+      //result['!type'] = curItem.type; // for data shrink
     }
-    else if(sth.type === 'string') {
-      result['!type'] = sth.type;
+    else if(curItem.type === 'string') {
+      result['!type'] = curItem.type;
     }
-    else if(sth.type !== undefined) {
-      console.log(`----${sth.type}`);
+    else if(curItem.type !== undefined) {
+      console.log(`----${curItem.type}`);
     }
-    else if(sth['$ref'] !== undefined) {
-      result['!type'] = `+${sth['$ref']}`;
+    else if(curItem['$ref'] !== undefined) {
+      result['!type'] = `+${curItem['$ref']}`;
     }
   }
   let bcdTree = bcd;
@@ -231,92 +234,25 @@ const distillDefine = (nameTree, sth, step) => {
     }
   }
 
-  if(sth.functions !== undefined) {
-    for(let fun of sth.functions) {
-      result[fun.name] = distillDefine(nameTree.concat(fun.name), fun, (step + 1));
+  if(curItem.functions !== undefined) {
+    for(let fun of curItem.functions) {
+      result[fun.name] = makeTernDefTree(nameTree.concat(fun.name), fun, { isDefZone, defZoneStep: (defZoneStep + 1) });
     }
   }
-  if(sth.properties !== undefined) {
-    for(let prop in sth.properties) {
-      result[prop] = distillDefine(nameTree.concat(prop), sth.properties[prop], (step + 1));
+  if(curItem.properties !== undefined) {
+    for(let prop in curItem.properties) {
+      result[prop] = makeTernDefTree(nameTree.concat(prop), curItem.properties[prop], { isDefZone, defZoneStep: (defZoneStep + 1) });
     }
   }
   return result;
 };
 
-const distill = (nameTree, sth) => {
-  let result = {};
-  if(sth.description !== undefined) {
-    result['!doc'] = sth.description;
-  }
-  if(sth.type === 'function') {
-    let paramArr = [];
-    if(sth.parameters !== undefined) {
-      for(let param of sth.parameters) {
-        if(param.type !== undefined) {
-          paramArr.push(`${param.name}: ${param.type}`);
-        }
-        else if(param['$ref'] !== undefined) {
-          paramArr.push(`${param.name}: +${param['$ref']}`);
-        }
-      }
-    }
-    result['!type'] = `fn(${paramArr.join(', ')})`;
-  }
-  else if(sth.type === 'any') {
-    //result['!type'] = sth.type; // for data shrink
-  }
-  else if(sth.type === 'array') {
-    result['!type'] = '[number]'; // temporary ope
-  }
-  else if(sth.type === 'boolean') {
-    result['!type'] = 'bool';
-  }
-  else if(sth.type === 'integer') {
-    result['!type'] = 'number';
-  }
-  else if(sth.type === 'number') {
-    result['!type'] = sth.type;
-  }
-  else if(sth.type === 'object') {
-    //result['!type'] = sth.type; // for data shrink
-  }
-  else if(sth.type === 'string') {
-    result['!type'] = sth.type;
-  }
-  else if(sth.type !== undefined) {
-    result['!type'] = sth.type;
-  }
-  else if(sth['$ref'] !== undefined) {
-    result['!type'] = `+${sth['$ref']}`;
-  }
-  let bcdTree = bcd;
-  for(let nd of nameTree) {
-    if(bcdTree === undefined) {
-      break;
-    }
-    bcdTree = bcdTree[nd];
-  }
-  if(bcdTree !== undefined) {
-    if(bcdTree.__compat !== undefined) {
-      result['!url'] = bcdTree.__compat.mdn_url;
-    }
-  }
-  else {
-    console.log(`  err or not yet documented ${JSON.stringify(nameTree)}`);
-  }
+const makeTernDefineZone = (nameTree, curItem) => {
+  return makeTernDefTree(nameTree, curItem, { isDefZone: true, defZoneStep: 0});
+};
 
-  //if(sth.functions !== undefined) {
-  //  for(let fun of sth.functions) {
-  //    result[fun.name] = distill(fun);
-  //  }
-  //}
-  //if(sth.properties !== undefined) {
-  //  for(let prop in sth.properties) {
-  //    result[prop] = distill(sth.properties[prop]);
-  //  }
-  //}
-  return result;
+const makeTernNonDefZone = (nameTree, curItem) => {
+  return makeTernDefTree(nameTree, curItem, { isDefZone: false });
 };
 
 const build = () => {
@@ -332,6 +268,7 @@ const build = () => {
     let browserObj = {};
     let ternDefineObj = {};
     for(let schemaItem of aGroup.schemaList) {
+      console.log(`=== process ${schemaItem.schema}`);
       const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
       apiSpecList.forEach((apiSpec) => {
@@ -350,7 +287,7 @@ const build = () => {
                 // giving up. little loss
                 console.log(`  -- !define ${typ.id} is overwrited by ${apiSpec.namespace}`);
               }
-              const curDefObj = distillDefine(nameTreeTop.concat(typ.id), typ, 0);
+              const curDefObj = makeTernDefineZone(nameTreeTop.concat(typ.id), typ);
               if(Object.keys(curDefObj).length !==0) {
                 ternDefineObj[typ.id] = curDefObj;
               }
@@ -359,17 +296,17 @@ const build = () => {
 
           if(apiSpec.functions !== undefined) {
             for(let fun of apiSpec.functions) {
-              ternApiObj[fun.name] = distill(nameTreeTop.concat(fun.name), fun);
+              ternApiObj[fun.name] = makeTernNonDefZone(nameTreeTop.concat(fun.name), fun);
             }
           }
           if(apiSpec.events !== undefined) {
             for(let evt of apiSpec.events) {
-              ternApiObj[evt.name] = distill(nameTreeTop.concat(evt.name), evt);
+              ternApiObj[evt.name] = makeTernNonDefZone(nameTreeTop.concat(evt.name), evt);
             }
           }
           if(apiSpec.properties !== undefined) {
             for(let prop in apiSpec.properties) {
-              ternApiObj[prop] = distill(nameTreeTop.concat(prop), apiSpec.properties[prop]);
+              ternApiObj[prop] = makeTernNonDefZone(nameTreeTop.concat(prop), apiSpec.properties[prop]);
             }
           }
 
