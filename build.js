@@ -269,28 +269,10 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
   }
   // top level can not have tern !type. knowing need for long hours.
   if(isDefZone === false || (isDefZone && defZoneStep > 0)) {
-    if(curItem.type === 'functioners') {
-      let paramArr = [];
-      if(curItem.parameters !== undefined) {
-        for(let param of curItem.parameters) {
-          if(param.choices !== undefined) {
-            for(let cho of param.choices) {
-              paramArr.push(`${param.name}?: ${toTernAtom(cho)}`);
-            }
-          }
-          else {
-            paramArr.push(`${param.name}: ${toTernAtom(param)}`);
-          }
-        }
-      }
-      result['!type'] = `fn(${paramArr.join(', ')})`;
-    }
-    else {
-      const atomString = toTernAtom(curItem);
-      // anyway avoid "!type": "object". [object] is not problemsome.
-      if(atomString !== 'object') {
-        result['!type'] = atomString;
-      }
+    const atomString = toTernAtom(curItem);
+    // anyway avoid "!type": "object". [object] is not problemsome.
+    if(atomString !== 'object') {
+      result['!type'] = atomString;
     }
   }
   let bcdTree = bcd;
