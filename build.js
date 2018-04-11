@@ -173,7 +173,7 @@ const makeSchemaList = () => {
   });
 };
 
-const makeTernDefTree = (nameTree, curItem, options = {}) => {
+const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
   const isDefZone = ('isDefZone' in options) ? options.isDefZone : false;
   const defZoneStep = ('defZoneStep' in options) ? options.defZoneStep : 0;
   let result = {};
@@ -196,7 +196,12 @@ const makeTernDefTree = (nameTree, curItem, options = {}) => {
             paramArr.push(`${param.name}: ${param.type}`);
           }
           else if(param['$ref'] !== undefined) {
-            paramArr.push(`${param.name}: +${param['$ref']}`);
+            if(param['$ref'].indexOf('.') !== -1) {
+              paramArr.push(`${param.name}: +${param['$ref']}`); // events.Event or so
+            }
+            else {
+              paramArr.push(`${param.name}: +${declaredAt}.${param['$ref']}`);
+            }
           }
         }
       }
@@ -227,7 +232,12 @@ const makeTernDefTree = (nameTree, curItem, options = {}) => {
       console.log(`----${curItem.type}`);
     }
     else if(curItem['$ref'] !== undefined) {
-      result['!type'] = `+${curItem['$ref']}`;
+      if(curItem['$ref'].indexOf('.') !== -1) {
+        result['!type'] = `+${curItem['$ref']}`; // tabs.Tab or so
+      }
+      else {
+        result['!type'] = `+${declaredAt}.${curItem['$ref']}`;
+      }
     }
   }
   let bcdTree = bcd;
@@ -245,23 +255,23 @@ const makeTernDefTree = (nameTree, curItem, options = {}) => {
 
   if(curItem.functions !== undefined) {
     for(let fun of curItem.functions) {
-      result[fun.name] = makeTernDefTree(nameTree.concat(fun.name), fun, { isDefZone, defZoneStep: (defZoneStep + 1) });
+      result[fun.name] = makeTernDefTree(declaredAt, nameTree.concat(fun.name), fun, { isDefZone, defZoneStep: (defZoneStep + 1) });
     }
   }
   if(curItem.properties !== undefined) {
     for(let prop in curItem.properties) {
-      result[prop] = makeTernDefTree(nameTree.concat(prop), curItem.properties[prop], { isDefZone, defZoneStep: (defZoneStep + 1) });
+      result[prop] = makeTernDefTree(declaredAt, nameTree.concat(prop), curItem.properties[prop], { isDefZone, defZoneStep: (defZoneStep + 1) });
     }
   }
   return result;
 };
 
-const makeTernDefineZone = (nameTree, curItem) => {
-  return makeTernDefTree(nameTree, curItem, { isDefZone: true, defZoneStep: 0});
+const makeTernDefineZone = (declaredAt, nameTree, curItem) => {
+  return makeTernDefTree(declaredAt, nameTree, curItem, { isDefZone: true, defZoneStep: 0});
 };
 
-const makeTernNonDefZone = (nameTree, curItem) => {
-  return makeTernDefTree(nameTree, curItem, { isDefZone: false });
+const makeTernNonDefZone = (declaredAt, nameTree, curItem) => {
+  return makeTernDefTree(declaredAt, nameTree, curItem, { isDefZone: false });
 };
 
 const build = () => {
@@ -281,7 +291,9 @@ const build = () => {
       const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
       apiSpecList.forEach((apiSpec) => {
-        if(apiSpec.namespace !== 'manifest') { // namespace is not common between files. except 'manifest'
+        // if namespace is 'manifest', Object.keys => ["namespace", "types"]
+        // namespace is not common between files. except 'manifest'
+        if(apiSpec.namespace !== 'manifest') {
           let ternApiObj = {};
           if(apiSpec.description !== undefined) {
             ternApiObj['!doc'] = apiSpec.description;
@@ -292,30 +304,26 @@ const build = () => {
 
           if(apiSpec.types !== undefined) { // !define is common in specific apiGroup
             for(let typ of apiSpec.types) {
-              if(ternDefineObj[typ.id] !== undefined) {
-                // giving up. little loss
-                console.log(`  -- !define ${typ.id} is overwrited by ${apiSpec.namespace}`);
-              }
-              const curDefObj = makeTernDefineZone(nameTreeTop.concat(typ.id), typ);
+              const curDefObj = makeTernDefineZone(apiSpec.namespace, nameTreeTop.concat(typ.id), typ);
               if(Object.keys(curDefObj).length !==0) {
-                ternDefineObj[typ.id] = curDefObj;
+                ternDefineObj[`${apiSpec.namespace}.${typ.id}`] = curDefObj;
               }
             }
           }
 
           if(apiSpec.functions !== undefined) {
             for(let fun of apiSpec.functions) {
-              ternApiObj[fun.name] = makeTernNonDefZone(nameTreeTop.concat(fun.name), fun);
+              ternApiObj[fun.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(fun.name), fun);
             }
           }
           if(apiSpec.events !== undefined) {
             for(let evt of apiSpec.events) {
-              ternApiObj[evt.name] = makeTernNonDefZone(nameTreeTop.concat(evt.name), evt);
+              ternApiObj[evt.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(evt.name), evt);
             }
           }
           if(apiSpec.properties !== undefined) {
             for(let prop in apiSpec.properties) {
-              ternApiObj[prop] = makeTernNonDefZone(nameTreeTop.concat(prop), apiSpec.properties[prop]);
+              ternApiObj[prop] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(prop), apiSpec.properties[prop]);
             }
           }
 
