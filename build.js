@@ -204,7 +204,7 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
         ternAtom = '?';
       }
       else if(exprAtSchema.type === 'array') { // array only exists in definition
-        // choices may only in events.UrlFilter.ports
+        // array with choices may only in events.UrlFilter.ports
         // and "!type": "[number]?, [[number]]?" has no error...
         if(exprAtSchema.items.choices !== undefined) {
           let ternChoices = [];
@@ -218,16 +218,20 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
         }
       }
       else if(exprAtSchema.type === 'function') {
+        // you SHOULD TRIM param.name. 'fn( arg: string...)' result in error
+        // and hard to notice.
         let paramArr = [];
         if(exprAtSchema.parameters !== undefined) {
           for(let param of exprAtSchema.parameters) {
             if(param.choices !== undefined) {
               for(let cho of param.choices) {
-                paramArr.push(`${param.name}?: ${toTernAtom(cho)}`);
+                paramArr.push(`${param.name.trim()}?: ${toTernAtom(cho)}`);
               }
             }
             else {
-              paramArr.push(`${param.name}: ${toTernAtom(param)}`);
+              const atomString = toTernAtom(param);
+              // anyway avoid "!type": "object". [object] is not problemsome.
+              paramArr.push(`${param.name.trim()}: ${atomString}`);
             }
           }
         }
@@ -236,6 +240,14 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
       else {
         ternAtom = exprAtSchema.type;
       }
+    }
+    else if(exprAtSchema.choices !== undefined) {
+      //browserUI has purely choices
+      let ternChoices = [];
+      for(let cho of exprAtSchema.choices) {
+        ternChoices.push(`[${toTernAtom(cho)}]?`);
+      }
+      ternAtom = `${ternChoices.join(', ')}`;
     }
     else if(exprAtSchema.value !== undefined) {
       ternAtom = 'number';
