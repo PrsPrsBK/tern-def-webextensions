@@ -216,18 +216,13 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
     }
     else if(exprAtSchema['$ref'] !== undefined) {
       if(exprAtSchema['$ref'].indexOf('.') !== -1) {
-        if(exprAtSchema['$ref'].startsWith('manifest')) {
-          ternAtom = 'object';
-        }
-        else {
-          ternAtom = `+${exprAtSchema['$ref']}`; // tabs.Tab or so
-        }
+        ternAtom = `+${exprAtSchema['$ref']}`; // tabs.Tab or so
       }
       else {
         ternAtom = `+${declaredAt}.${exprAtSchema['$ref']}`;
       }
     }
-    else if(exprAtSchema.choices !== undefined) {
+    else if(exprAtSchema.choices !== undefined) { // somename.items.choices = []
       let ternChoices = [];
       ternAtom = toTernAtom(exprAtSchema.choices[0]); // maybe append '?' is ok
       //for(let cho of exprAtSchema.choices) {
