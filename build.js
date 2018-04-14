@@ -107,13 +107,13 @@ const hasDirs = () => {
 };
 
 const surveyJson = () => {
-  let BsdFiles = [];
-  let MplFiles = [];
-  let NeitherFiles = [];
+  const BsdFiles = [];
+  const MplFiles = [];
+  const NeitherFiles = [];
   console.log('# Note: API JSON Files.\n');
   apiGroups.forEach((aGroup) => {
     const schemaFiles = fs.readdirSync(path.join(repositoryDir, aGroup.schemaDir))
-                        .filter(name => name.endsWith('.json'));
+      .filter(name => name.endsWith('.json'));
     console.log(`## ${aGroup.schemaDir}: ${schemaFiles.length} json files.`);
     schemaFiles.forEach((jsonName) => {
       console.log(` * ${jsonName}`);
@@ -166,17 +166,16 @@ const chromeUri2Path = (chromeUri) => {
 const makeSchemaList = () => {
   apiGroups.forEach((aGroup) => {
     if(aGroup.apiListFile !== undefined) {
-      const targetApiList = [];
       const apiListFileFull = path.join(repositoryDir, aGroup.apiListFile);
       const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(apiListFileFull, 'utf8')));
-      for(let apiName in apiItemList) {
+      for(const apiName in apiItemList) {
         if(apiItemList[apiName].schema !== undefined) { //only background page?
           const schema = chromeUri2Path(apiItemList[apiName].schema);
           if(schema !== '') {
             const apiItem = {
               name: apiName,
               schema,
-            }
+            };
             aGroup.schemaList.push(apiItem);
           }
           else {
@@ -208,8 +207,8 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
         // array with choices may only in events.UrlFilter.ports
         // and "!type": "[number]?, [[number]]?" has no error...
         if(exprAtSchema.items.choices !== undefined) {
-          let ternChoices = [];
-          for(let cho of exprAtSchema.items.choices) {
+          const ternChoices = [];
+          for(const cho of exprAtSchema.items.choices) {
             ternChoices.push(`[${toTernAtom(cho)}]?`);
           }
           ternAtom = `${ternChoices.join(', ')}`;
@@ -221,11 +220,11 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
       else if(exprAtSchema.type === 'function') {
         // you SHOULD TRIM param.name. 'fn( arg: string...)' result in error
         // and hard to notice.
-        let paramArr = [];
+        const paramArr = [];
         if(exprAtSchema.parameters !== undefined) {
-          for(let param of exprAtSchema.parameters) {
+          for(const param of exprAtSchema.parameters) {
             if(param.choices !== undefined) {
-              for(let cho of param.choices) {
+              for(const cho of param.choices) {
                 paramArr.push(`${param.name.trim()}?: ${toTernAtom(cho)}`);
               }
             }
@@ -244,8 +243,8 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
     }
     else if(exprAtSchema.choices !== undefined) {
       //browserUI has purely choices
-      let ternChoices = [];
-      for(let cho of exprAtSchema.choices) {
+      const ternChoices = [];
+      for(const cho of exprAtSchema.choices) {
         ternChoices.push(`[${toTernAtom(cho)}]?`);
       }
       ternAtom = `${ternChoices.join(', ')}`;
@@ -264,7 +263,7 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
     return ternAtom;
   };
 
-  let result = {};
+  const result = {};
   if(curItem.description !== undefined) {
     result['!doc'] = curItem.description;
   }
@@ -277,7 +276,7 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
     }
   }
   let bcdTree = bcd;
-  for(let nd of nameTree) {
+  for(const nd of nameTree) {
     if(bcdTree === undefined) {
       break;
     }
@@ -290,12 +289,12 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
   }
 
   if(curItem.functions !== undefined) {
-    for(let fun of curItem.functions) {
+    for(const fun of curItem.functions) {
       result[fun.name] = makeTernDefTree(declaredAt, nameTree.concat(fun.name), fun, { isDefZone, defZoneStep: (defZoneStep + 1) });
     }
   }
   if(curItem.properties !== undefined) {
-    for(let prop in curItem.properties) {
+    for(const prop in curItem.properties) {
       result[prop] = makeTernDefTree(declaredAt, nameTree.concat(prop), curItem.properties[prop], { isDefZone, defZoneStep: (defZoneStep + 1) });
     }
   }
@@ -312,18 +311,18 @@ const makeTernNonDefZone = (declaredAt, nameTree, curItem) => {
 
 const build = () => {
   makeSchemaList();
-  let result = {
+  const result = {
     '!name': 'webextensions',
     '!define': {},
     'chrome': {
       '!type': '+browser',
     },
   };
-  let browserObj = {};
-  let ternDefineObj = {};
+  const browserObj = {};
+  const ternDefineObj = {};
   //console.log('# used files at first published');
   apiGroups.forEach((aGroup) => {
-    for(let schemaItem of aGroup.schemaList) {
+    for(const schemaItem of aGroup.schemaList) {
       //console.log(` * ${schemaItem.schema}`);
       const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
@@ -331,7 +330,7 @@ const build = () => {
         // if namespace is 'manifest', Object.keys => ["namespace", "types"]
         // namespace is not common between files. except 'manifest'
         if(apiSpec.namespace !== 'manifest') {
-          let ternApiObj = {};
+          const ternApiObj = {};
           if(apiSpec.description !== undefined) {
             ternApiObj['!doc'] = apiSpec.description;
           }
@@ -340,26 +339,26 @@ const build = () => {
           const nameTreeTop = apiSpec.namespace.split('.');
 
           if(apiSpec.types !== undefined) { // !define is common in specific apiGroup
-            for(let typ of apiSpec.types) {
+            for(const typ of apiSpec.types) {
               const curDefObj = makeTernDefineZone(apiSpec.namespace, nameTreeTop.concat(typ.id), typ);
-              if(Object.keys(curDefObj).length !==0) {
+              if(Object.keys(curDefObj).length !== 0) {
                 ternDefineObj[`${apiSpec.namespace}.${typ.id}`] = curDefObj;
               }
             }
           }
 
           if(apiSpec.functions !== undefined) {
-            for(let fun of apiSpec.functions) {
+            for(const fun of apiSpec.functions) {
               ternApiObj[fun.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(fun.name), fun);
             }
           }
           if(apiSpec.events !== undefined) {
-            for(let evt of apiSpec.events) {
+            for(const evt of apiSpec.events) {
               ternApiObj[evt.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(evt.name), evt);
             }
           }
           if(apiSpec.properties !== undefined) {
-            for(let prop in apiSpec.properties) {
+            for(const prop in apiSpec.properties) {
               ternApiObj[prop] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(prop), apiSpec.properties[prop]);
             }
           }

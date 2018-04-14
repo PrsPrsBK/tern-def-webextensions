@@ -8,7 +8,7 @@ module.exports = {
     "func-style": [2, "expression", {"allowArrowFunctions": true}],
     "func-call-spacing": [2, "never"],
     "indent": [2, 2, {"SwitchCase": 1}],
-    "linebreak-style": [2, "windows"],
+    "linebreak-style": [2, "unix"],
     "no-console": 0,
     "no-multi-assign": 2,
     "no-new-object": 2,
