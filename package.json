@@ -4,6 +4,7 @@
   "version": "0.2.0",
   "author": "PrsPrsBK",
   "devDependencies": {
+    "eslint": "^4.19.1",
     "mdn-browser-compat-data": "0.0.30",
     "strip-json-comments": "^2.0.1"
   },
@@ -26,6 +27,7 @@
     "url": "https://github.com/PrsPrsBK/tern-def-webextensions"
   },
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "eslint": "eslint --color --cache --ext=.js "
   }
 }
