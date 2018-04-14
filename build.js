@@ -129,7 +129,7 @@ const surveyJson = () => {
         NeitherFiles.push(path.join(aGroup.schemaDir, jsonName));
       }
     });
-    console.log(``);
+    console.log('');
   });
   console.log(`\n## 3-Clause BSD-Style: ${BsdFiles.length} files.`);
   BsdFiles.forEach((path) => {
@@ -150,7 +150,7 @@ const survey = () => {
 };
 
 const chromeUri2Path = (chromeUri) => {
-  const regexSchemaPath = /.+\/([^\/]+json)$/;
+  const regexSchemaPath = /.+\/([^/]+json)$/;
   //identity is in browser-ui api, and its schema is in toolkit dir. only-one case.
   if(chromeUri.startsWith('chrome://extensions/content/schemas/')) {
     return `toolkit/components/extensions/schemas/${regexSchemaPath.exec(chromeUri)[1]}`;
