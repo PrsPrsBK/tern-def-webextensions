@@ -11,6 +11,18 @@ Param(
 )
 
 Begin {
+  $hg_proc = (Start-Process -FilePath "hg" -ArgumentList "incoming -R $mozilla_repo --quiet" -NoNewWindow -PassThru)
+  Wait-Process -Id $hg_proc.id
+  if($LASTEXITCODE -eq 1) {
+    Write-Host "Nothing to pull."
+  }
+  else {
+    $yn = Read-Host "There are incoming. hg pull -u? [y/n]"
+    if($yn -eq "y") {
+      $hg_proc = (Start-Process -FilePath "hg" -ArgumentList "pull -u -R $mozilla_repo" -NoNewWindow -PassThru)
+      Wait-Process -Id $hg_proc.id
+    }
+  }
 }
 
 Process {
