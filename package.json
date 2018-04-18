@@ -28,6 +28,7 @@
   },
   "scripts": {
     "build": "node build.js",
-    "eslint": "eslint --color --cache --ext=.js "
+    "eslint": "eslint --color --cache --ext=.js ",
+    "postpublish": "node regist_pub_status.js"
   }
 }
