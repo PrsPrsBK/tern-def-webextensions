@@ -29,6 +29,6 @@
   "scripts": {
     "build": "node build.js",
     "eslint": "eslint --color --cache --ext=.js ",
-    "postpublish": "node regist_pub_status.js"
+    "postpublish": "pwsh ./regist_pub_status.ps1"
   }
 }
