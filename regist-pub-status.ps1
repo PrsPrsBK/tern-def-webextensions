@@ -25,6 +25,8 @@ Begin {
 
 Process {
   $script_path =  (Split-Path -Parent $MyInvocation.MyCommand.Path)
+  $cset_pubed =  (Join-Path -Path $script_path -ChildPath "cset_pubed.log")
+  $cset_today =  (Join-Path -Path $script_path -ChildPath "cset.log")
   $which_is_used =  (Join-Path -Path $script_path -ChildPath "defs/which_is_used.txt")
 
   Start-Job -ArgumentList $mozilla_repo, $which_is_used -ScriptBlock {
@@ -32,7 +34,12 @@ Process {
     hg log -l 1 -R $repo --template "mozilla-beta changeset: {rev}:{node}" > $log
   } | Wait-Job | Receive-Job | Remove-Job
 
-  #TODO: delete cset_pub.log and rename cset.log to cset_pub.log
+  Start-Job -ArgumentList $cset_pubed -ScriptBlock {
+    Param($old)
+    Remove-Item $old
+  } | Wait-Job | Receive-Job | Remove-Job
+
+  Rename-Item $cset_today $cset_pubed
 }
 
 End {
