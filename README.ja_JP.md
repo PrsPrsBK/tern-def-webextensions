@@ -38,5 +38,17 @@ Vim なら [tern-for-vim](https://github.com/ternjs/tern_for_vim) をインス�
  * browser UI API
  * android UI API
 
+### mozilla-beta 以外のリポジトリを使いたい
+
+nightly の場合です。
+
+`npm run build -- --repository /path/to/local/nightly/repository --channel nightly`
+
+`webextensions-desktop-nightly.json` が作成されます。
+`--channel` オプションはファイル名にのみ影響します。
+`.tern-project` で指定すれば、使うファイルを切り替えられるというわけです。
+切り替える必要がなければ、別に使わなくてもいいオプションです。
+
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
 

@@ -27,13 +27,25 @@ and add to project's `.tern-project` file.
 
 `npm run build -- --repository /path/to/local/repository`
 
-create 1 definition-file.
+This create 1 definition-file.
 There are three API group, but I do not know how to refer between definition-files. 
 So two groups are integrated, and android UI is dropped (but included in browser desktop ui).
 
  * genaral API
  * browser UI API
  * android UI API
+
+### use not mozilla-beta
+
+In case of that you would like to use nightly.
+
+`npm run build -- --repository /path/to/local/nightly/repository --channel nightly`
+
+This create `webextensions-desktop-nightly.json`. 
+`--channel` option only effects to filename. 
+Using this option is for switching files specified within `.tern-project`. 
+If you don't need to switch, there is no need for this option.
+
 
 # License
 MPL-2.0.
