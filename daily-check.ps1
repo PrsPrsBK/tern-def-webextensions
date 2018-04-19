@@ -3,7 +3,7 @@ Param(
   [Parameter(Position = 0, Mandatory = $true)]
   [ValidateScript({
     if((Resolve-Path $_).Provider.Name -ne "FileSystem") {
-       throw "Please specify mozilla-xxx repository path : '$_'"
+      throw "Please specify mozilla-xxx repository path : '$_'"
     }
     return $true
   })]
@@ -15,17 +15,17 @@ Begin {
   if($? -eq $false) {
     throw "hg does not exist on the PATH."
   }
-  $hg_proc = (Start-Process -FilePath "hg" -ArgumentList "incoming -R $mozilla_repo --quiet" -NoNewWindow -PassThru)
+  $hg_proc = (Start-Process -FilePath "hg" -ArgumentList "incoming -R $mozilla_repo --quiet" -NoNewWindow -Wait -PassThru)
   Wait-Process -Id $hg_proc.id
-  if($LASTEXITCODE -eq 0) {
+  # System.Diagnostics.Process.ExitCode with -Wait is necessary. $LASTEXITCODE does not work.
+  if($hg_proc.ExitCode -eq 0) {
     $yn = Read-Host "incomings may exist. hg pull -u? [y/n]"
     if($yn -eq "y") {
-        $hg_proc = (Start-Process -FilePath "hg" -ArgumentList "pull -u -R $mozilla_repo" -NoNewWindow -PassThru)
-        Wait-Process -Id $hg_proc.id
+      Start-Process -FilePath "hg" -ArgumentList "pull -u -R $mozilla_repo" -NoNewWindow -PassThru | Wait-Process
     }
   }
   else {
-    Write-Host "nothing to pull."
+    Write-Host "nothing to pull. hg ExitCode: $($hg_proc.ExitCode)"
   }
   $hg_proc = $null
 }
@@ -63,4 +63,5 @@ Process {
 End {
 }
 
+# vim:expandtab ff=dos fenc=utf-8 sw=2
 

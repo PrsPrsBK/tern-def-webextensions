@@ -9,7 +9,7 @@ Param(
   [Parameter(Position = 0, Mandatory = $true)]
   [ValidateScript({
     if((Resolve-Path $_).Provider.Name -ne "FileSystem") {
-       throw "Please specify mozilla-xxx repository path : '$_'"
+      throw "Please specify mozilla-xxx repository path : '$_'"
     }
     return $true
   })]
