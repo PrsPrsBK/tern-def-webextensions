@@ -47,6 +47,11 @@ Using this option is for switching files specified within `.tern-project`.
 If you don't need to switch, there is no need for this option.
 
 
+# Plan, TODO, or so
+Author's 'wants'. may not be implemented.
+ * want to know which permission is necessary in `manifest.json`.
+
+
 # License
 MPL-2.0.
 
