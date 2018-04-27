@@ -1,7 +1,7 @@
 {
   "name": "tern-def-webextensions",
   "description": "tern definition file for WebExtensions.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "PrsPrsBK",
   "devDependencies": {
     "eslint": "^4.19.1",
