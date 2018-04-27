@@ -5,7 +5,7 @@
   "author": "PrsPrsBK",
   "devDependencies": {
     "eslint": "^4.19.1",
-    "mdn-browser-compat-data": "0.0.30",
+    "mdn-browser-compat-data": "0.0.33",
     "strip-json-comments": "^2.0.1"
   },
   "files": [
