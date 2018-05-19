@@ -47,13 +47,13 @@ Using this option is for switching files specified within `.tern-project`.
 If you don't need to switch, there is no need for this option.
 
 
-# license
-mpl-2.0.
+# License
+MPL-2.0.
 
-npm package includes json files. these contains contents which come from 
+npm package includes json files. These contains contents which come from 
 json schema files of mozilla-beta repository. 
-some ones are under 3-clause bsd license, others are under mpl-2.0 license. 
-both are in `license` directory.
+Some ones are under 3-Clause BSD License, others are under MPL-2.0 License. 
+Both are in `License` directory.
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
 
