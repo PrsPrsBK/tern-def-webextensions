@@ -61,7 +61,7 @@ const apiGroups = [
 
 const processArgs = () => {
   process.argv.forEach((arg, idx, a) => {
-    if(arg === '--repo') {
+    if(arg === '--repository') {
       repositoryDir = process.argv[idx + 1];
     }
     else if(arg === '--survey') {
