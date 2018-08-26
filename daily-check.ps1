@@ -23,6 +23,9 @@ Begin {
     if($yn -eq "y") {
       Start-Process -FilePath "hg" -ArgumentList "pull -u -R $mozilla_repo" -NoNewWindow -PassThru | Wait-Process
     }
+    else {
+      Write-Host "not 'yes', so nothing to proceed."
+    }
   }
   else {
     Write-Host "nothing to pull. hg ExitCode: $($hg_proc.ExitCode)"
