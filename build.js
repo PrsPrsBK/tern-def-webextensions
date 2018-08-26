@@ -33,12 +33,7 @@ const apiGroups = [
     outputName: `webextensions-firefox-desktop-${releaseChannel}.json`,
     schemaDir: 'browser/components/extensions/schemas/',
     apiListFile: 'browser/components/extensions/ext-browser.json',
-    schemaList: [
-      {
-        name: 'menusInternal',
-        schema: 'browser/components/extensions/schemas/menus_internal.json',
-      },
-    ],
+    schemaList: [],
   },
   //{
   //  outputName: `webextensions-firefox-android-${releaseChannel}.json`,
