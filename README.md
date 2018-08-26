@@ -25,7 +25,7 @@ and add to project's `.tern-project` file.
 
 ## make definition files
 
-`npm run build -- --repository /path/to/local/repository`
+`npm run build -- --repo /path/to/local/repository`
 
 This create 1 definition-file.
 There are three API group, but I do not know how to refer between definition-files. 

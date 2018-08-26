@@ -28,7 +28,7 @@ Vim なら [tern-for-vim](https://github.com/ternjs/tern_for_vim) をインス�
 
 ## 定義ファイルの作り方
 
-`npm run build -- --repository /path/to/local/repository`
+`npm run build -- --repo /path/to/local/repository`
 
 定義ファイルは 1 つです。下記のグループ別にしたかったのですが、定義ファイルの間で参照させる方法が
 分からなかったので一つにしました。android UI は省略されましたが、多分 browser UI (デスクトップ) に
