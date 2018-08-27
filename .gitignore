@@ -2,5 +2,6 @@
 node_modules/
 defs/*.json
 .eslintcache
+package-lock.json
 yarn.lock
 
