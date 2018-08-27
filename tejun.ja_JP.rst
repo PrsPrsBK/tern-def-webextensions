@@ -136,6 +136,9 @@ tern定義ファイル生成
 最初だけ mozilla の IRC で「広告していいですか」ときいて、結果コミュニティ製のWebextensionsツールとして
 紹介してもらえましたが、それだけです。
 
+* IRC ircs://irc.mozilla.org:6697/ の #webextensions
+* ツールの一例として記載されたときのスレッド `2018-04-12 Extension development tools - Add-ons / Development - Mozilla Discourse <https://discourse.mozilla.org/t/extension-development-tools/27608>`__
+
 
 .. vim:expandtab ff=dos fenc=utf-8 sw=2
 
