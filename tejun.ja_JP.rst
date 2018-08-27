@@ -117,6 +117,8 @@ tern定義ファイル生成
   # publish の前にtgzを作って中身をチェックしています
   pwsh:$ npm pack
 
+  # リポジトリのパスを指定しなかった場合はユーザ入力待ちになるので
+  # d:/path/to/repository のように入力します
   pwsh:$ npm publish
 
 更新チェックスクリプトで違いがなかった場合は
