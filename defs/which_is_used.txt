@@ -1,1 +1,1 @@
-mozilla-beta changeset: 478032:78f265be217f6a73b505d788b3781bc35b4fb480
+mozilla-beta changeset: 488522:ec811f425e83e884a7aad60cf30b7e178518a88a
