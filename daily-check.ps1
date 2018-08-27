@@ -24,13 +24,14 @@ Begin {
       Start-Process -FilePath "hg" -ArgumentList "pull -u -R $mozilla_repo" -NoNewWindow -PassThru | Wait-Process
     }
     else {
-      Write-Host "not 'yes', so nothing to proceed."
+      Write-Host "not 'yes', so nothing pulled. "
     }
   }
   else {
     Write-Host "nothing to pull. hg ExitCode: $($hg_proc.ExitCode)"
   }
   $hg_proc = $null
+  Write-Host "NEXT PHASE: check if we need to update or not."
 }
 
 Process {
