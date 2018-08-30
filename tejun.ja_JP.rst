@@ -61,6 +61,9 @@ tern定義ファイルが変化しなければ更新しませんし、
   478272:42533e380350
   478273:476aa14b33e3
 
+  # 更新が多い場合は次を表示する指示を入力させる状態になります。
+  # S1000 とすれば1000行スキップできます。
+
   incomings may exist. hg pull -u? [y/n]: y  # yを入力
   https://hg.mozilla.org/releases/mozilla-beta/ から取り込み中
   変更点を探索中
