@@ -1,4 +1,5 @@
 *.log
+*.tgz
 node_modules/
 defs/*.json
 .eslintcache
