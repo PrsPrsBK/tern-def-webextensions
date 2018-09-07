@@ -101,9 +101,9 @@ tern定義ファイル生成
 まず先に生成したtern定義ファイルを名前変更しておきます。
 今後の更新チェックで ``diff`` を取るために使います。
 
-``browser-compat-data`` npm パッケージを更新します。
-``yarn outdated`` ``yarn upgrade browser-compat-data`` などします。
-``npm outdated`` ``npm update --save`` でもいいです。
+``mdn-browser-compat-data`` npm パッケージを更新します。
+``yarn outdated`` で状況確認したのち ``yarn upgrade mdn-browser-compat-data`` などします。
+``npm outdated`` と ``npm update --save`` でもいいです。
 
 続いて定義ファイル生成です。
 ``npm run build -- --repository d:/path/to/mozilla-beta --publish`` です。
@@ -117,12 +117,19 @@ tern定義ファイル生成
 
 .. code-block:: console
 
-  # publish の前にtgzを作って中身をチェックしています
+  # publish の前にtgzを作って中身をチェックしています。
+  # この時点ではdefs/which_is_used.txtが前回提出時のままです。
   pwsh:$ npm pack
 
-  # リポジトリのパスを指定しなかった場合はユーザ入力待ちになるので
+  # これを実行したのちユーザ入力待ちになります。
   # d:/path/to/repository のように入力します
   pwsh:$ npm publish
+
+  cmdlet regist-pub-status.ps1 at command pipeline position 1
+  Supply values for the following parameters:
+  mozilla_repo: d:/path/to/mozilla-beta
+  + tern-def-webextensions@x.y.z
+
 
 更新チェックスクリプトで違いがなかった場合は
 ``cset.log`` を残したまま ``cset_pubed.log`` に別名コピーしましたが、
