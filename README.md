@@ -10,6 +10,11 @@
    * data are made of mozilla-beta repository.
    * URLs of MDN come from [mdn-browser-compat-data](https://www.npmjs.com/package/mdn-browser-compat-data).
 
+
+This was introduced as one of the tool by community, thanks.
+[2018-04-12 Extension development tools - Add-ons / Development - Mozilla Discourse](https://discourse.mozilla.org/t/extension-development-tools/27608)
+
+
 ## how to use with tern
 I confirmed only with vim. install [tern-for-vim](https://github.com/ternjs/tern_for_vim) 
 and add to project's `.tern-project` file.

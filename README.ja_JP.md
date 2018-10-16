@@ -11,6 +11,11 @@
  * MDN の URL は [mdn-browser-compat-data](https://www.npmjs.com/package/mdn-browser-compat-data) のものです。
  * Language Server の存在は知っていますし良いと思いますが、それにブラウザのソースを読ませるのを各自でやるのは採用できないので違う方法を採っています。
 
+Mozilla の IRC で宣伝したところコミュニティ製ツールを紹介したいねということになり、
+ツールの 1 つとしてシェアされました。ありがとうございます。
+[2018-04-12 Extension development tools - Add-ons / Development - Mozilla Discourse](https://discourse.mozilla.org/t/extension-development-tools/27608)
+
+
 ## 定義ファイルの使い方
 
 Vim なら [tern-for-vim](https://github.com/ternjs/tern_for_vim) をインストールして 
