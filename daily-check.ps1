@@ -2,8 +2,8 @@
 Param(
   [Parameter(Position = 0, Mandatory = $true)]
   [ValidateScript({
-    if((Resolve-Path $_).Provider.Name -ne "FileSystem") {
-      throw "Please specify mozilla-xxx repository path : '$_'"
+    if(Test-Path $_ -eq $False -Or (Resolve-Path $_).Provider.Name -ne "FileSystem") {
+      throw "Please specify valid mozilla-xxx repository path : '$_'"
     }
     return $true
   })]
@@ -19,7 +19,7 @@ Begin {
   Wait-Process -Id $hg_proc.id
   # System.Diagnostics.Process.ExitCode with -Wait is necessary. $LASTEXITCODE does not work.
   if($hg_proc.ExitCode -eq 0) {
-    $yn = Read-Host "incomings may exist. hg pull -u? [y/n]"
+    [ValidateSet("y","n")]$yn = Read-Host "incomings may exist. hg pull -u? [y/n]"
     if($yn -eq "y") {
       Start-Process -FilePath "hg" -ArgumentList "pull -u -R $mozilla_repo" -NoNewWindow -PassThru | Wait-Process
     }
