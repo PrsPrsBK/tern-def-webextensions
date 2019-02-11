@@ -13,7 +13,7 @@ let isSurvey = false;
 let releaseChannel = 'beta';
 let isPublish = false;
 const getOutputFileName = () => {
-  return `tbext-${releaseChannel}.json`;
+  return `webextensions-desktop-${releaseChannel}.json`;
 };
 const apiGroups = [
   {
