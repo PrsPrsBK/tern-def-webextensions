@@ -12,7 +12,9 @@ let repositoryDir = '';
 let isSurvey = false;
 let releaseChannel = 'beta';
 let isPublish = false;
-const largeFileName = `webextensions-desktop-${releaseChannel}.json`;
+const getOutputFileName = () => {
+  return `tbext-${releaseChannel}.json`;
+};
 const apiGroups = [
   {
     outputName: `webextensions-general-${releaseChannel}.json`,
@@ -375,10 +377,10 @@ const build = () => {
     fs.mkdir('defs');
   }
   if(isPublish) {
-    fs.writeFileSync(`defs/${largeFileName}`, JSON.stringify(result));
+    fs.writeFileSync(`defs/${getOutputFileName()}`, JSON.stringify(result));
   }
   else {
-    fs.writeFileSync(`defs/${largeFileName}`, JSON.stringify(result, null, 2));
+    fs.writeFileSync(`defs/${getOutputFileName()}`, JSON.stringify(result, null, 2));
   }
 };
 
