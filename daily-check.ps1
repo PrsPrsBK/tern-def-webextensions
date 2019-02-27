@@ -7,8 +7,9 @@ Param(
     }
     return $true
   })]
-  [string]$mozilla_repo,
-  [switch]$SkipFetch
+  [string]$mozillaRepo,
+  [switch]$SkipFetch,
+  [switch]$ShowIncoming
 )
 
 Begin {
@@ -20,22 +21,30 @@ Begin {
     Write-Host "Skip 1st phase: no fetch from remote."
   }
   else {
-    $hg_proc = (Start-Process -FilePath "hg" -ArgumentList "incoming -R $mozilla_repo --quiet" -NoNewWindow -Wait -PassThru)
-    Wait-Process -Id $hg_proc.id
-    # System.Diagnostics.Process.ExitCode with -Wait is necessary. $LASTEXITCODE does not work.
-    if($hg_proc.ExitCode -eq 0) {
-      [ValidateSet("y","n")]$yn = Read-Host "incomings may exist. hg pull -u? [y/n]"
-      if($yn -eq "y") {
-        Start-Process -FilePath "hg" -ArgumentList "pull -u -R $mozilla_repo" -NoNewWindow -PassThru | Wait-Process
+    $goPull = $true
+    if($ShowIncoming) {
+      $hg_proc = (Start-Process -FilePath "hg" -ArgumentList "incoming -R $mozillaRepo --quiet" -NoNewWindow -Wait -PassThru)
+      Wait-Process -Id $hg_proc.id
+      # System.Diagnostics.Process.ExitCode with -Wait is necessary. $LASTEXITCODE does not work.
+      if($hg_proc.ExitCode -eq 0) {
+        [ValidateSet("y","n")]$yn = Read-Host "incomings may exist. hg pull -u? [y/n]"
+        if($yn -eq "y") {
+          $goPull = $true
+        }
+        else {
+          $goPull = $false
+          Write-Host "not 'yes', so nothing pulled. "
+        }
       }
       else {
-        Write-Host "not 'yes', so nothing pulled. "
+        $goPull = $false
+        Write-Host "nothing to pull. hg ExitCode: $($hg_proc.ExitCode)"
       }
+      $hg_proc = $null
     }
-    else {
-      Write-Host "nothing to pull. hg ExitCode: $($hg_proc.ExitCode)"
+    if(goPull) {
+      Start-Process -FilePath "hg" -ArgumentList "pull -u -R $mozillaRepo" -NoNewWindow -PassThru | Wait-Process
     }
-    $hg_proc = $null
   }
   Write-Host "Next phase: check if we need to update or not."
 }
@@ -45,12 +54,12 @@ Process {
   $cset_pubed =  (Join-Path -Path $script_path -ChildPath "cset_pubed.log")
   $cset_today =  (Join-Path -Path $script_path -ChildPath "cset.log")
 
-  Start-Job -ArgumentList $mozilla_repo, $cset_today -ScriptBlock {
+  Start-Job -ArgumentList $mozillaRepo, $cset_today -ScriptBlock {
     Param($repo, $log)
     hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/*.json") -X (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/manifest.json") --removed --template status > $log
   } | Wait-Job | Receive-Job | Remove-Job
 
-  Start-Job -ArgumentList $mozilla_repo, $cset_today -ScriptBlock {
+  Start-Job -ArgumentList $mozillaRepo, $cset_today -ScriptBlock {
     Param($repo, $log)
     # append !!!!!!!!!
     hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/browser/components/extensions/schemas/*.json") --removed --template status >> $log
@@ -74,4 +83,3 @@ End {
 }
 
 # vim:expandtab ff=dos fenc=utf-8 sw=2
-
