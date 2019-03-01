@@ -42,7 +42,7 @@ Begin {
       }
       $hg_proc = $null
     }
-    if(goPull) {
+    if($goPull) {
       Start-Process -FilePath "hg" -ArgumentList "pull -u -R $mozillaRepo" -NoNewWindow -PassThru | Wait-Process
     }
   }
