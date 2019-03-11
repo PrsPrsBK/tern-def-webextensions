@@ -47,7 +47,7 @@ Vim なら [tern-for-vim](https://github.com/ternjs/tern_for_vim) をインス�
 
 nightly の場合です。
 
-`npm run build -- --repository /path/to/local/nightly/repository --channel nightly`
+`npm run build -- --mozilla-repo /path/to/local/nightly/repository --channel nightly`
 
 `webextensions-desktop-nightly.json` が作成されます。
 `--channel` オプションはファイル名にのみ影響します。

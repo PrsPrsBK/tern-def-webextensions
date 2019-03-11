@@ -83,7 +83,7 @@ tern定義ファイルが変化しなければ更新しませんし、
 また、リポジトリの履歴追跡に際しては 2つの ``manifest.json`` に注目しているのですが、
 それぞれコミットログを3つしか記録していないので、
 変更が多いときは最新の3つ以外は判りません。
-続いて ``npm run build -- --repository d:/path/to/mozilla-beta`` してtern定義ファイルを作ります。
+続いて ``npm run build -- --mozilla-repo d:/path/to/mozilla-beta`` してtern定義ファイルを作ります。
 最後に ``npm publish`` した時点のものと ``diff`` を取って調べます。
 違いがあればパッケージを作り直してアップロードします(次節参照)。
 違いがなければ更新できないので、翌日以降の変更チェックを継続するための準備作業をします。
@@ -106,7 +106,7 @@ tern定義ファイル生成
 ``npm outdated`` と ``npm update --save`` でもいいです。
 
 続いて定義ファイル生成です。
-``npm run build -- --repository d:/path/to/mozilla-beta --publish`` です。
+``npm run build -- --mozilla-repo d:/path/to/mozilla-beta --publish`` です。
 パッケージサイズを小さくしたいのでこうしています。
 
 

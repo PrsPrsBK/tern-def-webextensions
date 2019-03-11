@@ -44,7 +44,7 @@ So two groups are integrated, and android UI is dropped (but included in browser
 
 In case of that you would like to use nightly.
 
-`npm run build -- --repository /path/to/local/nightly/repository --channel nightly`
+`npm run build -- --mozilla-repo /path/to/local/nightly/repository --channel nightly`
 
 This create `webextensions-desktop-nightly.json`. 
 `--channel` option only effects to filename. 
