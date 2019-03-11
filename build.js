@@ -1,149 +1,152 @@
 /**
- * @fileoverview anyway make tern-definition files, or survey about mozilla source tree.
+ * @fileoverview anyway make tern-definition file.
  * @author PrsPrsBK
  */
 
 const fs = require('fs');
 const path = require('path');
 const stripJsonComments = require('strip-json-comments');
-const bcd = require('mdn-browser-compat-data').webextensions.api;
+const mdnData = require('mdn-browser-compat-data').webextensions.api;
 
-let repositoryDir = '';
-let isSurvey = false;
-let releaseChannel = 'beta';
-let isPublish = false;
-const getOutputFileName = () => {
-  return `webextensions-desktop-${releaseChannel}.json`;
+let mozillaRepo = '';
+let channel = 'beta';
+let goShrink = false;
+const getOutputFileName = (prefix) => {
+  return `${prefix}-${channel}.json`;
 };
-const apiGroups = [
-  {
-    outputName: `webextensions-general-${releaseChannel}.json`,
-    schemaDir: 'toolkit/components/extensions/schemas/',
-    apiListFile: 'toolkit/components/extensions/ext-toolkit.json',
-    schemaList: [
-      {
-        name: 'events',
-        schema: 'toolkit/components/extensions/schemas/events.json',
-      },
-      {
-        name: 'types',
-        schema: 'toolkit/components/extensions/schemas/types.json',
-      },
-    ],
+const summary = [];
+
+/**
+ * This script writes only one file, and utilizes mozilla repository.
+ * When script can not those repositories, output file will not include data relevant APIs.
+ * 1. mozilla - you get Firefox's APIs.
+ */
+const outputSpec = {
+  prefix: 'webextensions-desktop',
+  resultBase: {
+    '!name': 'webextensions',
+    '!define': {},
+    'chrome': {
+      '!type': '+browser',
+    },
+    browser: {},
   },
-  {
-    outputName: `webextensions-firefox-desktop-${releaseChannel}.json`,
-    schemaDir: 'browser/components/extensions/schemas/',
-    apiListFile: 'browser/components/extensions/ext-browser.json',
-    schemaList: [],
-  },
-  //{
-  //  outputName: `webextensions-firefox-android-${releaseChannel}.json`,
-  //  schemaDir: 'mobile/android/components/extensions/schemas/',
-  //  schemaList: [
-  //    {
-  //      name: 'browserAction',
-  //      schema: 'browser/components/extensions/schemas/browser_action.json',
-  //    },
-  //    {
-  //      name: 'browsingData',
-  //      schema: 'browser/components/extensions/schemas/browsing_data.json',
-  //    },
-  //    {
-  //      name: 'pageAction',
-  //      schema: 'browser/components/extensions/schemas/page_action.json',
-  //    },
-  //    {
-  //      name: 'tabs',
-  //      schema: 'browser/components/extensions/schemas/tabs.json',
-  //    },
-  //  ],
-  //},
-];
-
-const processArgs = () => {
-  process.argv.forEach((arg, idx, a) => {
-    if(arg === '--repository') {
-      repositoryDir = process.argv[idx + 1];
-    }
-    else if(arg === '--survey') {
-      isSurvey = true;
-    }
-    else if(arg === '--channel') {
-      releaseChannel = process.argv[idx + 1];
-    }
-    else if(arg === '--publish') {
-      isPublish = true;
-    }
-  });
-  if(repositoryDir === '') {
-    console.log('please specify: npm run build -- --repo /path/to/mozilla-foo-repository-path');
-    return false;
-  }
-  else {
-    return true;
-  }
+  groupList: [
+    /** APIs reside within mozilla repository. */
+    {
+      name: 'mozilla-general',
+      getRepository: () => { return mozillaRepo; },
+      schemaDir: 'toolkit/components/extensions/schemas/',
+      apiListFile: 'toolkit/components/extensions/ext-toolkit.json',
+      useMdn: true,
+      schemaList: [
+        {
+          name: 'events',
+          schema: 'toolkit/components/extensions/schemas/events.json',
+        },
+        {
+          name: 'types',
+          schema: 'toolkit/components/extensions/schemas/types.json',
+        },
+      ],
+    },
+    {
+      outputName: 'mozilla-desktop',
+      getRepository: () => { return mozillaRepo; },
+      schemaDir: 'browser/components/extensions/schemas/',
+      apiListFile: 'browser/components/extensions/ext-browser.json',
+      useMdn: true,
+      schemaList: [],
+    },
+    //{
+    //  name: 'mozilla-android',
+    //  getRepository: () => { return mozillaRepo; },
+    //  schemaDir: 'mobile/android/components/extensions/schemas/',
+    //  // apiListFile: '',
+    //  useMdn: true,
+    //  schemaList: [
+    //    {
+    //      name: 'browserAction',
+    //      schema: 'browser/components/extensions/schemas/browser_action.json',
+    //    },
+    //    {
+    //      name: 'browsingData',
+    //      schema: 'browser/components/extensions/schemas/browsing_data.json',
+    //    },
+    //    {
+    //      name: 'pageAction',
+    //      schema: 'browser/components/extensions/schemas/page_action.json',
+    //    },
+    //    {
+    //      name: 'tabs',
+    //      schema: 'browser/components/extensions/schemas/tabs.json',
+    //    },
+    //  ],
+    //},
+  ]
 };
 
-const hasDirs = () => {
-  let notError = true;
-  if(fs.existsSync(repositoryDir) === false) {
-    console.log(`repository ${repositoryDir} does not exists.`);
-    notError = false;
-  }
-  else {
-    apiGroups.forEach((aGroup) => {
-      const schemaDirFull = path.join(repositoryDir, aGroup.schemaDir);
-      if(fs.existsSync(schemaDirFull) === false) {
-        console.log(`repository does not have ${aGroup.schemaDir} directory.`);
-        notError = false;
-      }
-    });
-  }
-  return notError;
-};
-
-const surveyJson = () => {
-  const BsdFiles = [];
-  const MplFiles = [];
-  const NeitherFiles = [];
-  console.log('# Note: API JSON Files.\n');
-  apiGroups.forEach((aGroup) => {
-    const schemaFiles = fs.readdirSync(path.join(repositoryDir, aGroup.schemaDir))
-      .filter(name => name.endsWith('.json'));
-    console.log(`## ${aGroup.schemaDir}: ${schemaFiles.length} json files.`);
-    schemaFiles.forEach((jsonName) => {
-      console.log(` * ${jsonName}`);
-      const jsonNameFull = path.join(repositoryDir, aGroup.schemaDir, jsonName);
-      const origContents = fs.readFileSync(jsonNameFull, 'utf8');
-      if(origContents.includes('BSD-style')) {
-        BsdFiles.push(path.join(aGroup.schemaDir, jsonName));
-      }
-      else if(origContents.includes('MPL')) {
-        MplFiles.push(path.join(aGroup.schemaDir, jsonName));
+/**
+ * distill from argments.
+ * @returns {Object} report
+ */
+const numerateArgs = () => {
+  const report = {
+    isValid: true,
+    message: [],
+  };
+  process.argv.forEach((arg, idx) => {
+    if(arg === '--mozilla-repo') {
+      if(idx + 1 < process.argv.length) {
+        mozillaRepo = process.argv[idx + 1];
       }
       else {
-        NeitherFiles.push(path.join(aGroup.schemaDir, jsonName));
+        report.isValid = false;
+        report.message.push(`please specify as ${arg} somevalue`);
       }
-    });
-    console.log('');
+    }
+    else if(arg === '--channel') {
+      if(idx + 1 < process.argv.length) {
+        channel = process.argv[idx + 1];
+      }
+      else {
+        report.isValid = false;
+        report.message.push(`please specify as ${arg} somevalue`);
+      }
+    }
+    else if(arg === '--shrink') {
+      goShrink = true;
+    }
   });
-  console.log(`\n## 3-Clause BSD-Style: ${BsdFiles.length} files.`);
-  BsdFiles.forEach((path) => {
-    console.log(` * ${path}`);
-  });
-  console.log(`\n## MPL 2.0: ${MplFiles.length} files.`);
-  MplFiles.forEach((path) => {
-    console.log(` * ${path}`);
-  });
-  console.log(`\n## Neither included: ${NeitherFiles.length} files.`);
-  NeitherFiles.forEach((path) => {
-    console.log(` * ${path}`);
-  });
+  return report;
 };
 
-const survey = () => {
-  surveyJson();
+/**
+ * Check the structure of repository.
+ * @param {string} rootDir root directory of repository
+ * @returns {{isValid: boolean, message: string}} the repository has assumed dirs or not
+ */
+const checkRepositoryDirs = (rootDir, apiGroup) => {
+  const report = {
+    isValid: true,
+    message: [],
+  };
+  if(rootDir === '') {
+    report.isValid = false;
+    report.message.push('Lack of arg: --mozilla-repo foo --comm-repo bar');
+  }
+  else if(fs.existsSync(rootDir) === false) {
+    report.isValid = false;
+    report.message.push(`root dir does not exist: ${rootDir}`);
+  }
+  else {
+    const schemaDirFull = path.join(rootDir, apiGroup.schemaDir);
+    if(fs.existsSync(schemaDirFull) === false) {
+      report.isValid = false;
+      report.message.push(`schema dir does not exist: ${apiGroup.schemaDir}`);
+    }
+  }
+  return report;
 };
 
 const chromeUri2Path = (chromeUri) => {
@@ -160,31 +163,41 @@ const chromeUri2Path = (chromeUri) => {
   }
 };
 
-const makeSchemaList = () => {
-  apiGroups.forEach((aGroup) => {
-    if(aGroup.apiListFile !== undefined) {
-      const apiListFileFull = path.join(repositoryDir, aGroup.apiListFile);
-      const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(apiListFileFull, 'utf8')));
-      for(const apiName in apiItemList) {
-        if(apiItemList[apiName].schema !== undefined) { //only background page?
-          const schema = chromeUri2Path(apiItemList[apiName].schema);
-          if(schema !== '') {
-            const apiItem = {
-              name: apiName,
-              schema,
-            };
-            aGroup.schemaList.push(apiItem);
-          }
-          else {
-            console.log(`skiped: irregular path for ${apiName}. ${apiItemList[apiName].schema}`);
-          }
+/**
+ * Distill JSON file names from API schema file's content.
+ * @param {string} rootDir 
+ * @param {Object[]} apiGroup
+ */
+const makeSchemaList = (rootDir, apiGroup) => {
+  if(apiGroup.apiListFile !== undefined) {
+    const apiListFileFull = path.join(rootDir, apiGroup.apiListFile);
+    const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(apiListFileFull, 'utf8')));
+    for(const apiName in apiItemList) {
+      if(apiItemList[apiName].schema !== undefined) { //only background page of mozilla?
+        const schema = chromeUri2Path(apiItemList[apiName].schema);
+        if(schema !== '') {
+          const apiItem = {
+            name: apiName,
+            schema,
+          };
+          apiGroup.schemaList.push(apiItem);
+        }
+        else {
+          console.log(`skiped: irregular path for ${apiName}. ${apiItemList[apiName].schema}`);
         }
       }
     }
-  });
+  }
 };
 
-const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
+const escapeTag = docText => {
+  // return docText
+  //   .replace(/<\/?(?:code|var)>/g, '`')
+  //   .replace(/<\/?em>/g, '*');
+  return docText;
+};
+
+const makeTernDefTree = (declaredAt, nameTree, curItem, useMdn, options = {}) => {
   const isDefZone = ('isDefZone' in options) ? options.isDefZone : false;
   const defZoneStep = ('defZoneStep' in options) ? options.defZoneStep : 0;
 
@@ -262,7 +275,7 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
 
   const result = {};
   if(curItem.description !== undefined) {
-    result['!doc'] = curItem.description;
+    result['!doc'] = escapeTag(curItem.description);
   }
   // top level can not have tern !type. knowing need for long hours.
   if(isDefZone === false || (isDefZone && defZoneStep > 0)) {
@@ -272,16 +285,19 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
       result['!type'] = atomString;
     }
   }
-  let bcdTree = bcd;
-  for(const nd of nameTree) {
-    if(bcdTree === undefined) {
-      break;
+
+  if(useMdn) {
+    let bcdTree = mdnData;
+    for(const nd of nameTree) {
+      if(bcdTree === undefined) {
+        break;
+      }
+      bcdTree = bcdTree[nd];
     }
-    bcdTree = bcdTree[nd];
-  }
-  if(bcdTree !== undefined) {
-    if(bcdTree.__compat !== undefined) {
-      result['!url'] = bcdTree.__compat.mdn_url;
+    if(bcdTree !== undefined) {
+      if(bcdTree.__compat !== undefined) {
+        result['!url'] = bcdTree.__compat.mdn_url;
+      }
     }
   }
 
@@ -298,46 +314,51 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
   return result;
 };
 
-const makeTernDefineZone = (declaredAt, nameTree, curItem) => {
-  return makeTernDefTree(declaredAt, nameTree, curItem, { isDefZone: true, defZoneStep: 0});
+const makeTernDefineZone = (declaredAt, nameTree, curItem, useMdn) => {
+  return makeTernDefTree(declaredAt, nameTree, curItem, useMdn, { isDefZone: true, defZoneStep: 0});
 };
 
-const makeTernNonDefZone = (declaredAt, nameTree, curItem) => {
-  return makeTernDefTree(declaredAt, nameTree, curItem, { isDefZone: false });
+const makeTernNonDefZone = (declaredAt, nameTree, curItem, useMdn) => {
+  return makeTernDefTree(declaredAt, nameTree, curItem, useMdn, { isDefZone: false });
 };
 
-const build = () => {
-  makeSchemaList();
-  const result = {
-    '!name': 'webextensions',
-    '!define': {},
-    'chrome': {
-      '!type': '+browser',
-    },
+const build = (rootDir, apiGroup, result, summary) => {
+  const subSummary = {
+    name: apiGroup.name,
+    schemaList: [],
   };
-  const browserObj = {};
-  const ternDefineObj = {};
-  //console.log('# used files at first published');
-  apiGroups.forEach((aGroup) => {
-    for(const schemaItem of aGroup.schemaList) {
-      //console.log(` * ${schemaItem.schema}`);
-      const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
+  makeSchemaList(rootDir, apiGroup);
+  const ternDefineObj = result['!define'];
+  const browserObj = result.browser;
+  const useMdn = apiGroup.useMdn;
+  for(const schemaItem of apiGroup.schemaList) {
+    const apiSummary = {
+      file: schemaItem.schema,
+      namespaceList: [],
+    };
+    const schemaFileFull = path.join(rootDir, schemaItem.schema);
+    try {
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
-      apiSpecList.forEach((apiSpec) => {
+      apiSpecList.forEach(apiSpec => {
+        const nsSummary = {
+          name: apiSpec.namespace,
+          permissions: apiSpec.permissions,
+        };
         // if namespace is 'manifest', Object.keys => ["namespace", "types"]
         // namespace is not common between files. except 'manifest'
         if(apiSpec.namespace !== 'manifest') {
           const ternApiObj = {};
           if(apiSpec.description !== undefined) {
-            ternApiObj['!doc'] = apiSpec.description;
+            ternApiObj['!doc'] = escapeTag(apiSpec.description);
           }
 
           //privacy.xxx, devtools.xxx.... not match tern and not go straight with compat-table
           const nameTreeTop = apiSpec.namespace.split('.');
 
           if(apiSpec.types !== undefined) { // !define is common in specific apiGroup
+            nsSummary.types = apiSpec.types.length;
             for(const typ of apiSpec.types) {
-              const curDefObj = makeTernDefineZone(apiSpec.namespace, nameTreeTop.concat(typ.id), typ);
+              const curDefObj = makeTernDefineZone(apiSpec.namespace, nameTreeTop.concat(typ.id), typ, useMdn);
               if(Object.keys(curDefObj).length !== 0) {
                 ternDefineObj[`${apiSpec.namespace}.${typ.id}`] = curDefObj;
               }
@@ -345,18 +366,21 @@ const build = () => {
           }
 
           if(apiSpec.functions !== undefined) {
+            nsSummary.functions = apiSpec.functions.length;
             for(const fun of apiSpec.functions) {
-              ternApiObj[fun.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(fun.name), fun);
+              ternApiObj[fun.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(fun.name), fun, useMdn);
             }
           }
           if(apiSpec.events !== undefined) {
+            nsSummary.events = apiSpec.events.length;
             for(const evt of apiSpec.events) {
-              ternApiObj[evt.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(evt.name), evt);
+              ternApiObj[evt.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(evt.name), evt, useMdn);
             }
           }
           if(apiSpec.properties !== undefined) {
+            nsSummary.properties = apiSpec.properties.length;
             for(const prop in apiSpec.properties) {
-              ternApiObj[prop] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(prop), apiSpec.properties[prop]);
+              ternApiObj[prop] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(prop), apiSpec.properties[prop], useMdn);
             }
           }
 
@@ -368,33 +392,66 @@ const build = () => {
             browserObj[nameTreeTop[0]][nameTreeTop[1]] = ternApiObj; // length 2 is maybe enough
           }
         }
+        else {
+          if(apiSpec.types !== undefined) {
+            nsSummary.types = apiSpec.types.length;
+          }
+        }
+        apiSummary.namespaceList.push(nsSummary);
       });
+      const origContents = fs.readFileSync(schemaFileFull, 'utf8');
+      if(origContents.includes('BSD-style')) {
+        apiSummary.license = 'BSD';
+      }
+      else if(origContents.includes('MPL')) {
+        apiSummary.license = 'MPL';
+      }
+      else {
+        apiSummary.license = 'None';
+      }
+    } catch(err) {
+      // e.g. comm-central does not have a file for pkcs11, so fs.readFileSync() fails.
+      console.log(`(API: ${apiGroup.name}, Schema Name: ${schemaItem.name}): ${err}`);
+      apiSummary.error = `${err.code}: ${err.syscall}`;
+    }
+    subSummary.schemaList.push(apiSummary);
+  }
+  summary.push(subSummary);
+}
+
+const isValidEnv = (report) => {
+  report.message.forEach(m => {
+    console.log(m);
+  });
+  return report.isValid;
+};
+
+const program = () => {
+  if(isValidEnv(numerateArgs()) === false) {
+    return;
+  }
+  const result = outputSpec.resultBase;
+  outputSpec.groupList.forEach(apiGroup => {
+    const tgtRepo = apiGroup.getRepository();
+    if(tgtRepo !== '' && isValidEnv(checkRepositoryDirs(tgtRepo, apiGroup))) {
+      build(tgtRepo, apiGroup, result, summary);
     }
   });
-  result['!define'] = ternDefineObj;
-  result.browser = browserObj;
   if(fs.existsSync('defs') === false) {
     fs.mkdir('defs');
   }
-  if(isPublish) {
-    fs.writeFileSync(`defs/${getOutputFileName()}`, JSON.stringify(result));
+  if(goShrink) {
+    fs.writeFileSync(`defs/${getOutputFileName(outputSpec.prefix)}`, JSON.stringify(result));
   }
   else {
-    fs.writeFileSync(`defs/${getOutputFileName()}`, JSON.stringify(result, null, 2));
+    fs.writeFileSync(`defs/${getOutputFileName(outputSpec.prefix)}`, JSON.stringify(result, null, 2));
   }
+  if(fs.existsSync('docs') === false) {
+    fs.mkdir('docs');
+  }
+  fs.writeFileSync('docs/summary.json', JSON.stringify(summary, null, 2));
 };
 
-if(processArgs() === false) {
-  return;
-}
-if(hasDirs()) {
-  if(isSurvey) {
-    survey();
-  }
-  else {
-    build();
-  }
-}
+program();
 
 // vim:expandtab ff=unix fenc=utf-8 sw=2
-
