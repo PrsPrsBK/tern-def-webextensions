@@ -60,5 +60,17 @@ json schema files of mozilla-beta repository.
 Some ones are under 3-Clause BSD License, others are under MPL-2.0 License. 
 Both are in `License` directory.
 
-[//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
+# Release Note
 
+* 2018-04-10 - ver. 0.1.0
+* 2018-04-12 - ver. 0.2.0
+* 2018-04-28 - ver. 0.3.0
+* 2018-06-21 Firefox 60 - ver. 0.4.0
+* 2018-07-20 Firefox 61 - ver. 0.5.0
+* 2018-08-27 Firefox 62 - ver. 0.6.0
+* 2018-09-08 Firefox 62 - ver. 0.6.1
+* 2018-10-16 Firefox 63 - ver. 0.7.0
+* 2018-12-14 Firefox 64 - ver. 0.8.0
+* 2019-01-30 Firefox 65 - No Update
+
+[//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
