@@ -390,7 +390,7 @@ const build = (rootDir, apiGroup, result, summary) => {
               browserObj[apiSpec.namespace] = ternApiObj;
             }
             else {
-              console.log(`WARN:Add to ${apiSpec.namespace}`);
+              console.log(`WARN:split over some files ${apiSpec.namespace}`);
               for(const key of Object.keys(ternApiObj)) {
                 if(browserObj[apiSpec.namespace][key] !== undefined) {
                   console.log(`  Problem:dup at ${apiSpec.namespace} ${key}`);
