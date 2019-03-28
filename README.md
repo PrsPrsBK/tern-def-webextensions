@@ -73,5 +73,7 @@ Both are in `License` directory.
 * 2018-12-14 Firefox 65(Beta) - ver. 0.8.0
 * 2019-01-30 Firefox 66(Beta) - No Update
 * 2019-02-19 Firefox 67(Beta) - No Update
+* 2019-03-28 Firefox 67(Beta) - ver. 0.8.1
+  fix: failed to pick up two functions (`userScript`, `menus`)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
