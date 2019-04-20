@@ -12,7 +12,7 @@ let mozillaRepo = '';
 let channel = 'beta';
 let goShrink = false;
 const getOutputFileName = (prefix) => {
-  return `${prefix}-${channel}.json`;
+  return `${prefix}-${channel}`;
 };
 const summary = [];
 
@@ -458,11 +458,9 @@ const program = () => {
     fs.mkdir('defs');
   }
   if(goShrink) {
-    fs.writeFileSync(`defs/${getOutputFileName(outputSpec.prefix)}`, JSON.stringify(result));
+    fs.writeFileSync(`defs/${getOutputFileName(outputSpec.prefix)}.json`, JSON.stringify(result));
   }
-  else {
-    fs.writeFileSync(`defs/${getOutputFileName(outputSpec.prefix)}`, JSON.stringify(result, null, 2));
-  }
+  fs.writeFileSync(`defs/${getOutputFileName(outputSpec.prefix)}.expand.json`, JSON.stringify(result, null, 2));
   if(fs.existsSync('docs') === false) {
     fs.mkdir('docs');
   }
