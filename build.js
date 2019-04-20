@@ -434,7 +434,7 @@ const build = (rootDir, apiGroup, result, summary) => {
     subSummary.schemaList.push(apiSummary);
   }
   summary.push(subSummary);
-}
+};
 
 const isValidEnv = (report) => {
   report.message.forEach(m => {
