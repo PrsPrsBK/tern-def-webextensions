@@ -3097,7 +3097,7 @@
       },
       "recordEvent": {
         "!doc": "Record an event in Telemetry. Throws when trying to record an unknown event.",
-        "!type": "fn(category: string, method: string, object: string, value: number, extra: object)"
+        "!type": "fn(category: string, method: string, object: string, value: string, extra: object)"
       },
       "registerScalars": {
         "!doc": "Register new scalars to record them from addons. See nsITelemetry.idl for more details.",
