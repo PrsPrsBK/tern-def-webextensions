@@ -1,0 +1,888 @@
+[
+  {
+    "name": "mozilla-general",
+    "schemaList": [
+      {
+        "file": "toolkit/components/extensions/schemas/events.json",
+        "namespaceList": [
+          {
+            "name": "events",
+            "types": 3
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/types.json",
+        "namespaceList": [
+          {
+            "name": "types",
+            "types": 3
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/extension_types.json",
+        "namespaceList": [
+          {
+            "name": "extensionTypes",
+            "types": 8
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/alarms.json",
+        "namespaceList": [
+          {
+            "name": "alarms",
+            "permissions": [
+              "alarms"
+            ],
+            "types": 1,
+            "functions": 5,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/browser_settings.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "browserSettings",
+            "permissions": [
+              "browserSettings"
+            ],
+            "types": 2
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/clipboard.json",
+        "namespaceList": [
+          {
+            "name": "clipboard",
+            "permissions": [
+              "clipboardWrite"
+            ],
+            "functions": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/content_scripts.json",
+        "namespaceList": [
+          {
+            "name": "contentScripts",
+            "types": 2,
+            "functions": 1
+          }
+        ],
+        "license": "MPL"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/contextual_identities.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "contextualIdentities",
+            "permissions": [
+              "contextualIdentities"
+            ],
+            "types": 1,
+            "functions": 5,
+            "events": 3
+          }
+        ],
+        "license": "MPL"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/cookies.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "cookies",
+            "permissions": [
+              "cookies"
+            ],
+            "types": 4,
+            "functions": 5,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/dns.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "dns",
+            "permissions": [
+              "dns"
+            ],
+            "types": 2,
+            "functions": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/downloads.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "downloads",
+            "permissions": [
+              "downloads"
+            ],
+            "types": 10,
+            "functions": 14,
+            "events": 3
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/extension.json",
+        "namespaceList": [
+          {
+            "name": "extension",
+            "types": 1,
+            "functions": 6,
+            "events": 2
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/i18n.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "i18n",
+            "types": 1,
+            "functions": 4,
+            "events": 0
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/idle.json",
+        "namespaceList": [
+          {
+            "name": "idle",
+            "permissions": [
+              "idle"
+            ],
+            "types": 1,
+            "functions": 2,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/management.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "management",
+            "types": 5,
+            "functions": 6,
+            "events": 4
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/notifications.json",
+        "namespaceList": [
+          {
+            "name": "notifications",
+            "permissions": [
+              "notifications"
+            ],
+            "types": 5,
+            "functions": 5,
+            "events": 6
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/permissions.json",
+        "namespaceList": [
+          {
+            "name": "permissions",
+            "permissions": [
+              "manifest:optional_permissions"
+            ],
+            "types": 2,
+            "functions": 4,
+            "events": 2
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/privacy.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "privacy",
+            "permissions": [
+              "privacy"
+            ]
+          },
+          {
+            "name": "privacy.network",
+            "permissions": [
+              "privacy"
+            ],
+            "types": 1
+          },
+          {
+            "name": "privacy.services",
+            "permissions": [
+              "privacy"
+            ]
+          },
+          {
+            "name": "privacy.websites",
+            "permissions": [
+              "privacy"
+            ],
+            "types": 2
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/extension_protocol_handlers.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 2
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/proxy.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "proxy",
+            "permissions": [
+              "proxy"
+            ],
+            "types": 1,
+            "functions": 3,
+            "events": 3
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/runtime.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "runtime",
+            "types": 9,
+            "functions": 15,
+            "events": 11
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/storage.json",
+        "namespaceList": [
+          {
+            "name": "storage",
+            "permissions": [
+              "storage"
+            ],
+            "types": 2,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/telemetry.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "telemetry",
+            "permissions": [
+              "telemetry",
+              "mozillaAddons"
+            ],
+            "types": 3,
+            "functions": 9
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/test.json",
+        "namespaceList": [
+          {
+            "name": "test",
+            "types": 2,
+            "functions": 15,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/theme.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 6
+          },
+          {
+            "name": "theme",
+            "types": 1,
+            "functions": 3,
+            "events": 1
+          }
+        ],
+        "license": "MPL"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/top_sites.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "topSites",
+            "permissions": [
+              "topSites"
+            ],
+            "types": 1,
+            "functions": 1
+          }
+        ],
+        "license": "MPL"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/user_scripts.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "userScripts",
+            "permissions": [
+              "manifest:user_scripts"
+            ],
+            "types": 2,
+            "functions": 1
+          }
+        ],
+        "license": "MPL"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/user_scripts_content.json",
+        "namespaceList": [
+          {
+            "name": "userScripts",
+            "permissions": [
+              "manifest:user_scripts"
+            ],
+            "events": 1
+          }
+        ],
+        "license": "MPL"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/web_navigation.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "webNavigation",
+            "permissions": [
+              "webNavigation"
+            ],
+            "types": 3,
+            "functions": 2,
+            "events": 9
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/web_request.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "webRequest",
+            "permissions": [
+              "webRequest"
+            ],
+            "types": 17,
+            "functions": 3,
+            "events": 9
+          }
+        ],
+        "license": "BSD"
+      }
+    ]
+  },
+  {
+    "schemaList": [
+      {
+        "file": "browser/components/extensions/schemas/bookmarks.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "bookmarks",
+            "permissions": [
+              "bookmarks"
+            ],
+            "types": 4,
+            "functions": 13,
+            "events": 7
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/browser_action.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "browserAction",
+            "permissions": [
+              "manifest:browser_action"
+            ],
+            "types": 4,
+            "functions": 15,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/browsing_data.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "browsingData",
+            "permissions": [
+              "browsingData"
+            ],
+            "types": 2,
+            "functions": 14
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/chrome_settings_overrides.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "browser/components/extensions/schemas/commands.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 2
+          },
+          {
+            "name": "commands",
+            "permissions": [
+              "manifest:commands"
+            ],
+            "types": 1,
+            "functions": 3,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/devtools.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 2
+          },
+          {
+            "name": "devtools",
+            "permissions": [
+              "manifest:devtools_page"
+            ]
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "browser/components/extensions/schemas/devtools_inspected_window.json",
+        "namespaceList": [
+          {
+            "name": "devtools.inspectedWindow",
+            "types": 1,
+            "functions": 3,
+            "events": 2
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/devtools_network.json",
+        "namespaceList": [
+          {
+            "name": "devtools.network",
+            "types": 1,
+            "functions": 1,
+            "events": 2
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/devtools_panels.json",
+        "namespaceList": [
+          {
+            "name": "devtools.panels",
+            "types": 5,
+            "functions": 3,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/find.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "find",
+            "permissions": [
+              "find"
+            ],
+            "functions": 3
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/history.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "history",
+            "permissions": [
+              "history"
+            ],
+            "types": 3,
+            "functions": 6,
+            "events": 3
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/identity.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "identity",
+            "permissions": [
+              "identity"
+            ],
+            "types": 1,
+            "functions": 6,
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "browser/components/extensions/schemas/menus_child.json",
+        "namespaceList": [
+          {
+            "name": "menus",
+            "permissions": [
+              "menus"
+            ],
+            "functions": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "browser/components/extensions/schemas/menus.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 2
+          },
+          {
+            "name": "contextMenus",
+            "permissions": [
+              "contextMenus"
+            ],
+            "types": 1
+          },
+          {
+            "name": "menus",
+            "permissions": [
+              "menus"
+            ],
+            "types": 3,
+            "functions": 6,
+            "events": 3
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/omnibox.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "omnibox",
+            "permissions": [
+              "manifest:omnibox"
+            ],
+            "types": 4,
+            "functions": 1,
+            "events": 4
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/page_action.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "pageAction",
+            "permissions": [
+              "manifest:page_action"
+            ],
+            "types": 1,
+            "functions": 9,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/pkcs11.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "pkcs11",
+            "permissions": [
+              "pkcs11"
+            ],
+            "functions": 4
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/geckoProfiler.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "geckoProfiler",
+            "permissions": [
+              "geckoProfiler"
+            ],
+            "types": 2,
+            "functions": 7,
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "browser/components/extensions/schemas/search.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "search",
+            "permissions": [
+              "search"
+            ],
+            "types": 1,
+            "functions": 2
+          }
+        ],
+        "license": "MPL"
+      },
+      {
+        "file": "browser/components/extensions/schemas/sessions.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "sessions",
+            "permissions": [
+              "sessions"
+            ],
+            "types": 3,
+            "functions": 11,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/sidebar_action.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "sidebarAction",
+            "permissions": [
+              "manifest:sidebar_action"
+            ],
+            "types": 1,
+            "functions": 8
+          }
+        ],
+        "license": "MPL"
+      },
+      {
+        "file": "browser/components/extensions/schemas/tabs.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "tabs",
+            "types": 12,
+            "functions": 33,
+            "events": 13
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/url_overrides.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "browser/components/extensions/schemas/windows.json",
+        "namespaceList": [
+          {
+            "name": "windows",
+            "types": 5,
+            "functions": 7,
+            "events": 3
+          }
+        ],
+        "license": "BSD"
+      }
+    ]
+  }
+]
