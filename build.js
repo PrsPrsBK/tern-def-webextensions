@@ -464,7 +464,7 @@ const program = () => {
   if(fs.existsSync('docs') === false) {
     fs.mkdir('docs');
   }
-  fs.writeFileSync('docs/summary.json', JSON.stringify(summary, null, 2));
+  fs.writeFileSync(`docs/summary-${channel}.json`, JSON.stringify(summary, null, 2));
 };
 
 program();
