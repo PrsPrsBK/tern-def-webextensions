@@ -3592,6 +3592,25 @@
         "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())"
       }
     },
+    "captivePortal": {
+      "!doc": "This API provides the ability detect the captive portal state of the users connection.",
+      "getState": {
+        "!doc": "Returns the current portal state, one of `unknown`, `not_captive`, `unlocked_portal`, `locked_portal`.",
+        "!type": "fn()"
+      },
+      "getLastChecked": {
+        "!doc": "Returns the time difference between NOW and the last time a request was completed in milliseconds.",
+        "!type": "fn()"
+      },
+      "onStateChanged": {
+        "!doc": "Fired when the captive portal state changes.",
+        "!type": "fn(details: object)"
+      },
+      "onConnectivityAvailable": {
+        "!doc": "This notification will be emitted when the captive portal service has determined that we can connect to the internet. The service will pass either `captive` if there is an unlocked captive portal present, or `clear` if no captive portal was detected.",
+        "!type": "fn(status: string)"
+      }
+    },
     "commands": {
       "!doc": "Use the commands API to add keyboard shortcuts that trigger actions in your extension, for example, an action to open the browser action or send a command to the xtension.",
       "update": {
