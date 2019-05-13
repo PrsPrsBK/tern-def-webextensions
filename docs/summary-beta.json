@@ -542,6 +542,24 @@
         "license": "BSD"
       },
       {
+        "file": "toolkit/components/extensions/schemas/captive_portal.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "captivePortal",
+            "permissions": [
+              "captivePortal"
+            ],
+            "functions": 2,
+            "events": 2
+          }
+        ],
+        "license": "None"
+      },
+      {
         "file": "browser/components/extensions/schemas/chrome_settings_overrides.json",
         "namespaceList": [
           {
@@ -772,7 +790,7 @@
         "license": "None"
       },
       {
-        "file": "browser/components/extensions/schemas/geckoProfiler.json",
+        "file": "toolkit/components/extensions/schemas/geckoProfiler.json",
         "namespaceList": [
           {
             "name": "manifest",

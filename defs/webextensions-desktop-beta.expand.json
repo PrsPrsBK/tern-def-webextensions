@@ -1215,6 +1215,10 @@
       },
       "windowId": {
         "!type": "number"
+      },
+      "incognito": {
+        "!doc": "If provided, requests that do not match the incognito state will be filtered out.",
+        "!type": "bool"
       }
     },
     "webRequest.HttpHeaders": {
@@ -2850,7 +2854,7 @@
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/proxy/unregister"
       },
       "registerProxyScript": {
-        "!doc": "Registers the proxy script for the extension.",
+        "!doc": "Registers the proxy script for the extension. This is an alias for proxy.register.",
         "!type": "fn(url: string)"
       },
       "onRequest": {
@@ -2859,7 +2863,7 @@
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/proxy/onRequest"
       },
       "onError": {
-        "!doc": "Notifies about proxy script errors.",
+        "!doc": "Notifies about errors caused by the invalid use of the proxy API.",
         "!type": "fn(error: object)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/proxy/onError"
       },
@@ -3586,6 +3590,25 @@
       "removeWebSQL": {
         "!doc": "Clears websites' WebSQL data.",
         "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())"
+      }
+    },
+    "captivePortal": {
+      "!doc": "This API provides the ability detect the captive portal state of the users connection.",
+      "getState": {
+        "!doc": "Returns the current portal state, one of `unknown`, `not_captive`, `unlocked_portal`, `locked_portal`.",
+        "!type": "fn()"
+      },
+      "getLastChecked": {
+        "!doc": "Returns the time difference between NOW and the last time a request was completed in milliseconds.",
+        "!type": "fn()"
+      },
+      "onStateChanged": {
+        "!doc": "Fired when the captive portal state changes.",
+        "!type": "fn(details: object)"
+      },
+      "onConnectivityAvailable": {
+        "!doc": "This notification will be emitted when the captive portal service has determined that we can connect to the internet. The service will pass either `captive` if there is an unlocked captive portal present, or `clear` if no captive portal was detected.",
+        "!type": "fn(status: string)"
       }
     },
     "commands": {
