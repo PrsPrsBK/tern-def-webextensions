@@ -357,8 +357,7 @@
           {
             "name": "telemetry",
             "permissions": [
-              "telemetry",
-              "mozillaAddons"
+              "telemetry"
             ],
             "types": 3,
             "functions": 9
