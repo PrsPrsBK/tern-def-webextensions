@@ -76,9 +76,10 @@ Both are in `License` directory.
 * 2019-03-28 Firefox 67(Beta) - ver. 0.8.1
   fix: failed to pick up two functions (`userScript`, `menus`)
 * 2019-05-14 Firefox 68(Beta) - ver.0.9.0
-
   * New: captivePortal API and 2 funcs, 2 events
   * `geckoProfiler` moved from `toolkit` to `browser`
   * `incognito` of `webRequest.RequestFilter`
+* 2019-05-24 Firefox 68(Beta) - No Update
+  Removed: `mozillaAddons` permission for `telemetry` API
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
