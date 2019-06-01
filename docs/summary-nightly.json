@@ -879,6 +879,24 @@
         "license": "BSD"
       },
       {
+        "file": "browser/components/extensions/schemas/urlbar.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "urlbar",
+            "permissions": [
+              "urlbar"
+            ],
+            "types": 2,
+            "events": 1
+          }
+        ],
+        "license": "MPL"
+      },
+      {
         "file": "browser/components/extensions/schemas/url_overrides.json",
         "namespaceList": [
           {

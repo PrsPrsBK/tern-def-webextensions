@@ -2166,6 +2166,28 @@
         "!type": "number"
       }
     },
+    "urlbar.SourceType": {
+      "!doc": "The source of a result."
+    },
+    "urlbar.QueryContext": {
+      "!doc": "Context of the current query request.",
+      "isPrivate": {
+        "!doc": "Whether the browser context is private.",
+        "!type": "bool"
+      },
+      "maxResults": {
+        "!doc": "The maximum number of results shown to the user.",
+        "!type": "number"
+      },
+      "searchString": {
+        "!doc": "The current search string.",
+        "!type": "string"
+      },
+      "acceptableSources": {
+        "!doc": "List of acceptable SourceType to return.",
+        "!type": "[+urlbar.SourceType]"
+      }
+    },
     "windows.WindowType": {
       "!doc": "The type of browser window this is. Under some circumstances a Window may not be assigned type property, for example when querying closed windows from the $(ref:sessions) API.",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/windows/WindowType"
@@ -4376,6 +4398,13 @@
         "!doc": "An ID which represents the absence of a browser tab.",
         "!type": "number",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/TAB_ID_NONE"
+      }
+    },
+    "urlbar": {
+      "!doc": "Use the <code>browser.urlbar</code> API to experiment with new features in the URLBar. Restricted to Mozilla privileged WebExtensions.",
+      "onQueryReady": {
+        "!doc": "Fired before starting a search to get the provider's behavior.",
+        "!type": "fn(context: +urlbar.QueryContext)"
       }
     },
     "windows": {
