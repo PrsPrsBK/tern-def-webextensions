@@ -4405,6 +4405,10 @@
       "onQueryReady": {
         "!doc": "Fired before starting a search to get the provider's behavior.",
         "!type": "fn(context: +urlbar.QueryContext)"
+      },
+      "openViewOnFocus": {
+        "!doc": "Enables or disables the open-view-on-focus mode.",
+        "!type": "+types.Setting"
       }
     },
     "windows": {
