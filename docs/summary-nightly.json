@@ -734,6 +734,25 @@
         "license": "BSD"
       },
       {
+        "file": "browser/components/extensions/schemas/normandyAddonStudy.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "normandyAddonStudy",
+            "permissions": [
+              "normandyAddonStudy"
+            ],
+            "types": 1,
+            "functions": 3,
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
         "file": "browser/components/extensions/schemas/omnibox.json",
         "namespaceList": [
           {
@@ -890,8 +909,8 @@
             "permissions": [
               "urlbar"
             ],
-            "types": 2,
-            "events": 1
+            "types": 4,
+            "events": 3
           }
         ],
         "license": "MPL"
