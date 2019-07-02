@@ -81,5 +81,12 @@ Both are in `License` directory.
   * `incognito` of `webRequest.RequestFilter`
 * 2019-05-24 Firefox 68(Beta) - No Update
   Removed: `mozillaAddons` permission for `telemetry` API
+* 2019-07-03 Firefox 69(Beta)
+  * New: `urlbar` API
+    [1547285](https://bugzilla.mozilla.org/show_bug.cgi?id=1547285)
+  * New: `getProfileAsGzippedArrayBuffer` function of geckoProfiler
+    [1551992](https://bugzilla.mozilla.org/show_bug.cgi?id=1551992)
+  * New: `normandyAddonStudy` API
+    [1522214](https://bugzilla.mozilla.org/show_bug.cgi?id=1522214)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
