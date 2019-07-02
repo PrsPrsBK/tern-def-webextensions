@@ -734,6 +734,25 @@
         "license": "BSD"
       },
       {
+        "file": "browser/components/extensions/schemas/normandyAddonStudy.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "normandyAddonStudy",
+            "permissions": [
+              "normandyAddonStudy"
+            ],
+            "types": 1,
+            "functions": 3,
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
         "file": "browser/components/extensions/schemas/omnibox.json",
         "namespaceList": [
           {
@@ -801,7 +820,7 @@
               "geckoProfiler"
             ],
             "types": 2,
-            "functions": 7,
+            "functions": 8,
             "events": 1
           }
         ],
@@ -877,6 +896,24 @@
           }
         ],
         "license": "BSD"
+      },
+      {
+        "file": "browser/components/extensions/schemas/urlbar.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "urlbar",
+            "permissions": [
+              "urlbar"
+            ],
+            "types": 4,
+            "events": 3
+          }
+        ],
+        "license": "MPL"
       },
       {
         "file": "browser/components/extensions/schemas/url_overrides.json",
