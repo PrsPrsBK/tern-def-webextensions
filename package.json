@@ -4,9 +4,9 @@
   "version": "0.10.0",
   "author": "PrsPrsBK",
   "devDependencies": {
-    "eslint": "^5.0.1",
+    "eslint": "^6.0.0",
     "mdn-browser-compat-data": ">=0.0.38",
-    "strip-json-comments": "^2.0.1"
+    "strip-json-comments": "^3.0.0"
   },
   "files": [
     "README.md",
