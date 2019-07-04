@@ -89,4 +89,13 @@ Both are in `License` directory.
   * New: `normandyAddonStudy` API
     [1522214](https://bugzilla.mozilla.org/show_bug.cgi?id=1522214)
 
+## Nightly (Not released to npm)
+
+* New: `dumpProfileToFile()` of `geckoProfiler` API
+  [1552845](https://bugzilla.mozilla.org/show_bug.cgi?id=1552845)
+* `topSites` API moved from `toolkit/` to `browser`
+* New: `topSites.MostVisitedURL.type`
+  [1547669](https://bugzilla.mozilla.org/show_bug.cgi?id=1547669)
+
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

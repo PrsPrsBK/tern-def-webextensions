@@ -394,24 +394,6 @@
         "license": "MPL"
       },
       {
-        "file": "toolkit/components/extensions/schemas/top_sites.json",
-        "namespaceList": [
-          {
-            "name": "manifest",
-            "types": 1
-          },
-          {
-            "name": "topSites",
-            "permissions": [
-              "topSites"
-            ],
-            "types": 1,
-            "functions": 1
-          }
-        ],
-        "license": "MPL"
-      },
-      {
         "file": "toolkit/components/extensions/schemas/user_scripts.json",
         "namespaceList": [
           {
@@ -820,7 +802,7 @@
               "geckoProfiler"
             ],
             "types": 2,
-            "functions": 8,
+            "functions": 9,
             "events": 1
           }
         ],
@@ -896,6 +878,24 @@
           }
         ],
         "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/top_sites.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "topSites",
+            "permissions": [
+              "topSites"
+            ],
+            "types": 1,
+            "functions": 1
+          }
+        ],
+        "license": "MPL"
       },
       {
         "file": "browser/components/extensions/schemas/urlbar.json",
