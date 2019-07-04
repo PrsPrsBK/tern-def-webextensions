@@ -1126,22 +1126,6 @@
         "!type": "number"
       }
     },
-    "topSites.MostVisitedURL": {
-      "!doc": "An object encapsulating a most visited URL, such as the URLs on the new tab page.",
-      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/topSites/MostVisitedURL",
-      "url": {
-        "!doc": "The most visited URL.",
-        "!type": "string"
-      },
-      "title": {
-        "!doc": "The title of the page.",
-        "!type": "string"
-      },
-      "favicon": {
-        "!doc": "Data URL for the favicon, if available.",
-        "!type": "string"
-      }
-    },
     "userScripts.UserScriptOptions": {
       "!doc": "Details of a user script",
       "js": {
@@ -2224,6 +2208,26 @@
         "!type": "number"
       }
     },
+    "topSites.MostVisitedURL": {
+      "!doc": "An object encapsulating a most visited URL, such as the URLs on the new tab page.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/topSites/MostVisitedURL",
+      "url": {
+        "!doc": "The most visited URL.",
+        "!type": "string"
+      },
+      "title": {
+        "!doc": "The title of the page.",
+        "!type": "string"
+      },
+      "favicon": {
+        "!doc": "Data URL for the favicon, if available.",
+        "!type": "string"
+      },
+      "type": {
+        "!doc": "The entry type, either <code>url</code> for a normal page link, or <code>search</code> for a search shortcut.",
+        "!type": "string"
+      }
+    },
     "urlbar.Query": {
       "!doc": "A query performed in the urlbar.",
       "isPrivate": {
@@ -3292,14 +3296,6 @@
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/theme/onUpdated"
       }
     },
-    "topSites": {
-      "!doc": "Use the chrome.topSites API to access the top sites that are displayed on the new tab page. ",
-      "get": {
-        "!doc": "Gets a list of top sites.",
-        "!type": "fn(options: object, callback: fn(results: [+topSites.MostVisitedURL]))",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/topSites/get"
-      }
-    },
     "userScripts": {
       "register": {
         "!doc": "Register a user script programmatically given its $(ref:userScripts.UserScriptOptions), and resolves to a $(ref:userScripts.RegisteredUserScript) instance",
@@ -4116,6 +4112,10 @@
         "!doc": "Resumes the profiler with the settings that were initially used to start it.",
         "!type": "fn()"
       },
+      "dumpProfileToFile": {
+        "!doc": "Gathers the profile data from the current profiling session, and writes it to disk. The returned promise resolves to a path that locates the created file.",
+        "!type": "fn(fileName: string)"
+      },
       "getProfile": {
         "!doc": "Gathers the profile data from the current profiling session.",
         "!type": "fn()"
@@ -4496,6 +4496,14 @@
         "!doc": "An ID which represents the absence of a browser tab.",
         "!type": "number",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/TAB_ID_NONE"
+      }
+    },
+    "topSites": {
+      "!doc": "Use the chrome.topSites API to access the top sites that are displayed on the new tab page. ",
+      "get": {
+        "!doc": "Gets a list of top sites.",
+        "!type": "fn(options: object, callback: fn(results: [+topSites.MostVisitedURL]))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/topSites/get"
       }
     },
     "urlbar": {
