@@ -223,6 +223,25 @@
         "license": "BSD"
       },
       {
+        "file": "toolkit/components/extensions/schemas/network_status.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "networkStatus",
+            "permissions": [
+              "networkStatus"
+            ],
+            "types": 1,
+            "functions": 1,
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
         "file": "toolkit/components/extensions/schemas/notifications.json",
         "namespaceList": [
           {
