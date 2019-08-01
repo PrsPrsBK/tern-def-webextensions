@@ -97,7 +97,10 @@ Both are in `License` directory.
 
 ## Nightly (Not released to npm)
 
-* 2019-07-24 0.8.0 New: `networkStatus` API
+* 2019-07-24 New: `networkStatus` API
   [1550605](https://bugzilla.mozilla.org/show_bug.cgi?id=1550605)
+* 2019-07-25 Move: `topSites` API from `toolkit` to `browser`
+  [1569366](https://bugzilla.mozilla.org/show_bug.cgi?id=1569366)
+
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
