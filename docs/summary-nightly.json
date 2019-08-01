@@ -899,7 +899,7 @@
         "license": "BSD"
       },
       {
-        "file": "toolkit/components/extensions/schemas/top_sites.json",
+        "file": "browser/components/extensions/schemas/top_sites.json",
         "namespaceList": [
           {
             "name": "manifest",
