@@ -94,13 +94,14 @@ Both are in `License` directory.
   * `topSites` API moved from `toolkit/` to `browser`
   * New: `topSites.MostVisitedURL.type`
     [1547669](https://bugzilla.mozilla.org/show_bug.cgi?id=1547669)
+* 2019-08-01 Firefox 69(Beta) - ver.0.11.1
+  * Move: `topSites` API from `toolkit` to `browser`
+    [1569366](https://bugzilla.mozilla.org/show_bug.cgi?id=1569366)
 
 ## Nightly (Not released to npm)
 
 * 2019-07-24 New: `networkStatus` API
   [1550605](https://bugzilla.mozilla.org/show_bug.cgi?id=1550605)
-* 2019-07-25 Move: `topSites` API from `toolkit` to `browser`
-  [1569366](https://bugzilla.mozilla.org/show_bug.cgi?id=1569366)
 
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
