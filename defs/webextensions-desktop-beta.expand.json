@@ -729,6 +729,20 @@
         "!type": "+management.ExtensionInstallType"
       }
     },
+    "networkStatus.NetworkLinkInfo": {
+      "status": {
+        "!doc": "Status of the network link, if \"unknown\" then link is usually assumed to be \"up\"",
+        "!type": "string"
+      },
+      "type": {
+        "!doc": "If known, the type of network connection that is avialable.",
+        "!type": "string"
+      },
+      "id": {
+        "!doc": "If known, the network id or name.",
+        "!type": "string"
+      }
+    },
     "notifications.TemplateType": {
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/notifications/TemplateType"
     },
@@ -2795,6 +2809,17 @@
         "!doc": "Fired when an addon has been uninstalled.",
         "!type": "fn(info: +management.ExtensionInfo)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/onUninstalled"
+      }
+    },
+    "networkStatus": {
+      "!doc": "This API provides the ability to determine the status of and detect changes in the network connection. This API can only be used in privileged extensions.",
+      "getLinkInfo": {
+        "!doc": "Returns the $(ref:NetworkLinkInfo} of the current network connection.",
+        "!type": "fn()"
+      },
+      "onConnectionChanged": {
+        "!doc": "Fired when the network connection state changes.",
+        "!type": "fn(details: +networkStatus.NetworkLinkInfo)"
       }
     },
     "notifications": {
