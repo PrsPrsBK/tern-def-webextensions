@@ -104,5 +104,6 @@ Both are in `License` directory.
 
 ## Nightly (Not released to npm)
 
+* 2019-08-02 New: `engagementTelemetry` of `urlbar` API
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

@@ -4548,6 +4548,10 @@
       "openViewOnFocus": {
         "!doc": "Enables or disables the open-view-on-focus mode.",
         "!type": "+types.Setting"
+      },
+      "engagementTelemetry": {
+        "!doc": "Enables or disables the engagement telemetry.",
+        "!type": "+types.Setting"
       }
     },
     "windows": {
