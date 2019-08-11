@@ -930,6 +930,11 @@
             ],
             "types": 4,
             "events": 3
+          },
+          {
+            "name": "urlbar.contextualTip",
+            "types": 1,
+            "functions": 2
           }
         ],
         "license": "MPL"
