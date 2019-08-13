@@ -113,6 +113,9 @@ Both are in `License` directory.
 * 2019-08-13
   * New: onButtonClicked and onLinkClicked events of `urlbar` API
     [1559508](https://bugzilla.mozilla.org/show_bug.cgi?id=1559508)
+* 2019-08-13
+  * New: icon of ContextualTip of `urlbar` API
+    [1559501](https://bugzilla.mozilla.org/show_bug.cgi?id=1559501)
 
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
