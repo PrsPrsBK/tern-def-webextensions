@@ -934,7 +934,8 @@
           {
             "name": "urlbar.contextualTip",
             "types": 1,
-            "functions": 2
+            "functions": 2,
+            "events": 2
           }
         ],
         "license": "MPL"

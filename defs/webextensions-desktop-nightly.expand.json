@@ -4577,6 +4577,14 @@
         "remove": {
           "!doc": "Hides the contextual tip (it will still be in the DOM).",
           "!type": "fn()"
+        },
+        "onButtonClicked": {
+          "!doc": "Fired when the user clicks the contextual tip's button.",
+          "!type": "fn(windowId: number)"
+        },
+        "onLinkClicked": {
+          "!doc": "Fired when the user clicks the contextual tip's link.",
+          "!type": "fn(windowId: number)"
         }
       }
     },
