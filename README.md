@@ -116,6 +116,9 @@ Both are in `License` directory.
 * 2019-08-13
   * New: icon of ContextualTip of `urlbar` API
     [1559501](https://bugzilla.mozilla.org/show_bug.cgi?id=1559501)
+* 2019-08-17
+  * New: UrlClassification properties of `webRequest` API
+    [1547140](https://bugzilla.mozilla.org/show_bug.cgi?id=1547140)
 
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

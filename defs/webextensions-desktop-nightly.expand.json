@@ -1371,6 +1371,22 @@
         "!type": "string"
       }
     },
+    "webRequest.UrlClassificationFlags": {
+      "!doc": "Tracking flags that match our internal tracking classification"
+    },
+    "webRequest.UrlClassificationParty": {
+      "!doc": "If the request has been classified this is an array of $(ref:UrlClassificationFlags)."
+    },
+    "webRequest.UrlClassification": {
+      "firstParty": {
+        "!doc": "First party classification flags if the request has been classified.",
+        "!type": "+webRequest.UrlClassificationParty"
+      },
+      "thirdParty": {
+        "!doc": "Third party classification flags if the request has been classified.",
+        "!type": "+webRequest.UrlClassificationParty"
+      }
+    },
     "bookmarks.BookmarkTreeNodeUnmodifiable": {
       "!doc": "Indicates the reason why this node is unmodifiable. The <var>managed</var> value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default).",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/bookmarks/BookmarkTreeNodeUnmodifiable"
