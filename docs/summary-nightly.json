@@ -176,6 +176,23 @@
         "license": "BSD"
       },
       {
+        "file": "toolkit/components/extensions/schemas/activity_log.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "activityLog",
+            "permissions": [
+              "activityLog"
+            ],
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
         "file": "toolkit/components/extensions/schemas/i18n.json",
         "namespaceList": [
           {

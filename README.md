@@ -119,6 +119,9 @@ Both are in `License` directory.
 * 2019-08-17
   * New: UrlClassification properties of `webRequest` API
     [1547140](https://bugzilla.mozilla.org/show_bug.cgi?id=1547140)
+* 2019-08-19
+  * New: `activityLog` permission and `onExtensionActivity` event
+    [1542403](https://bugzilla.mozilla.org/show_bug.cgi?id=1542403)
 
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

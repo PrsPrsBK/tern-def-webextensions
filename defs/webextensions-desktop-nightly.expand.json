@@ -2759,6 +2759,13 @@
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/inIncognitoContext"
       }
     },
+    "activityLog": {
+      "!doc": "Monitor extension activity",
+      "onExtensionActivity": {
+        "!doc": "Receives an activityItem for each logging event.",
+        "!type": "fn(details: object)"
+      }
+    },
     "i18n": {
       "!doc": "Use the <code>browser.i18n</code> infrastructure to implement internationalization across your whole app or extension.",
       "getAcceptLanguages": {
