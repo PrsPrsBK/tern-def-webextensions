@@ -2303,7 +2303,7 @@
         "!doc": "Specifies the default icon and theme icons",
         "defaultIcon": {
           "!doc": "Specifies the default icon to use in the contextual tip.",
-          "!type": "+manifest.IconPath"
+          "!type": "[string]?, [+manifest.IconPath]?"
         },
         "themeIcons": {
           "!doc": "Specifies icons to use for dark and light themes. Each item in the array is for a specified icon size.",

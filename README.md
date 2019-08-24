@@ -122,6 +122,9 @@ Both are in `License` directory.
 * 2019-08-19
   * New: `activityLog` permission and `onExtensionActivity` event
     [1542403](https://bugzilla.mozilla.org/show_bug.cgi?id=1542403)
+* 2019-08-24
+  * Change: icon of ContextualTip of `urlbar` API
+    [1575972](https://bugzilla.mozilla.org/show_bug.cgi?id=1575972)
 
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
