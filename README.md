@@ -103,28 +103,24 @@ Both are in `License` directory.
 * 2019-08-03 Firefox 69(Beta) - ver.0.11.3
   * New: `engagementTelemetry` of `urlbar` API
     [1570434](https://bugzilla.mozilla.org/show_bug.cgi?id=1570434)
+* 2019-08-28 Firefox 69(Beta) - ver.0.11.4
+  * New: `urlbar.contextualTip` API
+    [1568708](https://bugzilla.mozilla.org/show_bug.cgi?id=1568708)
+  * New: onButtonClicked and onLinkClicked events of `urlbar` API
+    [1559508](https://bugzilla.mozilla.org/show_bug.cgi?id=1559508)
+  * New: icon of ContextualTip of `urlbar` API
+    [1559501](https://bugzilla.mozilla.org/show_bug.cgi?id=1559501)
+  * New: UrlClassification properties of `webRequest` API
+    [1547140](https://bugzilla.mozilla.org/show_bug.cgi?id=1547140)
+  * New: `activityLog` permission and `onExtensionActivity` event
+    [1542403](https://bugzilla.mozilla.org/show_bug.cgi?id=1542403)
+  * Change: icon of ContextualTip of `urlbar` API
+    [1575972](https://bugzilla.mozilla.org/show_bug.cgi?id=1575972)
 
 
 ## Nightly (Not released to npm)
 
-* 2019-08-11
-  * New: `urlbar.contextualTi` API
-    [1568708](https://bugzilla.mozilla.org/show_bug.cgi?id=1568708)
-* 2019-08-13
-  * New: onButtonClicked and onLinkClicked events of `urlbar` API
-    [1559508](https://bugzilla.mozilla.org/show_bug.cgi?id=1559508)
-* 2019-08-13
-  * New: icon of ContextualTip of `urlbar` API
-    [1559501](https://bugzilla.mozilla.org/show_bug.cgi?id=1559501)
-* 2019-08-17
-  * New: UrlClassification properties of `webRequest` API
-    [1547140](https://bugzilla.mozilla.org/show_bug.cgi?id=1547140)
-* 2019-08-19
-  * New: `activityLog` permission and `onExtensionActivity` event
-    [1542403](https://bugzilla.mozilla.org/show_bug.cgi?id=1542403)
-* 2019-08-24
-  * Change: icon of ContextualTip of `urlbar` API
-    [1575972](https://bugzilla.mozilla.org/show_bug.cgi?id=1575972)
+None.
 
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
