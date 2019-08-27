@@ -1371,6 +1371,22 @@
         "!type": "string"
       }
     },
+    "webRequest.UrlClassificationFlags": {
+      "!doc": "Tracking flags that match our internal tracking classification"
+    },
+    "webRequest.UrlClassificationParty": {
+      "!doc": "If the request has been classified this is an array of $(ref:UrlClassificationFlags)."
+    },
+    "webRequest.UrlClassification": {
+      "firstParty": {
+        "!doc": "First party classification flags if the request has been classified.",
+        "!type": "+webRequest.UrlClassificationParty"
+      },
+      "thirdParty": {
+        "!doc": "Third party classification flags if the request has been classified.",
+        "!type": "+webRequest.UrlClassificationParty"
+      }
+    },
     "bookmarks.BookmarkTreeNodeUnmodifiable": {
       "!doc": "Indicates the reason why this node is unmodifiable. The <var>managed</var> value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default).",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/bookmarks/BookmarkTreeNodeUnmodifiable"
@@ -2281,6 +2297,32 @@
     "urlbar.SourceType": {
       "!doc": "Possible sources of results. <code>bookmarks</code>: The result comes from the user's bookmarks. <code>history</code>: The result comes from the user's history. <code>search</code>: The result comes from a search engine. <code>tabs</code>: The result is an open tab in the browser or a synced tab from another device. "
     },
+    "urlbar.contextualTip.ContextualTip": {
+      "!doc": "An object containing the path to an icon, the title, button title, and link title to set on the contextual tip.",
+      "icon": {
+        "!doc": "Specifies the default icon and theme icons",
+        "defaultIcon": {
+          "!doc": "Specifies the default icon to use in the contextual tip.",
+          "!type": "[string]?, [+manifest.IconPath]?"
+        },
+        "themeIcons": {
+          "!doc": "Specifies icons to use for dark and light themes. Each item in the array is for a specified icon size.",
+          "!type": "[+manifest.ThemeIcons]"
+        }
+      },
+      "title": {
+        "!doc": "A string to be used as the contextual tip's title.",
+        "!type": "string"
+      },
+      "buttonTitle": {
+        "!doc": "A string to be used as the contextual tip's button's title.",
+        "!type": "string"
+      },
+      "linkTitle": {
+        "!doc": "A string to be used as the contextual tip's link's title.",
+        "!type": "string"
+      }
+    },
     "windows.WindowType": {
       "!doc": "The type of browser window this is. Under some circumstances a Window may not be assigned type property, for example when querying closed windows from the $(ref:sessions) API.",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/windows/WindowType"
@@ -2715,6 +2757,13 @@
         "!doc": "True for content scripts running inside incognito tabs, and for extension pages running inside an incognito process. The latter only applies to extensions with 'split' incognito_behavior.",
         "!type": "bool",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/inIncognitoContext"
+      }
+    },
+    "activityLog": {
+      "!doc": "Monitor extension activity",
+      "onExtensionActivity": {
+        "!doc": "Receives an activityItem for each logging event.",
+        "!type": "fn(details: object)"
       }
     },
     "i18n": {
@@ -4552,6 +4601,25 @@
       "engagementTelemetry": {
         "!doc": "Enables or disables the engagement telemetry.",
         "!type": "+types.Setting"
+      },
+      "contextualTip": {
+        "!doc": "A contextual tip appears in the urlbar's view (its search results panel) and has an icon, text, optional button, and an optional link. Use the <code>browser.urlbar.contextualTip</code> API to experiment with the contextual tip. Restricted to Mozilla privileged WebExtensions.",
+        "set": {
+          "!doc": "Sets the contextual tip in the most recent browser winodw with the given icon, title, button title, and link title. If the urlbar's view is not already open, then it will be opened so the contextual tip will be visible. Note that when the urlbar's view is closed, the contextual tip is hidden and will not appear again. `browser.urlbar.contextualTip.set` must be called each time a contextual tip should appear.",
+          "!type": "fn(details: +urlbar.contextualTip.ContextualTip)"
+        },
+        "remove": {
+          "!doc": "Hides the contextual tip (it will still be in the DOM).",
+          "!type": "fn()"
+        },
+        "onButtonClicked": {
+          "!doc": "Fired when the user clicks the contextual tip's button.",
+          "!type": "fn(windowId: number)"
+        },
+        "onLinkClicked": {
+          "!doc": "Fired when the user clicks the contextual tip's link.",
+          "!type": "fn(windowId: number)"
+        }
       }
     },
     "windows": {

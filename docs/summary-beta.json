@@ -176,6 +176,23 @@
         "license": "BSD"
       },
       {
+        "file": "toolkit/components/extensions/schemas/activity_log.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "activityLog",
+            "permissions": [
+              "activityLog"
+            ],
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
         "file": "toolkit/components/extensions/schemas/i18n.json",
         "namespaceList": [
           {
@@ -474,7 +491,7 @@
             "permissions": [
               "webRequest"
             ],
-            "types": 17,
+            "types": 20,
             "functions": 3,
             "events": 9
           }
@@ -930,6 +947,12 @@
             ],
             "types": 4,
             "events": 3
+          },
+          {
+            "name": "urlbar.contextualTip",
+            "types": 1,
+            "functions": 2,
+            "events": 2
           }
         ],
         "license": "MPL"
