@@ -103,7 +103,7 @@ Both are in `License` directory.
 * 2019-08-03 Firefox 69(Beta) - ver.0.11.3
   * New: `engagementTelemetry` of `urlbar` API
     [1570434](https://bugzilla.mozilla.org/show_bug.cgi?id=1570434)
-* 2019-08-28 Firefox 69(Beta) - ver.0.11.4
+* 2019-08-28 Firefox 70(Beta) - ver.0.11.4
   * New: `urlbar.contextualTip` API
     [1568708](https://bugzilla.mozilla.org/show_bug.cgi?id=1568708)
   * New: onButtonClicked and onLinkClicked events of `urlbar` API
