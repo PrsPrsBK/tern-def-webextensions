@@ -2860,6 +2860,21 @@
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/onUninstalled"
       }
     },
+    "memory": {
+      "!doc": "API for querying browser memory statistics",
+      "getInfo": {
+        "!doc": "Returns an object containing memory info",
+        "!type": "fn()"
+      },
+      "minimizeMemoryUsage": {
+        "!doc": "Minimizes memory used by the browser if possible.",
+        "!type": "fn()"
+      },
+      "onLowMemory": {
+        "!doc": "Event fired when memory is low.",
+        "!type": "fn(reason: string)"
+      }
+    },
     "networkStatus": {
       "!doc": "This API provides the ability to determine the status of and detect changes in the network connection. This API can only be used in privileged extensions.",
       "getLinkInfo": {

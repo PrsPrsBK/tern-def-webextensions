@@ -120,7 +120,8 @@ Both are in `License` directory.
 
 ## Nightly (Not released to npm)
 
-None.
+* 2019-09-12 New: `memory` API
+    [1296898](https://bugzilla.mozilla.org/show_bug.cgi?id=1296898)
 
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
