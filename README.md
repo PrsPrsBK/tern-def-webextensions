@@ -122,6 +122,8 @@ Both are in `License` directory.
 
 * 2019-09-12 New: `memory` API
     [1296898](https://bugzilla.mozilla.org/show_bug.cgi?id=1296898)
+* 2019-09-26 Removal: 3 functions of `proxy` API
+    [1443259](https://bugzilla.mozilla.org/show_bug.cgi?id=1443259)
 
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

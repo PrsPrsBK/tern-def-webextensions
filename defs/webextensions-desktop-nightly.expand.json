@@ -3032,21 +3032,7 @@
       }
     },
     "proxy": {
-      "!doc": "Use the browser.proxy API to register proxy scripts in Firefox. Proxy scripts in Firefox are proxy auto-config files with extra contextual information and support for additional return types.",
-      "register": {
-        "!doc": "Registers the proxy script for the extension.",
-        "!type": "fn(url: string)",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/proxy/register"
-      },
-      "unregister": {
-        "!doc": "Unregisters the proxy script for the extension.",
-        "!type": "fn()",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/proxy/unregister"
-      },
-      "registerProxyScript": {
-        "!doc": "Registers the proxy script for the extension. This is an alias for proxy.register.",
-        "!type": "fn(url: string)"
-      },
+      "!doc": "Provides access to global proxy settings for Firefox and proxy event listeners to handle dynamic proxy implementations.",
       "onRequest": {
         "!doc": "Fired when proxy data is needed for a request.",
         "!type": "fn(details: object)",
