@@ -124,6 +124,9 @@ Both are in `License` directory.
     [1296898](https://bugzilla.mozilla.org/show_bug.cgi?id=1296898)
 * 2019-09-26 Removal: 3 functions of `proxy` API
     [1443259](https://bugzilla.mozilla.org/show_bug.cgi?id=1443259)
+* 2019-10-01 New `onResultPicked()` of`urlbar` API
+    [1578584](https://bugzilla.mozilla.org/show_bug.cgi?id=1578584)
+    [1579923](https://bugzilla.mozilla.org/show_bug.cgi?id=1579923)
 
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
