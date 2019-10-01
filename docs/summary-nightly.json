@@ -963,7 +963,7 @@
               "urlbar"
             ],
             "types": 4,
-            "events": 3
+            "events": 4
           },
           {
             "name": "urlbar.contextualTip",

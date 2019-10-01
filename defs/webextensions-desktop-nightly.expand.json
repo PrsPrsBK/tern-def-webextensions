@@ -2289,6 +2289,10 @@
       "type": {
         "!doc": "The result's type.",
         "!type": "+urlbar.ResultType"
+      },
+      "suggestedIndex": {
+        "!doc": "Suggest a preferred position for this result within the result set.",
+        "!type": "number"
       }
     },
     "urlbar.ResultType": {
@@ -4594,6 +4598,10 @@
       "onResultsRequested": {
         "!doc": "When a query starts, this event is fired for the given provider if the provider is active for the query and there are no other providers that are restricting. Its purpose is to request the provider's results for the query. The listener should return a list of results in response.",
         "!type": "fn(query: +urlbar.Query)"
+      },
+      "onResultPicked": {
+        "!doc": "Typically, a provider includes a <code>url</code> property in its results' payloads. When the user picks a result with a URL, Firefox automatically loads the URL. URLs don't make sense for every result type, however. When the user picks a result without a URL, this event is fired. The provider should take an appropriate action in response. Currently the only applicable <code>ResultType</code> is <code>tip</code>.",
+        "!type": "fn(payload: object, details: object)"
       },
       "openViewOnFocus": {
         "!doc": "Enables or disables the open-view-on-focus mode.",
