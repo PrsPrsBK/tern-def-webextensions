@@ -116,6 +116,7 @@ Both are in `License` directory.
     [1542403](https://bugzilla.mozilla.org/show_bug.cgi?id=1542403)
   * Change: icon of ContextualTip of `urlbar` API
     [1575972](https://bugzilla.mozilla.org/show_bug.cgi?id=1575972)
+* 2019-10-18 Firefox 71(Beta) - ver.0.12.1
   * New: `memory` API
     [1296898](https://bugzilla.mozilla.org/show_bug.cgi?id=1296898)
   * Removal: 3 functions of `proxy` API
