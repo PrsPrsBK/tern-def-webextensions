@@ -2289,13 +2289,17 @@
       "type": {
         "!doc": "The result's type.",
         "!type": "+urlbar.ResultType"
+      },
+      "suggestedIndex": {
+        "!doc": "Suggest a preferred position for this result within the result set.",
+        "!type": "number"
       }
     },
     "urlbar.ResultType": {
-      "!doc": "Possible types of results. <code>remote_tab</code>: A synced tab from another device. <code>search</code>: A search suggestion from a search engine. <code>tab</code>: An open tab in the browser. <code>url</code>: A URL that's not one of the other types."
+      "!doc": "Possible types of results. <code>remote_tab</code>: A synced tab from another device. <code>search</code>: A search suggestion from a search engine. <code>tab</code>: An open tab in the browser. <code>tip</code>: An actionable message to help the user with their query. <code>url</code>: A URL that's not one of the other types."
     },
     "urlbar.SourceType": {
-      "!doc": "Possible sources of results. <code>bookmarks</code>: The result comes from the user's bookmarks. <code>history</code>: The result comes from the user's history. <code>search</code>: The result comes from a search engine. <code>tabs</code>: The result is an open tab in the browser or a synced tab from another device. "
+      "!doc": "Possible sources of results. <code>bookmarks</code>: The result comes from the user's bookmarks. <code>history</code>: The result comes from the user's history. <code>local</code>: The result comes from some local source not covered by another source type. <code>network</code>: The result comes from some network source not covered by another source type. <code>search</code>: The result comes from a search engine. <code>tabs</code>: The result is an open tab in the browser or a synced tab from another device."
     },
     "urlbar.contextualTip.ContextualTip": {
       "!doc": "An object containing the path to an icon, the title, button title, and link title to set on the contextual tip.",
@@ -3017,21 +3021,7 @@
       }
     },
     "proxy": {
-      "!doc": "Use the browser.proxy API to register proxy scripts in Firefox. Proxy scripts in Firefox are proxy auto-config files with extra contextual information and support for additional return types.",
-      "register": {
-        "!doc": "Registers the proxy script for the extension.",
-        "!type": "fn(url: string)",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/proxy/register"
-      },
-      "unregister": {
-        "!doc": "Unregisters the proxy script for the extension.",
-        "!type": "fn()",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/proxy/unregister"
-      },
-      "registerProxyScript": {
-        "!doc": "Registers the proxy script for the extension. This is an alias for proxy.register.",
-        "!type": "fn(url: string)"
-      },
+      "!doc": "Provides access to global proxy settings for Firefox and proxy event listeners to handle dynamic proxy implementations.",
       "onRequest": {
         "!doc": "Fired when proxy data is needed for a request.",
         "!type": "fn(details: object)",
@@ -4593,6 +4583,10 @@
       "onResultsRequested": {
         "!doc": "When a query starts, this event is fired for the given provider if the provider is active for the query and there are no other providers that are restricting. Its purpose is to request the provider's results for the query. The listener should return a list of results in response.",
         "!type": "fn(query: +urlbar.Query)"
+      },
+      "onResultPicked": {
+        "!doc": "Typically, a provider includes a <code>url</code> property in its results' payloads. When the user picks a result with a URL, Firefox automatically loads the URL. URLs don't make sense for every result type, however. When the user picks a result without a URL, this event is fired. The provider should take an appropriate action in response. Currently the only applicable <code>ResultType</code> is <code>tip</code>.",
+        "!type": "fn(payload: object, details: object)"
       },
       "openViewOnFocus": {
         "!doc": "Enables or disables the open-view-on-focus mode.",

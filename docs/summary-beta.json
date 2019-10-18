@@ -347,7 +347,6 @@
               "proxy"
             ],
             "types": 1,
-            "functions": 3,
             "events": 3
           }
         ],
@@ -946,7 +945,7 @@
               "urlbar"
             ],
             "types": 4,
-            "events": 3
+            "events": 4
           },
           {
             "name": "urlbar.contextualTip",
