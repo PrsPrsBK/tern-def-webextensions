@@ -1177,6 +1177,7 @@
     },
     "userScripts.RegisteredUserScript": {
       "!doc": "An object that represents a user script registered programmatically",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/userScripts/RegisteredUserScript",
       "unregister": {
         "!doc": "Unregister a user script registered programmatically",
         "!type": "fn()"
