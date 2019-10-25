@@ -4587,7 +4587,7 @@
       },
       "onResultPicked": {
         "!doc": "Typically, a provider includes a <code>url</code> property in its results' payloads. When the user picks a result with a URL, Firefox automatically loads the URL. URLs don't make sense for every result type, however. When the user picks a result without a URL, this event is fired. The provider should take an appropriate action in response. Currently the only applicable <code>ResultType</code> is <code>tip</code>.",
-        "!type": "fn(payload: object, details: object)"
+        "!type": "fn(payload: object)"
       },
       "openViewOnFocus": {
         "!doc": "Enables or disables the open-view-on-focus mode.",

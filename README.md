@@ -121,7 +121,7 @@ Both are in `License` directory.
     [1296898](https://bugzilla.mozilla.org/show_bug.cgi?id=1296898)
   * Removal: 3 functions of `proxy` API
     [1443259](https://bugzilla.mozilla.org/show_bug.cgi?id=1443259)
-  * New `onResultPicked()` of`urlbar` API
+  * New: `onResultPicked()` of`urlbar` API
     [1578584](https://bugzilla.mozilla.org/show_bug.cgi?id=1578584)
     [1579923](https://bugzilla.mozilla.org/show_bug.cgi?id=1579923)
   * Remove: `memory` API
@@ -129,7 +129,9 @@ Both are in `License` directory.
 
 ## Nightly (Not released to npm)
 
-None
+  * 2019-10-25
+    Removal: `details` argument of `onResultPicked()` of`urlbar` API
+    [1582339](https://bugzilla.mozilla.org/show_bug.cgi?id=1582339)
 
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
