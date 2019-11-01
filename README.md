@@ -133,8 +133,10 @@ Both are in `License` directory.
   Removal: `details` argument of `onResultPicked()` of`urlbar` API
   [1582339](https://bugzilla.mozilla.org/show_bug.cgi?id=1582339)
 * 2019-11-01
-  New: `OnClickData`
+  New: `OnClickData` (only in definitions)
   [1405031](https://bugzilla.mozilla.org/show_bug.cgi?id=1405031)
-
+* 2019-11-01
+  New: `ftpProtocolEnabled` of `browserSettings`
+  [1592687](https://bugzilla.mozilla.org/show_bug.cgi?id=1592687)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
