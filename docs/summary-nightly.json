@@ -532,7 +532,7 @@
             "permissions": [
               "manifest:browser_action"
             ],
-            "types": 4,
+            "types": 5,
             "functions": 15,
             "events": 1
           }
@@ -793,7 +793,7 @@
         "namespaceList": [
           {
             "name": "manifest",
-            "types": 1
+            "types": 2
           },
           {
             "name": "pageAction",

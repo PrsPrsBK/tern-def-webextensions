@@ -129,9 +129,12 @@ Both are in `License` directory.
 
 ## Nightly (Not released to npm)
 
-  * 2019-10-25
-    Removal: `details` argument of `onResultPicked()` of`urlbar` API
-    [1582339](https://bugzilla.mozilla.org/show_bug.cgi?id=1582339)
+* 2019-10-25
+  Removal: `details` argument of `onResultPicked()` of`urlbar` API
+  [1582339](https://bugzilla.mozilla.org/show_bug.cgi?id=1582339)
+* 2019-11-01
+  New: `OnClickData`
+  [1405031](https://bugzilla.mozilla.org/show_bug.cgi?id=1405031)
 
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

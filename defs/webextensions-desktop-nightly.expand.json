@@ -1482,6 +1482,17 @@
     "browserAction.ColorValue": {
       "!doc": "An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is <code>[255, 0, 0, 255]</code>. Can also be a string with a CSS value, with opaque red being <code>#FF0000</code> or <code>#F00</code>."
     },
+    "browserAction.OnClickData": {
+      "!doc": "Information sent when a browser action is clicked.",
+      "modifiers": {
+        "!doc": "An array of keyboard modifiers that were held while the menu item was clicked.",
+        "!type": "[string]"
+      },
+      "button": {
+        "!doc": "An integer value of button by which menu item was clicked.",
+        "!type": "number"
+      }
+    },
     "browsingData.RemovalOptions": {
       "!doc": "Options that determine exactly what data will be removed.",
       "since": {
@@ -3677,7 +3688,7 @@
       },
       "onClicked": {
         "!doc": "Fired when a browser action icon is clicked.  This event will not fire if the browser action has a popup.",
-        "!type": "fn(tab: +tabs.Tab)",
+        "!type": "fn(tab: +tabs.Tab, info: +browserAction.OnClickData)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browserAction/onClicked"
       }
     },
@@ -4132,7 +4143,7 @@
       },
       "onClicked": {
         "!doc": "Fired when a page action icon is clicked.  This event will not fire if the page action has a popup.",
-        "!type": "fn(tab: +tabs.Tab)",
+        "!type": "fn(tab: +tabs.Tab, info: +pageAction.OnClickData)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/pageAction/onClicked"
       }
     },
