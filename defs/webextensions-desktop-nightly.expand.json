@@ -943,6 +943,10 @@
       "proxyDNS": {
         "!doc": "Proxy DNS when using SOCKS v5.",
         "!type": "bool"
+      },
+      "respectBeConservative": {
+        "!doc": " If true (the default value), do not use newer TLS protocol features that might have interoperability problems on the Internet. This is intended only for use with critical infrastructure like the updates, and is only available to privileged addons.",
+        "!type": "bool"
       }
     },
     "runtime.Port": {

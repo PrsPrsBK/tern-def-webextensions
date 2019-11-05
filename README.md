@@ -141,5 +141,8 @@ Both are in `License` directory.
 * 2019-11-03
   New: `canonicalURL` of `captivePortal`
   [1592932](https://bugzilla.mozilla.org/show_bug.cgi?id=1592932)
+* 2019-11-06
+  New: `respectBeConservative` of `proxy.ProxyConfig`
+  [1593651](https://bugzilla.mozilla.org/show_bug.cgi?id=1593651)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
