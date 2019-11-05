@@ -3782,6 +3782,10 @@
       "onConnectivityAvailable": {
         "!doc": "This notification will be emitted when the captive portal service has determined that we can connect to the internet. The service will pass either `captive` if there is an unlocked captive portal present, or `clear` if no captive portal was detected.",
         "!type": "fn(status: string)"
+      },
+      "canonicalURL": {
+        "!doc": "Return the canonical captive-portal detection URL. Read-only.",
+        "!type": "+types.Setting"
       }
     },
     "commands": {

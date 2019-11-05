@@ -138,5 +138,8 @@ Both are in `License` directory.
 * 2019-11-01
   New: `ftpProtocolEnabled` of `browserSettings`
   [1592687](https://bugzilla.mozilla.org/show_bug.cgi?id=1592687)
+* 2019-11-03
+  New: `canonicalURL` of `captivePortal`
+  [1592932](https://bugzilla.mozilla.org/show_bug.cgi?id=1592932)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
