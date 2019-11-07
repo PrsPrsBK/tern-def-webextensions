@@ -18,7 +18,7 @@ Begin {
     throw "hg does not exist on the PATH."
   }
   if($SkipFetch) {
-    Write-Host "Skip 1st phase: no fetch from remote."
+    Write-Host "Skip 1st phase: no fetch from remote." -ForegroundColor Cyan
   }
   else {
     $goPull = $true
@@ -46,7 +46,7 @@ Begin {
       Start-Process -FilePath "hg" -ArgumentList "pull -u -R $mozillaRepo" -NoNewWindow -PassThru | Wait-Process
     }
   }
-  Write-Host "Next phase: check if we need to update or not."
+  Write-Host "Next phase: check if we need to update or not." -ForegroundColor Cyan
 }
 
 Process {
