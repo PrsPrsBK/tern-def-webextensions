@@ -144,5 +144,8 @@ Both are in `License` directory.
 * 2019-11-06
   New: `respectBeConservative` of `proxy.ProxyConfig`
   [1593651](https://bugzilla.mozilla.org/show_bug.cgi?id=1593651)
+* 2019-11-08
+  Removal: `onProxyError()` of `proxy` API
+  [1594710](https://bugzilla.mozilla.org/show_bug.cgi?id=1594710)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
