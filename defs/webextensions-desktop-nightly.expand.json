@@ -4592,6 +4592,10 @@
     },
     "urlbar": {
       "!doc": "Use the <code>browser.urlbar</code> API to experiment with new features in the URLBar. Restricted to Mozilla privileged WebExtensions.",
+      "search": {
+        "!doc": "Starts a search in the urlbar in the current window.",
+        "!type": "fn(searchString: string)"
+      },
       "onBehaviorRequested": {
         "!doc": "Before a query starts, this event is fired for the given provider. Its purpose is to request the provider's behavior for the query. The listener should return a behavior in response. By default, providers are inactive, so if your provider should always be inactive, you don't need to listen for this event.",
         "!type": "fn(query: +urlbar.Query)"
