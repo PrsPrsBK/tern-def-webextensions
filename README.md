@@ -128,6 +128,9 @@ Both are in `License` directory.
 * 2019-11-07 Firefox 71(Beta) - ver.0.12.2
   * Removal: `details` argument of `onResultPicked()` of `urlbar` API
     [1582339](https://bugzilla.mozilla.org/show_bug.cgi?id=1582339)
+* 2019-11-12 Firefox 71(Beta) - ver.0.12.3
+  * New: `search()` of `urlbar` API
+    [1590461](https://bugzilla.mozilla.org/show_bug.cgi?id=1590461)
 
 
 ## Nightly (Not released to npm)
@@ -147,8 +150,6 @@ Both are in `License` directory.
 * 2019-11-08
   Removal: `onProxyError()` of `proxy` API
   [1594710](https://bugzilla.mozilla.org/show_bug.cgi?id=1594710)
-* 2019-11-10
-  New: `search()` of `urlbar` API
-  [1590461](https://bugzilla.mozilla.org/show_bug.cgi?id=1590461)
+
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
