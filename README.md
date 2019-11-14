@@ -150,6 +150,11 @@ Both are in `License` directory.
 * 2019-11-08
   Removal: `onProxyError()` of `proxy` API
   [1594710](https://bugzilla.mozilla.org/show_bug.cgi?id=1594710)
-
+* 2019-11-15
+  * New: `focus()` of `urlbar` API
+    and `options` argument of `search()` of `urlbar` API
+    [1595641](https://bugzilla.mozilla.org/show_bug.cgi?id=1595641)
+  * New: `closeView()` of `urlbar` API
+    [1595985](https://bugzilla.mozilla.org/show_bug.cgi?id=1595985)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
