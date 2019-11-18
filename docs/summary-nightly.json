@@ -521,7 +521,7 @@
         "license": "BSD"
       },
       {
-        "file": "browser/components/extensions/schemas/browser_action.json",
+        "file": "toolkit/components/extensions/schemas/browser_action.json",
         "namespaceList": [
           {
             "name": "manifest",
@@ -789,7 +789,7 @@
         "license": "BSD"
       },
       {
-        "file": "browser/components/extensions/schemas/page_action.json",
+        "file": "toolkit/components/extensions/schemas/page_action.json",
         "namespaceList": [
           {
             "name": "manifest",

@@ -156,5 +156,8 @@ Both are in `License` directory.
     [1595641](https://bugzilla.mozilla.org/show_bug.cgi?id=1595641)
   * New: `closeView()` of `urlbar` API
     [1595985](https://bugzilla.mozilla.org/show_bug.cgi?id=1595985)
+* 2019-11-19
+  * Move(No Change on the schema file): `browserAction` and `pageAction` API from `browser` to `toolkit`
+    [1530402](https://bugzilla.mozilla.org/show_bug.cgi?id=1530402), especially [this](https://phabricator.services.mozilla.com/D49041)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
