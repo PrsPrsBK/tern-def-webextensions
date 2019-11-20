@@ -3287,6 +3287,18 @@
         "!doc": "Sets the scalar to the maximum of the current and the passed value",
         "!type": "fn(name: string, value: number)"
       },
+      "keyedScalarAdd": {
+        "!doc": "Adds the value to the given keyed scalar.",
+        "!type": "fn(name: string, key: string, value: number)"
+      },
+      "keyedScalarSet": {
+        "!doc": "Sets the keyed scalar to the given value. Throws if the value type doesn't match the scalar type.",
+        "!type": "fn(name: string, key: string, value?: string, value?: bool, value?: number, value?: object)"
+      },
+      "keyedScalarSetMaximum": {
+        "!doc": "Sets the keyed scalar to the maximum of the current and the passed value",
+        "!type": "fn(name: string, key: string, value: number)"
+      },
       "recordEvent": {
         "!doc": "Record an event in Telemetry. Throws when trying to record an unknown event.",
         "!type": "fn(category: string, method: string, object: string, value: string, extra: object)"
