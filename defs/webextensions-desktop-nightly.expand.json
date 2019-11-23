@@ -1911,6 +1911,17 @@
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element).",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/pageAction/ImageDataType"
     },
+    "pageAction.OnClickData": {
+      "!doc": "Information sent when a page action is clicked.",
+      "modifiers": {
+        "!doc": "An array of keyboard modifiers that were held while the menu item was clicked.",
+        "!type": "[string]"
+      },
+      "button": {
+        "!doc": "An integer value of button by which menu item was clicked.",
+        "!type": "number"
+      }
+    },
     "search.SearchEngine": {
       "!doc": "An object encapsulating a search engine",
       "name": {
@@ -3318,6 +3329,10 @@
     },
     "test": {
       "!doc": "none",
+      "withHandlingUserInput": {
+        "!doc": "Calls the callback function wrapped with user input set.  This is only used for internal unit testing.",
+        "!type": "fn(callback: fn())"
+      },
       "notifyFail": {
         "!doc": "Notifies the browser process that test code running in the extension failed.  This is only used for internal unit testing.",
         "!type": "fn(message: string)"

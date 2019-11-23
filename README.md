@@ -162,5 +162,10 @@ Both are in `License` directory.
 * 2019-11-20
   New: `keyedScalarAdd()/Set()/SetMaximum()` of `telemetry` API
   [1596661](https://bugzilla.mozilla.org/show_bug.cgi?id=1596661)
+* 2019-11-24
+  * New: `OnClickData` (fix for #1405031)
+    [1595931](https://bugzilla.mozilla.org/show_bug.cgi?id=1595931)
+  * New: `withHandlingUserInput()` of `test` API
+    [1594786](https://bugzilla.mozilla.org/show_bug.cgi?id=1594786)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

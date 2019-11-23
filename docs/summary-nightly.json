@@ -406,7 +406,7 @@
           {
             "name": "test",
             "types": 2,
-            "functions": 15,
+            "functions": 16,
             "events": 1
           }
         ],
@@ -793,14 +793,14 @@
         "namespaceList": [
           {
             "name": "manifest",
-            "types": 2
+            "types": 1
           },
           {
             "name": "pageAction",
             "permissions": [
               "manifest:page_action"
             ],
-            "types": 1,
+            "types": 2,
             "functions": 9,
             "events": 1
           }
