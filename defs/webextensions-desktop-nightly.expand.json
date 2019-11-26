@@ -2285,6 +2285,9 @@
         "!type": "string"
       }
     },
+    "urlbar.EngagementState": {
+      "!doc": "The state of an engagement made with the urlbar by the user. <code>start</code>: The user has started an engagement. <code>engagement</code>: The user has completed an engagement by picking a result. <code>abandonment</code>: The user has abandoned their engagement, for example by blurring the urlbar. <code>discard</code>: The engagement ended in a way that should be ignored by listeners."
+    },
     "urlbar.Query": {
       "!doc": "A query performed in the urlbar.",
       "isPrivate": {
@@ -4641,6 +4644,10 @@
       "onBehaviorRequested": {
         "!doc": "Before a query starts, this event is fired for the given provider. Its purpose is to request the provider's behavior for the query. The listener should return a behavior in response. By default, providers are inactive, so if your provider should always be inactive, you don't need to listen for this event.",
         "!type": "fn(query: +urlbar.Query)"
+      },
+      "onEngagement": {
+        "!doc": "This event is fired when the user starts and ends an engagement with the urlbar.",
+        "!type": "fn(state: +urlbar.EngagementState)"
       },
       "onQueryCanceled": {
         "!doc": "This event is fired for the given provider when a query is canceled. The listener should stop any ongoing fetch or creation of results and clean up its resources.",

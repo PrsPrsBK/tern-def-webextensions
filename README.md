@@ -167,5 +167,8 @@ Both are in `License` directory.
     [1595931](https://bugzilla.mozilla.org/show_bug.cgi?id=1595931)
   * New: `withHandlingUserInput()` of `test` API
     [1594786](https://bugzilla.mozilla.org/show_bug.cgi?id=1594786)
+* 2019-11-27
+  * New: `onEngagement()` of `urlbar` API
+    [1597610](https://bugzilla.mozilla.org/show_bug.cgi?id=1597610)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

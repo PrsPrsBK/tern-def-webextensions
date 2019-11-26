@@ -944,9 +944,9 @@
             "permissions": [
               "urlbar"
             ],
-            "types": 5,
+            "types": 6,
             "functions": 3,
-            "events": 4
+            "events": 5
           },
           {
             "name": "urlbar.contextualTip",
