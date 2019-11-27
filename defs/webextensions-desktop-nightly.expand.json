@@ -884,6 +884,17 @@
     "privacy.network.IPHandlingPolicy": {
       "!doc": "The IP handling policy of WebRTC."
     },
+    "privacy.network.tlsVersionRestrictionConfig": {
+      "!doc": "An object which describes TLS minimum and maximum versions.",
+      "minimum": {
+        "!doc": "The minimum TLS version supported.",
+        "!type": "string"
+      },
+      "maximum": {
+        "!doc": "The maximum TLS version supported.",
+        "!type": "string"
+      }
+    },
     "privacy.websites.TrackingProtectionModeOption": {
       "!doc": "The mode for tracking protection."
     },
@@ -3015,6 +3026,10 @@
         },
         "webRTCIPHandlingPolicy": {
           "!doc": "Allow users to specify the media performance/privacy tradeoffs which impacts how WebRTC traffic will be routed and how much local address information is exposed. This preference's value is of type IPHandlingPolicy, defaulting to <code>default</code>.",
+          "!type": "+types.Setting"
+        },
+        "tlsVersionRestriction": {
+          "!doc": "This property controls the minimum and maximum TLS versions. This setting's value is an object of $(ref:tlsVersionRestrictionConfig).",
           "!type": "+types.Setting"
         }
       },

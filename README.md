@@ -170,5 +170,8 @@ Both are in `License` directory.
 * 2019-11-27
   * New: `onEngagement()` of `urlbar` API
     [1597610](https://bugzilla.mozilla.org/show_bug.cgi?id=1597610)
+* 2019-11-27
+  * New: `tlsVersionRestriction` of `privacy.network` API
+    [1593635](https://bugzilla.mozilla.org/show_bug.cgi?id=1593635)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
