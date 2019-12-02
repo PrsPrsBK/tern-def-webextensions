@@ -131,47 +131,36 @@ Both are in `License` directory.
 * 2019-11-12 Firefox 71(Beta) - ver.0.12.3
   * New: `search()` of `urlbar` API
     [1590461](https://bugzilla.mozilla.org/show_bug.cgi?id=1590461)
-
-
-## Nightly (Not released to npm)
-
-* 2019-11-01
-  New: `OnClickData` (only in definitions)
-  [1405031](https://bugzilla.mozilla.org/show_bug.cgi?id=1405031)
-* 2019-11-01
-  New: `ftpProtocolEnabled` of `browserSettings`
-  [1592687](https://bugzilla.mozilla.org/show_bug.cgi?id=1592687)
-* 2019-11-03
-  New: `canonicalURL` of `captivePortal`
-  [1592932](https://bugzilla.mozilla.org/show_bug.cgi?id=1592932)
-* 2019-11-06
-  New: `respectBeConservative` of `proxy.ProxyConfig`
-  [1593651](https://bugzilla.mozilla.org/show_bug.cgi?id=1593651)
-* 2019-11-08
-  Removal: `onProxyError()` of `proxy` API
-  [1594710](https://bugzilla.mozilla.org/show_bug.cgi?id=1594710)
-* 2019-11-15
+* 2019-12-03 Firefox 72(Beta) - ver.0.13.0
+  * New: `OnClickData` (only in definitions)
+    [1405031](https://bugzilla.mozilla.org/show_bug.cgi?id=1405031)
+  * New: `ftpProtocolEnabled` of `browserSettings`
+    [1592687](https://bugzilla.mozilla.org/show_bug.cgi?id=1592687)
+  * New: `canonicalURL` of `captivePortal`
+    [1592932](https://bugzilla.mozilla.org/show_bug.cgi?id=1592932)
+  * New: `respectBeConservative` of `proxy.ProxyConfig`
+    [1593651](https://bugzilla.mozilla.org/show_bug.cgi?id=1593651)
+  * Removal: `onProxyError()` of `proxy` API
+    [1594710](https://bugzilla.mozilla.org/show_bug.cgi?id=1594710)
   * New: `focus()` of `urlbar` API
     and `options` argument of `search()` of `urlbar` API
     [1595641](https://bugzilla.mozilla.org/show_bug.cgi?id=1595641)
   * New: `closeView()` of `urlbar` API
     [1595985](https://bugzilla.mozilla.org/show_bug.cgi?id=1595985)
-* 2019-11-19
   * Move(No Change on the schema file): `browserAction` and `pageAction` API from `browser` to `toolkit`
     [1530402](https://bugzilla.mozilla.org/show_bug.cgi?id=1530402), especially [this](https://phabricator.services.mozilla.com/D49041)
-* 2019-11-20
-  New: `keyedScalarAdd()/Set()/SetMaximum()` of `telemetry` API
-  [1596661](https://bugzilla.mozilla.org/show_bug.cgi?id=1596661)
-* 2019-11-24
-  * New: `OnClickData` (fix for #1405031)
+  * New: `keyedScalarAdd()/Set()/SetMaximum()` of `telemetry` API
+    [1596661](https://bugzilla.mozilla.org/show_bug.cgi?id=1596661)
+  * New: `OnClickData` added as argument of `onClicked()` of `browserAction` API and `pageAction` API (fix for #1405031)
     [1595931](https://bugzilla.mozilla.org/show_bug.cgi?id=1595931)
   * New: `withHandlingUserInput()` of `test` API
     [1594786](https://bugzilla.mozilla.org/show_bug.cgi?id=1594786)
-* 2019-11-27
   * New: `onEngagement()` of `urlbar` API
     [1597610](https://bugzilla.mozilla.org/show_bug.cgi?id=1597610)
-* 2019-11-27
   * New: `tlsVersionRestriction` of `privacy.network` API
     [1593635](https://bugzilla.mozilla.org/show_bug.cgi?id=1593635)
+
+
+## Nightly (Not released to npm)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
