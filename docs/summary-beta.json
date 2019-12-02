@@ -306,7 +306,7 @@
             "permissions": [
               "privacy"
             ],
-            "types": 1
+            "types": 2
           },
           {
             "name": "privacy.services",
@@ -347,7 +347,7 @@
               "proxy"
             ],
             "types": 1,
-            "events": 3
+            "events": 2
           }
         ],
         "license": "None"
@@ -395,7 +395,7 @@
               "telemetry"
             ],
             "types": 3,
-            "functions": 9
+            "functions": 12
           }
         ],
         "license": "None"
@@ -406,7 +406,7 @@
           {
             "name": "test",
             "types": 2,
-            "functions": 15,
+            "functions": 16,
             "events": 1
           }
         ],
@@ -521,7 +521,7 @@
         "license": "BSD"
       },
       {
-        "file": "browser/components/extensions/schemas/browser_action.json",
+        "file": "toolkit/components/extensions/schemas/browser_action.json",
         "namespaceList": [
           {
             "name": "manifest",
@@ -532,7 +532,7 @@
             "permissions": [
               "manifest:browser_action"
             ],
-            "types": 4,
+            "types": 5,
             "functions": 15,
             "events": 1
           }
@@ -789,7 +789,7 @@
         "license": "BSD"
       },
       {
-        "file": "browser/components/extensions/schemas/page_action.json",
+        "file": "toolkit/components/extensions/schemas/page_action.json",
         "namespaceList": [
           {
             "name": "manifest",
@@ -800,7 +800,7 @@
             "permissions": [
               "manifest:page_action"
             ],
-            "types": 1,
+            "types": 2,
             "functions": 9,
             "events": 1
           }
@@ -944,9 +944,9 @@
             "permissions": [
               "urlbar"
             ],
-            "types": 4,
-            "functions": 1,
-            "events": 4
+            "types": 6,
+            "functions": 3,
+            "events": 5
           },
           {
             "name": "urlbar.contextualTip",

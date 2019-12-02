@@ -884,6 +884,17 @@
     "privacy.network.IPHandlingPolicy": {
       "!doc": "The IP handling policy of WebRTC."
     },
+    "privacy.network.tlsVersionRestrictionConfig": {
+      "!doc": "An object which describes TLS minimum and maximum versions.",
+      "minimum": {
+        "!doc": "The minimum TLS version supported.",
+        "!type": "string"
+      },
+      "maximum": {
+        "!doc": "The maximum TLS version supported.",
+        "!type": "string"
+      }
+    },
     "privacy.websites.TrackingProtectionModeOption": {
       "!doc": "The mode for tracking protection."
     },
@@ -942,6 +953,10 @@
       },
       "proxyDNS": {
         "!doc": "Proxy DNS when using SOCKS v5.",
+        "!type": "bool"
+      },
+      "respectBeConservative": {
+        "!doc": " If true (the default value), do not use newer TLS protocol features that might have interoperability problems on the Internet. This is intended only for use with critical infrastructure like the updates, and is only available to privileged addons.",
         "!type": "bool"
       }
     },
@@ -1380,11 +1395,11 @@
     },
     "webRequest.UrlClassification": {
       "firstParty": {
-        "!doc": "First party classification flags if the request has been classified.",
+        "!doc": "Classification flags if the request has been classified and it is first party.",
         "!type": "+webRequest.UrlClassificationParty"
       },
       "thirdParty": {
-        "!doc": "Third party classification flags if the request has been classified.",
+        "!doc": "Classification flags if the request has been classified and it or its window hierarchy is third party.",
         "!type": "+webRequest.UrlClassificationParty"
       }
     },
@@ -1481,6 +1496,17 @@
     },
     "browserAction.ColorValue": {
       "!doc": "An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is <code>[255, 0, 0, 255]</code>. Can also be a string with a CSS value, with opaque red being <code>#FF0000</code> or <code>#F00</code>."
+    },
+    "browserAction.OnClickData": {
+      "!doc": "Information sent when a browser action is clicked.",
+      "modifiers": {
+        "!doc": "An array of keyboard modifiers that were held while the menu item was clicked.",
+        "!type": "[string]"
+      },
+      "button": {
+        "!doc": "An integer value of button by which menu item was clicked.",
+        "!type": "number"
+      }
     },
     "browsingData.RemovalOptions": {
       "!doc": "Options that determine exactly what data will be removed.",
@@ -1896,6 +1922,17 @@
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element).",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/pageAction/ImageDataType"
     },
+    "pageAction.OnClickData": {
+      "!doc": "Information sent when a page action is clicked.",
+      "modifiers": {
+        "!doc": "An array of keyboard modifiers that were held while the menu item was clicked.",
+        "!type": "[string]"
+      },
+      "button": {
+        "!doc": "An integer value of button by which menu item was clicked.",
+        "!type": "number"
+      }
+    },
     "search.SearchEngine": {
       "!doc": "An object encapsulating a search engine",
       "name": {
@@ -2259,6 +2296,9 @@
         "!type": "string"
       }
     },
+    "urlbar.EngagementState": {
+      "!doc": "The state of an engagement made with the urlbar by the user. <code>start</code>: The user has started an engagement. <code>engagement</code>: The user has completed an engagement by picking a result. <code>abandonment</code>: The user has abandoned their engagement, for example by blurring the urlbar. <code>discard</code>: The engagement ended in a way that should be ignored by listeners."
+    },
     "urlbar.Query": {
       "!doc": "A query performed in the urlbar.",
       "isPrivate": {
@@ -2298,6 +2338,13 @@
     },
     "urlbar.ResultType": {
       "!doc": "Possible types of results. <code>remote_tab</code>: A synced tab from another device. <code>search</code>: A search suggestion from a search engine. <code>tab</code>: An open tab in the browser. <code>tip</code>: An actionable message to help the user with their query. <code>url</code>: A URL that's not one of the other types."
+    },
+    "urlbar.SearchOptions": {
+      "!doc": "Options to the <code>search</code> function.",
+      "focus": {
+        "!doc": "Whether to focus the input field and select its contents.",
+        "!type": "bool"
+      }
     },
     "urlbar.SourceType": {
       "!doc": "Possible sources of results. <code>bookmarks</code>: The result comes from the user's bookmarks. <code>history</code>: The result comes from the user's history. <code>local</code>: The result comes from some local source not covered by another source type. <code>network</code>: The result comes from some network source not covered by another source type. <code>search</code>: The result comes from a search engine. <code>tabs</code>: The result is an open tab in the browser or a synced tab from another device."
@@ -2473,6 +2520,10 @@
         "!doc": "Controls after which mouse event context menus popup. This setting's value is of type ContextMenuMouseEvent, which has possible values of <code>mouseup</code> and <code>mousedown</code>.",
         "!type": "+types.Setting",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browserSettings/contextMenuShowEvent"
+      },
+      "ftpProtocolEnabled": {
+        "!doc": "This boolean setting controls whether the FTP protocol is enabled.",
+        "!type": "+types.Setting"
       },
       "homepageOverride": {
         "!doc": "Returns the value of the overridden home page. Read-only.",
@@ -2976,6 +3027,10 @@
         "webRTCIPHandlingPolicy": {
           "!doc": "Allow users to specify the media performance/privacy tradeoffs which impacts how WebRTC traffic will be routed and how much local address information is exposed. This preference's value is of type IPHandlingPolicy, defaulting to <code>default</code>.",
           "!type": "+types.Setting"
+        },
+        "tlsVersionRestriction": {
+          "!doc": "This property controls the minimum and maximum TLS versions. This setting's value is an object of $(ref:tlsVersionRestrictionConfig).",
+          "!type": "+types.Setting"
         }
       },
       "services": {
@@ -3032,10 +3087,6 @@
         "!doc": "Notifies about errors caused by the invalid use of the proxy API.",
         "!type": "fn(error: object)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/proxy/onError"
-      },
-      "onProxyError": {
-        "!doc": "Please use $(ref:proxy.onError).",
-        "!type": "fn(error: object)"
       },
       "settings": {
         "!doc": "Configures proxy settings. This setting's value is an object of type ProxyConfig.",
@@ -3265,6 +3316,18 @@
         "!doc": "Sets the scalar to the maximum of the current and the passed value",
         "!type": "fn(name: string, value: number)"
       },
+      "keyedScalarAdd": {
+        "!doc": "Adds the value to the given keyed scalar.",
+        "!type": "fn(name: string, key: string, value: number)"
+      },
+      "keyedScalarSet": {
+        "!doc": "Sets the keyed scalar to the given value. Throws if the value type doesn't match the scalar type.",
+        "!type": "fn(name: string, key: string, value?: string, value?: bool, value?: number, value?: object)"
+      },
+      "keyedScalarSetMaximum": {
+        "!doc": "Sets the keyed scalar to the maximum of the current and the passed value",
+        "!type": "fn(name: string, key: string, value: number)"
+      },
       "recordEvent": {
         "!doc": "Record an event in Telemetry. Throws when trying to record an unknown event.",
         "!type": "fn(category: string, method: string, object: string, value: string, extra: object)"
@@ -3284,6 +3347,10 @@
     },
     "test": {
       "!doc": "none",
+      "withHandlingUserInput": {
+        "!doc": "Calls the callback function wrapped with user input set.  This is only used for internal unit testing.",
+        "!type": "fn(callback: fn())"
+      },
       "notifyFail": {
         "!doc": "Notifies the browser process that test code running in the extension failed.  This is only used for internal unit testing.",
         "!type": "fn(message: string)"
@@ -3677,7 +3744,7 @@
       },
       "onClicked": {
         "!doc": "Fired when a browser action icon is clicked.  This event will not fire if the browser action has a popup.",
-        "!type": "fn(tab: +tabs.Tab)",
+        "!type": "fn(tab: +tabs.Tab, info: +browserAction.OnClickData)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browserAction/onClicked"
       }
     },
@@ -3767,6 +3834,10 @@
       "onConnectivityAvailable": {
         "!doc": "This notification will be emitted when the captive portal service has determined that we can connect to the internet. The service will pass either `captive` if there is an unlocked captive portal present, or `clear` if no captive portal was detected.",
         "!type": "fn(status: string)"
+      },
+      "canonicalURL": {
+        "!doc": "Return the canonical captive-portal detection URL. Read-only.",
+        "!type": "+types.Setting"
       }
     },
     "commands": {
@@ -4132,7 +4203,7 @@
       },
       "onClicked": {
         "!doc": "Fired when a page action icon is clicked.  This event will not fire if the page action has a popup.",
-        "!type": "fn(tab: +tabs.Tab)",
+        "!type": "fn(tab: +tabs.Tab, info: +pageAction.OnClickData)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/pageAction/onClicked"
       }
     },
@@ -4573,13 +4644,25 @@
     },
     "urlbar": {
       "!doc": "Use the <code>browser.urlbar</code> API to experiment with new features in the URLBar. Restricted to Mozilla privileged WebExtensions.",
+      "closeView": {
+        "!doc": "Closes the urlbar view in the current window.",
+        "!type": "fn()"
+      },
+      "focus": {
+        "!doc": "Focuses the urlbar in the current window.",
+        "!type": "fn(select: bool)"
+      },
       "search": {
         "!doc": "Starts a search in the urlbar in the current window.",
-        "!type": "fn(searchString: string)"
+        "!type": "fn(searchString: string, options: +urlbar.SearchOptions)"
       },
       "onBehaviorRequested": {
         "!doc": "Before a query starts, this event is fired for the given provider. Its purpose is to request the provider's behavior for the query. The listener should return a behavior in response. By default, providers are inactive, so if your provider should always be inactive, you don't need to listen for this event.",
         "!type": "fn(query: +urlbar.Query)"
+      },
+      "onEngagement": {
+        "!doc": "This event is fired when the user starts and ends an engagement with the urlbar.",
+        "!type": "fn(state: +urlbar.EngagementState)"
       },
       "onQueryCanceled": {
         "!doc": "This event is fired for the given provider when a query is canceled. The listener should stop any ongoing fetch or creation of results and clean up its resources.",
