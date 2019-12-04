@@ -2313,7 +2313,7 @@
         "!doc": "The query's search string.",
         "!type": "string"
       },
-      "acceptableSources": {
+      "sources": {
         "!doc": "List of acceptable source types to return.",
         "!type": "[+urlbar.SourceType]"
       }
