@@ -4390,6 +4390,10 @@
         "!type": "fn()",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/sidebarAction/close"
       },
+      "toggle": {
+        "!doc": "Toggles the extension sidebar in the active window.",
+        "!type": "fn()"
+      },
       "isOpen": {
         "!doc": "Checks whether the sidebar action is open.",
         "!type": "fn(details: object)",
