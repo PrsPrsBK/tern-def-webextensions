@@ -169,5 +169,8 @@ Both are in `License` directory.
 * 2019-12-11
   * New: `toggle()` of `sidebar` API
     [1453355](https://bugzilla.mozilla.org/show_bug.cgi?id=1453355)
+* 2019-12-16
+  * Removal: `urlbar.contextualTip` including 2 functions and 2 events
+    [1590450](https://bugzilla.mozilla.org/show_bug.cgi?id=1590450)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
