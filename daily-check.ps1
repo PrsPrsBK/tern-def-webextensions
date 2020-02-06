@@ -70,6 +70,14 @@ Process {
     | Add-Content $log
   } | Wait-Job | Receive-Job | Remove-Job
 
+  $separator | Add-Content $cset_today
+
+  Start-Job -ArgumentList $MozillaRepo, $cset_today -ScriptBlock {
+    Param($repo, $log)
+    hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/manifest.json") --removed --template status `
+    | Add-Content $log
+  } | Wait-Job | Receive-Job | Remove-Job
+
   if(Test-Path -Path $cset_pubed) {
     if(Compare-Object (Get-Content $cset_pubed) (Get-Content $cset_today)) {
       Write-Host "Result: May need to UPDATE!!!!!!!!!!!" -ForegroundColor Magenta
