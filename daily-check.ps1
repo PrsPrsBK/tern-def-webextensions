@@ -53,6 +53,7 @@ Process {
   $script_path =  (Split-Path -Parent $MyInvocation.MyCommand.Path)
   $cset_pubed =  (Join-Path -Path $script_path -ChildPath "cset_pubed.log")
   $cset_today =  (Join-Path -Path $script_path -ChildPath "cset.log")
+  $separator = "================================================================================"
 
   New-Item $cset_today -ItemType File -Force | Out-Null
   Start-Job -ArgumentList $mozillaRepo, $cset_today -ScriptBlock {
@@ -60,6 +61,8 @@ Process {
     hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/*.json") -X (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/manifest.json") --removed --template status `
     | Add-Content $log
   } | Wait-Job | Receive-Job | Remove-Job
+
+  $separator | Add-Content $cset_today
 
   Start-Job -ArgumentList $mozillaRepo, $cset_today -ScriptBlock {
     Param($repo, $log)
