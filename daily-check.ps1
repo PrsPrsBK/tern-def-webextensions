@@ -54,15 +54,17 @@ Process {
   $cset_pubed =  (Join-Path -Path $script_path -ChildPath "cset_pubed.log")
   $cset_today =  (Join-Path -Path $script_path -ChildPath "cset.log")
 
+  New-Item $cset_today -ItemType File -Force | Out-Null
   Start-Job -ArgumentList $mozillaRepo, $cset_today -ScriptBlock {
     Param($repo, $log)
-    hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/*.json") -X (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/manifest.json") --removed --template status > $log
+    hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/*.json") -X (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/manifest.json") --removed --template status `
+    | Add-Content $log
   } | Wait-Job | Receive-Job | Remove-Job
 
   Start-Job -ArgumentList $mozillaRepo, $cset_today -ScriptBlock {
     Param($repo, $log)
-    # append !!!!!!!!!
-    hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/browser/components/extensions/schemas/*.json") --removed --template status >> $log
+    hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/browser/components/extensions/schemas/*.json") --removed --template status `
+    | Add-Content $log
   } | Wait-Job | Receive-Job | Remove-Job
 
   if(Test-Path -Path $cset_pubed) {
