@@ -160,20 +160,18 @@ Both are in `License` directory.
   * New: `tlsVersionRestriction` of `privacy.network` API
     [1593635](https://bugzilla.mozilla.org/show_bug.cgi?id=1593635)
 
+* 2020-01-07 Firefox 73(Beta) - ver.0.14.0 (NO RELEASE to npm)
+
+  * Rename: `acceptableSources` to `sources` of `urlbar.Query` definitiion
+    [1599839](https://bugzilla.mozilla.org/show_bug.cgi?id=1599839)
+  * New: `toggle()` of `sidebar` API
+    [1453355](https://bugzilla.mozilla.org/show_bug.cgi?id=1453355)
+  * Removal: `urlbar.contextualTip` including 2 functions and 2 events
+    [1590450](https://bugzilla.mozilla.org/show_bug.cgi?id=1590450)
+  * Removal: `openViewOnFocus` of `urlbar` API
+    [1605958](https://bugzilla.mozilla.org/show_bug.cgi?id=1605958)
 
 ## Nightly (Not released to npm)
 
-* 2019-12-04
-  * Rename: `acceptableSources` to `sources` of `urlbar.Query` definitiion
-    [1599839](https://bugzilla.mozilla.org/show_bug.cgi?id=1599839)
-* 2019-12-11
-  * New: `toggle()` of `sidebar` API
-    [1453355](https://bugzilla.mozilla.org/show_bug.cgi?id=1453355)
-* 2019-12-16
-  * Removal: `urlbar.contextualTip` including 2 functions and 2 events
-    [1590450](https://bugzilla.mozilla.org/show_bug.cgi?id=1590450)
-* 2020-01-03
-  * Removal: `openViewOnFocus` of `urlbar` API
-    [1605958](https://bugzilla.mozilla.org/show_bug.cgi?id=1605958)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
