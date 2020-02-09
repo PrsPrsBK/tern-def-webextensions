@@ -35,31 +35,25 @@
       },
       "removeListener": {
         "!doc": "Deregisters an event listener <em>callback</em> from an event.",
-        "!type": "fn(callback: fn())",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/Event/removeListener"
+        "!type": "fn(callback: fn())"
       },
       "hasListener": {
-        "!type": "fn(callback: fn())",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/Event/hasListener"
+        "!type": "fn(callback: fn())"
       },
       "hasListeners": {
-        "!type": "fn()",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/hasListeners"
+        "!type": "fn()"
       },
       "addRules": {
         "!doc": "Registers rules to handle events.",
-        "!type": "fn(eventName: string, webViewInstanceId: number, rules: [+events.Rule], callback: fn(rules: [+events.Rule]))",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/addRules"
+        "!type": "fn(eventName: string, webViewInstanceId: number, rules: [+events.Rule], callback: fn(rules: [+events.Rule]))"
       },
       "getRules": {
         "!doc": "Returns currently registered rules.",
-        "!type": "fn(eventName: string, webViewInstanceId: number, ruleIdentifiers: [string], callback: fn(rules: [+events.Rule]))",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/getRules"
+        "!type": "fn(eventName: string, webViewInstanceId: number, ruleIdentifiers: [string], callback: fn(rules: [+events.Rule]))"
       },
       "removeRules": {
         "!doc": "Unregisters currently registered rules.",
-        "!type": "fn(eventName: string, webViewInstanceId: number, ruleIdentifiers: [string], callback: fn())",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/removeRules"
+        "!type": "fn(eventName: string, webViewInstanceId: number, ruleIdentifiers: [string], callback: fn())"
       }
     },
     "events.UrlFilter": {
@@ -147,10 +141,12 @@
       }
     },
     "types.SettingScope": {
-      "!doc": "The scope of the Setting. One of<ul><li><var>regular</var>: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),</li><li><var>regular_only</var>: setting for the regular profile only (not inherited by the incognito profile),</li><li><var>incognito_persistent</var>: setting for the incognito profile that survives browser restarts (overrides regular preferences),</li><li><var>incognito_session_only</var>: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).</li></ul> Only <var>regular</var> is supported by Firefox at this time."
+      "!doc": "The scope of the Setting. One of<ul><li><var>regular</var>: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),</li><li><var>regular_only</var>: setting for the regular profile only (not inherited by the incognito profile),</li><li><var>incognito_persistent</var>: setting for the incognito profile that survives browser restarts (overrides regular preferences),</li><li><var>incognito_session_only</var>: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).</li></ul> Only <var>regular</var> is supported by Firefox at this time.",
+      "!type": "string"
     },
     "types.LevelOfControl": {
-      "!doc": "One of<ul><li><var>not_controllable</var>: cannot be controlled by any extension</li><li><var>controlled_by_other_extensions</var>: controlled by extensions with higher precedence</li><li><var>controllable_by_this_extension</var>: can be controlled by this extension</li><li><var>controlled_by_this_extension</var>: controlled by this extension</li></ul>"
+      "!doc": "One of<ul><li><var>not_controllable</var>: cannot be controlled by any extension</li><li><var>controlled_by_other_extensions</var>: controlled by extensions with higher precedence</li><li><var>controllable_by_this_extension</var>: can be controlled by this extension</li><li><var>controlled_by_this_extension</var>: controlled by this extension</li></ul>",
+      "!type": "string"
     },
     "types.Setting": {
       "get": {
@@ -168,6 +164,7 @@
     },
     "extensionTypes.ImageFormat": {
       "!doc": "The format of an image.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/ImageFormat"
     },
     "extensionTypes.ImageDetails": {
@@ -184,10 +181,12 @@
     },
     "extensionTypes.RunAt": {
       "!doc": "The soonest that the JavaScript or CSS will be injected into the tab.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/RunAt"
     },
     "extensionTypes.CSSOrigin": {
-      "!doc": "The origin of the CSS to inject, this affects the cascading order (priority) of the stylesheet."
+      "!doc": "The origin of the CSS to inject, this affects the cascading order (priority) of the stylesheet.",
+      "!type": "string"
     },
     "extensionTypes.InjectDetails": {
       "!doc": "Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.",
@@ -220,8 +219,15 @@
         "!type": "+extensionTypes.CSSOrigin"
       }
     },
+    "extensionTypes.Date": {
+      "!type": "[string]?, [number]?, [object]?"
+    },
+    "extensionTypes.ExtensionFileOrCode": {
+      "!type": "[object]?, [object]?"
+    },
     "extensionTypes.PlainJSONValue": {
-      "!doc": "A plain JSON value"
+      "!doc": "A plain JSON value",
+      "!type": "[null]?, [number]?, [string]?, [bool]?, [[+extensionTypes.PlainJSONValue]]?, [object]?"
     },
     "alarms.Alarm": {
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/alarms/Alarm",
@@ -239,10 +245,12 @@
       }
     },
     "browserSettings.ImageAnimationBehavior": {
-      "!doc": "How images should be animated in the browser."
+      "!doc": "How images should be animated in the browser.",
+      "!type": "string"
     },
     "browserSettings.ContextMenuMouseEvent": {
-      "!doc": "After which mouse event context menus should popup."
+      "!doc": "After which mouse event context menus should popup.",
+      "!type": "string"
     },
     "contentScripts.RegisteredContentScriptOptions": {
       "!doc": "Details of a content script registered programmatically",
@@ -316,7 +324,8 @@
       }
     },
     "cookies.SameSiteStatus": {
-      "!doc": "A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set without a 'SameSite' attribute, 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'."
+      "!doc": "A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set without a 'SameSite' attribute, 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'.",
+      "!type": "string"
     },
     "cookies.Cookie": {
       "!doc": "Represents information about an HTTP cookie.",
@@ -389,6 +398,7 @@
     },
     "cookies.OnChangedCause": {
       "!doc": "The underlying reason behind the cookie's change. If a cookie was inserted, or removed via an explicit call to $(ref:cookies.remove), \"cause\" will be \"explicit\". If a cookie was automatically removed due to expiry, \"cause\" will be \"expired\". If a cookie was removed due to being overwritten with an already-expired expiration date, \"cause\" will be set to \"expired_overwrite\".  If a cookie was automatically removed due to garbage collection, \"cause\" will be \"evicted\".  If a cookie was automatically removed due to a \"set\" call that overwrote it, \"cause\" will be \"overwrite\". Plan your response accordingly.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/cookies/OnChangedCause"
     },
     "dns.DNSRecord": {
@@ -405,18 +415,25 @@
         "!type": "[string]"
       }
     },
+    "dns.ResolveFlags": {
+      "!type": "[string]"
+    },
     "downloads.FilenameConflictAction": {
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/downloads/FilenameConflictAction"
     },
     "downloads.InterruptReason": {
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/downloads/InterruptReason"
     },
     "downloads.DangerType": {
       "!doc": "<dl><dt>file</dt><dd>The download's filename is suspicious.</dd><dt>url</dt><dd>The download's URL is known to be malicious.</dd><dt>content</dt><dd>The downloaded file is known to be malicious.</dd><dt>uncommon</dt><dd>The download's URL is not commonly downloaded and could be dangerous.</dd><dt>safe</dt><dd>The download presents no known danger to the user's computer.</dd></dl>These string constants will never change, however the set of DangerTypes may change.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/downloads/DangerType"
     },
     "downloads.State": {
       "!doc": "<dl><dt>in_progress</dt><dd>The download is currently receiving data from the server.</dd><dt>interrupted</dt><dd>An error broke the connection with the file host.</dd><dt>complete</dt><dd>The download completed successfully.</dd></dl>These string constants will never change, however the set of States may change.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/downloads/State"
     },
     "downloads.DownloadItem": {
@@ -524,6 +541,7 @@
     },
     "downloads.DownloadTime": {
       "!doc": "A time specified as a Date object, a number or string representing milliseconds since the epoch, or an ISO 8601 string",
+      "!type": "[string]?, [+extensionTypes.Date]?",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/downloads/DownloadTime"
     },
     "downloads.DownloadQuery": {
@@ -628,13 +646,16 @@
     },
     "extension.ViewType": {
       "!doc": "The type of extension view.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/ViewType"
     },
     "i18n.LanguageCode": {
       "!doc": "An ISO language code such as <code>en</code> or <code>fr</code>. For a complete list of languages supported by this method, see <a href='http://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc'>kLanguageInfoTable</a>. For an unknown language, <code>und</code> will be returned, which means that [percentage] of the text is unknown to CLD",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/i18n/LanguageCode"
     },
     "idle.IdleState": {
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/idle/IdleState"
     },
     "management.IconInfo": {
@@ -649,13 +670,16 @@
       }
     },
     "management.ExtensionDisabledReason": {
-      "!doc": "A reason the item is disabled."
+      "!doc": "A reason the item is disabled.",
+      "!type": "string"
     },
     "management.ExtensionType": {
-      "!doc": "The type of this extension, 'extension' or 'theme'."
+      "!doc": "The type of this extension, 'extension' or 'theme'.",
+      "!type": "string"
     },
     "management.ExtensionInstallType": {
-      "!doc": "How the extension was installed. One of<br><var>development</var>: The extension was loaded unpacked in developer mode,<br><var>normal</var>: The extension was installed normally via an .xpi file,<br><var>sideload</var>: The extension was installed by other software on the machine,<br><var>other</var>: The extension was installed by other means."
+      "!doc": "How the extension was installed. One of<br><var>development</var>: The extension was loaded unpacked in developer mode,<br><var>normal</var>: The extension was installed normally via an .xpi file,<br><var>sideload</var>: The extension was installed by other software on the machine,<br><var>other</var>: The extension was installed by other means.",
+      "!type": "string"
     },
     "management.ExtensionInfo": {
       "!doc": "Information about an installed extension.",
@@ -744,7 +768,11 @@
       }
     },
     "notifications.TemplateType": {
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/notifications/TemplateType"
+    },
+    "notifications.PermissionLevel": {
+      "!type": "string"
     },
     "notifications.NotificationItem": {
       "title": {
@@ -882,7 +910,8 @@
       }
     },
     "privacy.network.IPHandlingPolicy": {
-      "!doc": "The IP handling policy of WebRTC."
+      "!doc": "The IP handling policy of WebRTC.",
+      "!type": "string"
     },
     "privacy.network.tlsVersionRestrictionConfig": {
       "!doc": "An object which describes TLS minimum and maximum versions.",
@@ -896,7 +925,8 @@
       }
     },
     "privacy.websites.TrackingProtectionModeOption": {
-      "!doc": "The mode for tracking protection."
+      "!doc": "The mode for tracking protection.",
+      "!type": "string"
     },
     "privacy.websites.CookieConfig": {
       "!doc": "The settings for cookies.",
@@ -1009,10 +1039,12 @@
     },
     "runtime.PlatformOs": {
       "!doc": "The operating system the browser is running on.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/PlatformOs"
     },
     "runtime.PlatformArch": {
       "!doc": "The machine's processor architecture.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/PlatformArch"
     },
     "runtime.PlatformInfo": {
@@ -1052,14 +1084,17 @@
     },
     "runtime.RequestUpdateCheckStatus": {
       "!doc": "Result of the update check.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/RequestUpdateCheckStatus"
     },
     "runtime.OnInstalledReason": {
       "!doc": "The reason that this event is being dispatched.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/OnInstalledReason"
     },
     "runtime.OnRestartRequiredReason": {
       "!doc": "The reason that the event is being dispatched. 'app_update' is used when the restart is needed because the application is updated to a newer version. 'os_update' is used when the restart is needed because the browser/OS is updated to a newer version. 'periodic' is used when the system runs for more than the permitted uptime set in the enterprise policy.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/OnRestartRequiredReason"
     },
     "storage.StorageChange": {
@@ -1102,7 +1137,8 @@
       }
     },
     "telemetry.ScalarType": {
-      "!doc": "Type of scalar: 'count' for numeric values, 'string' for string values, 'boolean' for boolean values. Maps to <code>nsITelemetry.SCALAR_TYPE_*</code>."
+      "!doc": "Type of scalar: 'count' for numeric values, 'string' for string values, 'boolean' for boolean values. Maps to <code>nsITelemetry.SCALAR_TYPE_*</code>.",
+      "!type": "string"
     },
     "telemetry.ScalarData": {
       "!doc": "Represents registration data for a Telemetry scalar.",
@@ -1144,6 +1180,12 @@
         "!doc": "True if this event entry is expired. This allows recording it without error, but it will be discarded.",
         "!type": "bool"
       }
+    },
+    "test.ExpectedError": {
+      "!type": "[string]?, [object]?, [fn()]?"
+    },
+    "test.Promise": {
+      "!type": "[object]?, [object]?"
     },
     "theme.ThemeUpdateInfo": {
       "!doc": "Info provided in the onUpdated listener.",
@@ -1195,14 +1237,17 @@
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/userScripts/RegisteredUserScript",
       "unregister": {
         "!doc": "Unregister a user script registered programmatically",
-        "!type": "fn()"
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/userScripts/RegisteredUserScript/unregister"
       }
     },
     "webNavigation.TransitionType": {
       "!doc": "Cause of the navigation. The same transition types as defined in the history API are used. These are the same transition types as defined in the $(topic:transition_types)[history API] except with <code>\"start_page\"</code> in place of <code>\"auto_toplevel\"</code> (for backwards compatibility).",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/webNavigation/TransitionType"
     },
     "webNavigation.TransitionQualifier": {
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/webNavigation/TransitionQualifier"
     },
     "webNavigation.EventUrlFilters": {
@@ -1211,7 +1256,32 @@
       }
     },
     "webRequest.ResourceType": {
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/ResourceType"
+    },
+    "webRequest.OnBeforeRequestOptions": {
+      "!type": "string"
+    },
+    "webRequest.OnBeforeSendHeadersOptions": {
+      "!type": "string"
+    },
+    "webRequest.OnSendHeadersOptions": {
+      "!type": "string"
+    },
+    "webRequest.OnHeadersReceivedOptions": {
+      "!type": "string"
+    },
+    "webRequest.OnAuthRequiredOptions": {
+      "!type": "string"
+    },
+    "webRequest.OnResponseStartedOptions": {
+      "!type": "string"
+    },
+    "webRequest.OnBeforeRedirectOptions": {
+      "!type": "string"
+    },
+    "webRequest.OnCompletedOptions": {
+      "!type": "string"
     },
     "webRequest.RequestFilter": {
       "!doc": "An object describing filters to apply to webRequest events.",
@@ -1237,6 +1307,7 @@
     },
     "webRequest.HttpHeaders": {
       "!doc": "An array of HTTP headers. Each header is represented as a dictionary containing the keys <code>name</code> and either <code>value</code> or <code>binaryValue</code>.",
+      "!type": "[object]",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/HttpHeaders"
     },
     "webRequest.BlockingResponse": {
@@ -1314,6 +1385,12 @@
         "!type": "[number]"
       }
     },
+    "webRequest.CertificateTransparencyStatus": {
+      "!type": "string"
+    },
+    "webRequest.TransportWeaknessReasons": {
+      "!type": "string"
+    },
     "webRequest.SecurityInfo": {
       "!doc": "Contains the security properties of the request (ie. SSL/TLS information).",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/SecurityInfo",
@@ -1388,10 +1465,12 @@
       }
     },
     "webRequest.UrlClassificationFlags": {
-      "!doc": "Tracking flags that match our internal tracking classification"
+      "!doc": "Tracking flags that match our internal tracking classification",
+      "!type": "string"
     },
     "webRequest.UrlClassificationParty": {
-      "!doc": "If the request has been classified this is an array of $(ref:UrlClassificationFlags)."
+      "!doc": "If the request has been classified this is an array of $(ref:UrlClassificationFlags).",
+      "!type": "[+webRequest.UrlClassificationFlags]"
     },
     "webRequest.UrlClassification": {
       "firstParty": {
@@ -1405,10 +1484,12 @@
     },
     "bookmarks.BookmarkTreeNodeUnmodifiable": {
       "!doc": "Indicates the reason why this node is unmodifiable. The <var>managed</var> value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default).",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/bookmarks/BookmarkTreeNodeUnmodifiable"
     },
     "bookmarks.BookmarkTreeNodeType": {
       "!doc": "Indicates the type of a BookmarkTreeNode, which can be one of bookmark, folder or separator.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/bookmarks/BookmarkTreeNodeType"
     },
     "bookmarks.BookmarkTreeNode": {
@@ -1488,6 +1569,7 @@
       }
     },
     "browserAction.ColorArray": {
+      "!type": "[number]",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browserAction/ColorArray"
     },
     "browserAction.ImageDataType": {
@@ -1495,7 +1577,8 @@
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browserAction/ImageDataType"
     },
     "browserAction.ColorValue": {
-      "!doc": "An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is <code>[255, 0, 0, 255]</code>. Can also be a string with a CSS value, with opaque red being <code>#FF0000</code> or <code>#F00</code>."
+      "!doc": "An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is <code>[255, 0, 0, 255]</code>. Can also be a string with a CSS value, with opaque red being <code>#FF0000</code> or <code>#F00</code>.",
+      "!type": "[string]?, [+browserAction.ColorArray]?, [null]?"
     },
     "browserAction.OnClickData": {
       "!doc": "Information sent when a browser action is clicked.",
@@ -1670,6 +1753,7 @@
     },
     "history.TransitionType": {
       "!doc": "The $(topic:transition-types)[transition type] for this visit from its referrer.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/history/TransitionType"
     },
     "history.HistoryItem": {
@@ -1732,14 +1816,17 @@
       }
     },
     "contextMenus.ContextType": {
-      "!doc": "The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'tab' and 'tools_menu'."
+      "!doc": "The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'tab' and 'tools_menu'.",
+      "!type": "string"
     },
     "menus.ContextType": {
       "!doc": "The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'tab' and 'tools_menu'.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/menus/ContextType"
     },
     "menus.ItemType": {
       "!doc": "The type of menu item.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/menus/ItemType"
     },
     "menus.OnClickData": {
@@ -1877,10 +1964,12 @@
       }
     },
     "omnibox.DescriptionStyleType": {
-      "!doc": "The style type."
+      "!doc": "The style type.",
+      "!type": "string"
     },
     "omnibox.OnInputEnteredDisposition": {
       "!doc": "The window disposition for the omnibox query. This is the recommended context to display results. For example, if the omnibox command is to navigate to a certain URL, a disposition of 'newForegroundTab' means the navigation should take place in a new selected tab.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/omnibox/OnInputEnteredDisposition"
     },
     "omnibox.SuggestResult": {
@@ -1932,6 +2021,12 @@
         "!doc": "An integer value of button by which menu item was clicked.",
         "!type": "number"
       }
+    },
+    "geckoProfiler.ProfilerFeature": {
+      "!type": "string"
+    },
+    "geckoProfiler.supports": {
+      "!type": "string"
     },
     "search.SearchEngine": {
       "!doc": "An object encapsulating a search engine",
@@ -1989,6 +2084,7 @@
     },
     "tabs.MutedInfoReason": {
       "!doc": "An event that caused a muted state change.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/MutedInfoReason"
     },
     "tabs.MutedInfo": {
@@ -2134,10 +2230,12 @@
     },
     "tabs.ZoomSettingsMode": {
       "!doc": "Defines how zoom changes are handled, i.e. which entity is responsible for the actual scaling of the page; defaults to <code>automatic</code>.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/ZoomSettingsMode"
     },
     "tabs.ZoomSettingsScope": {
       "!doc": "Defines whether zoom changes will persist for the page's origin, or only take effect in this tab; defaults to <code>per-origin</code> when in <code>automatic</code> mode, and <code>per-tab</code> otherwise.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/ZoomSettingsScope"
     },
     "tabs.ZoomSettings": {
@@ -2250,14 +2348,17 @@
     },
     "tabs.TabStatus": {
       "!doc": "Whether the tabs have completed loading.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/TabStatus"
     },
     "tabs.WindowType": {
       "!doc": "The type of window.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/WindowType"
     },
     "tabs.UpdatePropertyName": {
-      "!doc": "Event names supported in onUpdated."
+      "!doc": "Event names supported in onUpdated.",
+      "!type": "string"
     },
     "tabs.UpdateFilter": {
       "!doc": "An object describing filters to apply to tabs.onUpdated events.",
@@ -2297,7 +2398,8 @@
       }
     },
     "urlbar.EngagementState": {
-      "!doc": "The state of an engagement made with the urlbar by the user. <code>start</code>: The user has started an engagement. <code>engagement</code>: The user has completed an engagement by picking a result. <code>abandonment</code>: The user has abandoned their engagement, for example by blurring the urlbar. <code>discard</code>: The engagement ended in a way that should be ignored by listeners."
+      "!doc": "The state of an engagement made with the urlbar by the user. <code>start</code>: The user has started an engagement. <code>engagement</code>: The user has completed an engagement by picking a result. <code>abandonment</code>: The user has abandoned their engagement, for example by blurring the urlbar. <code>discard</code>: The engagement ended in a way that should be ignored by listeners.",
+      "!type": "string"
     },
     "urlbar.Query": {
       "!doc": "A query performed in the urlbar.",
@@ -2337,7 +2439,8 @@
       }
     },
     "urlbar.ResultType": {
-      "!doc": "Possible types of results. <code>remote_tab</code>: A synced tab from another device. <code>search</code>: A search suggestion from a search engine. <code>tab</code>: An open tab in the browser. <code>tip</code>: An actionable message to help the user with their query. <code>url</code>: A URL that's not one of the other types."
+      "!doc": "Possible types of results. <code>remote_tab</code>: A synced tab from another device. <code>search</code>: A search suggestion from a search engine. <code>tab</code>: An open tab in the browser. <code>tip</code>: An actionable message to help the user with their query. <code>url</code>: A URL that's not one of the other types.",
+      "!type": "string"
     },
     "urlbar.SearchOptions": {
       "!doc": "Options to the <code>search</code> function.",
@@ -2347,14 +2450,17 @@
       }
     },
     "urlbar.SourceType": {
-      "!doc": "Possible sources of results. <code>bookmarks</code>: The result comes from the user's bookmarks. <code>history</code>: The result comes from the user's history. <code>local</code>: The result comes from some local source not covered by another source type. <code>network</code>: The result comes from some network source not covered by another source type. <code>search</code>: The result comes from a search engine. <code>tabs</code>: The result is an open tab in the browser or a synced tab from another device."
+      "!doc": "Possible sources of results. <code>bookmarks</code>: The result comes from the user's bookmarks. <code>history</code>: The result comes from the user's history. <code>local</code>: The result comes from some local source not covered by another source type. <code>network</code>: The result comes from some network source not covered by another source type. <code>search</code>: The result comes from a search engine. <code>tabs</code>: The result is an open tab in the browser or a synced tab from another device.",
+      "!type": "string"
     },
     "windows.WindowType": {
       "!doc": "The type of browser window this is. Under some circumstances a Window may not be assigned type property, for example when querying closed windows from the $(ref:sessions) API.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/windows/WindowType"
     },
     "windows.WindowState": {
       "!doc": "The state of this browser window. Under some circumstances a Window may not be assigned state property, for example when querying closed windows from the $(ref:sessions) API.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/windows/WindowState"
     },
     "windows.Window": {
@@ -2414,6 +2520,7 @@
     },
     "windows.CreateType": {
       "!doc": "Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/windows/CreateType"
     },
     "windows.GetInfo": {
@@ -2497,7 +2604,8 @@
       },
       "ftpProtocolEnabled": {
         "!doc": "This boolean setting controls whether the FTP protocol is enabled.",
-        "!type": "+types.Setting"
+        "!type": "+types.Setting",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browserSettings/ftpProtocolEnabled"
       },
       "homepageOverride": {
         "!doc": "Returns the value of the overridden home page. Read-only.",
@@ -3405,11 +3513,13 @@
     "userScripts": {
       "register": {
         "!doc": "Register a user script programmatically given its $(ref:userScripts.UserScriptOptions), and resolves to a $(ref:userScripts.RegisteredUserScript) instance",
-        "!type": "fn(userScriptOptions: +userScripts.UserScriptOptions)"
+        "!type": "fn(userScriptOptions: +userScripts.UserScriptOptions)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/userScripts/register"
       },
       "onBeforeScript": {
         "!doc": "Event called when a new userScript global has been created",
-        "!type": "fn(userScript: object)"
+        "!type": "fn(userScript: object)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/userScripts/onBeforeScript"
       }
     },
     "webNavigation": {
@@ -3795,23 +3905,28 @@
       "!doc": "This API provides the ability detect the captive portal state of the users connection.",
       "getState": {
         "!doc": "Returns the current portal state, one of `unknown`, `not_captive`, `unlocked_portal`, `locked_portal`.",
-        "!type": "fn()"
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/captivePortal/getState"
       },
       "getLastChecked": {
         "!doc": "Returns the time difference between NOW and the last time a request was completed in milliseconds.",
-        "!type": "fn()"
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/captivePortal/getLastChecked"
       },
       "onStateChanged": {
         "!doc": "Fired when the captive portal state changes.",
-        "!type": "fn(details: object)"
+        "!type": "fn(details: object)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/captivePortal/onStateChanged"
       },
       "onConnectivityAvailable": {
         "!doc": "This notification will be emitted when the captive portal service has determined that we can connect to the internet. The service will pass either `captive` if there is an unlocked captive portal present, or `clear` if no captive portal was detected.",
-        "!type": "fn(status: string)"
+        "!type": "fn(status: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/captivePortal/onConnectivityAvailable"
       },
       "canonicalURL": {
         "!doc": "Return the canonical captive-portal detection URL. Read-only.",
-        "!type": "+types.Setting"
+        "!type": "+types.Setting",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/captivePortal/canonicalURL"
       }
     },
     "commands": {
@@ -4366,7 +4481,8 @@
       },
       "toggle": {
         "!doc": "Toggles the extension sidebar in the active window.",
-        "!type": "fn()"
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/sidebarAction/toggle"
       },
       "isOpen": {
         "!doc": "Checks whether the sidebar action is open.",
