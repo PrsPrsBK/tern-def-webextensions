@@ -35,31 +35,25 @@
       },
       "removeListener": {
         "!doc": "Deregisters an event listener <em>callback</em> from an event.",
-        "!type": "fn(callback: fn())",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/Event/removeListener"
+        "!type": "fn(callback: fn())"
       },
       "hasListener": {
-        "!type": "fn(callback: fn())",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/Event/hasListener"
+        "!type": "fn(callback: fn())"
       },
       "hasListeners": {
-        "!type": "fn()",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/hasListeners"
+        "!type": "fn()"
       },
       "addRules": {
         "!doc": "Registers rules to handle events.",
-        "!type": "fn(eventName: string, webViewInstanceId: number, rules: [+events.Rule], callback: fn(rules: [+events.Rule]))",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/addRules"
+        "!type": "fn(eventName: string, webViewInstanceId: number, rules: [+events.Rule], callback: fn(rules: [+events.Rule]))"
       },
       "getRules": {
         "!doc": "Returns currently registered rules.",
-        "!type": "fn(eventName: string, webViewInstanceId: number, ruleIdentifiers: [string], callback: fn(rules: [+events.Rule]))",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/getRules"
+        "!type": "fn(eventName: string, webViewInstanceId: number, ruleIdentifiers: [string], callback: fn(rules: [+events.Rule]))"
       },
       "removeRules": {
         "!doc": "Unregisters currently registered rules.",
-        "!type": "fn(eventName: string, webViewInstanceId: number, ruleIdentifiers: [string], callback: fn())",
-        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/events/removeRules"
+        "!type": "fn(eventName: string, webViewInstanceId: number, ruleIdentifiers: [string], callback: fn())"
       }
     },
     "events.UrlFilter": {
@@ -1195,7 +1189,8 @@
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/userScripts/RegisteredUserScript",
       "unregister": {
         "!doc": "Unregister a user script registered programmatically",
-        "!type": "fn()"
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/userScripts/RegisteredUserScript/unregister"
       }
     },
     "webNavigation.TransitionType": {
@@ -2497,7 +2492,8 @@
       },
       "ftpProtocolEnabled": {
         "!doc": "This boolean setting controls whether the FTP protocol is enabled.",
-        "!type": "+types.Setting"
+        "!type": "+types.Setting",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browserSettings/ftpProtocolEnabled"
       },
       "homepageOverride": {
         "!doc": "Returns the value of the overridden home page. Read-only.",
@@ -3405,11 +3401,13 @@
     "userScripts": {
       "register": {
         "!doc": "Register a user script programmatically given its $(ref:userScripts.UserScriptOptions), and resolves to a $(ref:userScripts.RegisteredUserScript) instance",
-        "!type": "fn(userScriptOptions: +userScripts.UserScriptOptions)"
+        "!type": "fn(userScriptOptions: +userScripts.UserScriptOptions)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/userScripts/register"
       },
       "onBeforeScript": {
         "!doc": "Event called when a new userScript global has been created",
-        "!type": "fn(userScript: object)"
+        "!type": "fn(userScript: object)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/userScripts/onBeforeScript"
       }
     },
     "webNavigation": {
@@ -3795,23 +3793,28 @@
       "!doc": "This API provides the ability detect the captive portal state of the users connection.",
       "getState": {
         "!doc": "Returns the current portal state, one of `unknown`, `not_captive`, `unlocked_portal`, `locked_portal`.",
-        "!type": "fn()"
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/captivePortal/getState"
       },
       "getLastChecked": {
         "!doc": "Returns the time difference between NOW and the last time a request was completed in milliseconds.",
-        "!type": "fn()"
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/captivePortal/getLastChecked"
       },
       "onStateChanged": {
         "!doc": "Fired when the captive portal state changes.",
-        "!type": "fn(details: object)"
+        "!type": "fn(details: object)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/captivePortal/onStateChanged"
       },
       "onConnectivityAvailable": {
         "!doc": "This notification will be emitted when the captive portal service has determined that we can connect to the internet. The service will pass either `captive` if there is an unlocked captive portal present, or `clear` if no captive portal was detected.",
-        "!type": "fn(status: string)"
+        "!type": "fn(status: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/captivePortal/onConnectivityAvailable"
       },
       "canonicalURL": {
         "!doc": "Return the canonical captive-portal detection URL. Read-only.",
-        "!type": "+types.Setting"
+        "!type": "+types.Setting",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/captivePortal/canonicalURL"
       }
     },
     "commands": {
@@ -4366,7 +4369,8 @@
       },
       "toggle": {
         "!doc": "Toggles the extension sidebar in the active window.",
-        "!type": "fn()"
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/sidebarAction/toggle"
       },
       "isOpen": {
         "!doc": "Checks whether the sidebar action is open.",
