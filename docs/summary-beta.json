@@ -893,7 +893,7 @@
               "manifest:sidebar_action"
             ],
             "types": 1,
-            "functions": 8
+            "functions": 9
           }
         ],
         "license": "MPL"
@@ -947,12 +947,6 @@
             "types": 6,
             "functions": 3,
             "events": 5
-          },
-          {
-            "name": "urlbar.contextualTip",
-            "types": 1,
-            "functions": 2,
-            "events": 2
           }
         ],
         "license": "MPL"
