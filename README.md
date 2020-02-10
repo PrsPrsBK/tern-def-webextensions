@@ -171,6 +171,8 @@ Both are in `License` directory.
   * Removal: `openViewOnFocus` of `urlbar` API
     [1605958](https://bugzilla.mozilla.org/show_bug.cgi?id=1605958)
 
+* 2020-02-11 Firefox 74(Beta) - No Update
+
 ## Nightly (Not released to npm)
 
 
