@@ -175,5 +175,7 @@ Both are in `License` directory.
 
 ## Nightly (Not released to npm)
 
+* 2020-02-26 New: `zoomFullPage` and `zoomSiteSpecific` of `browserSettings`
+  [1286953](https://bugzilla.mozilla.org/show_bug.cgi?id=1286953)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
