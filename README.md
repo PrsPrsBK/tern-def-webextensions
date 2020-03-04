@@ -160,7 +160,7 @@ Both are in `License` directory.
   * New: `tlsVersionRestriction` of `privacy.network` API
     [1593635](https://bugzilla.mozilla.org/show_bug.cgi?id=1593635)
 
-* 2020-01-07 Firefox 73(Beta) - ver.0.14.0 (NO RELEASE to npm)
+* 2020-01-07 Firefox 73(Beta) - ver.0.14.0
 
   * Rename: `acceptableSources` to `sources` of `urlbar.Query` definitiion
     [1599839](https://bugzilla.mozilla.org/show_bug.cgi?id=1599839)
