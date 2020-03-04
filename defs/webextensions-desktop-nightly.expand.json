@@ -2255,8 +2255,12 @@
       }
     },
     "tabs.PageSettings": {
-      "!doc": "The page settings including: orientation, scale, background, margins, headers, footers.",
+      "!doc": "Defines the page settings to be used when saving a page as a pdf file.",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/PageSettings",
+      "toFileName": {
+        "!doc": "The name of the file. May include optional .pdf extension.",
+        "!type": "string"
+      },
       "paperSizeUnit": {
         "!doc": "The page size unit: 0 = inches, 1 = millimeters. Default: 0.",
         "!type": "number"
