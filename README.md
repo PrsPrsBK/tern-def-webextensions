@@ -172,7 +172,7 @@ Both are in `License` directory.
     [1605958](https://bugzilla.mozilla.org/show_bug.cgi?id=1605958)
 
 * 2020-02-11 Firefox 74(Beta) - No Update
-* 2020-03-10 Firefox 75(Beta)
+* 2020-03-10 Firefox 75(Beta) - ver.0.15.0
 
   * 2020-02-26 New: `zoomFullPage` and `zoomSiteSpecific` of `browserSettings`
     [1286953](https://bugzilla.mozilla.org/show_bug.cgi?id=1286953)
