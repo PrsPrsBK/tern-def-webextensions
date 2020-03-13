@@ -172,12 +172,14 @@ Both are in `License` directory.
     [1605958](https://bugzilla.mozilla.org/show_bug.cgi?id=1605958)
 
 * 2020-02-11 Firefox 74(Beta) - No Update
+* 2020-03-10 Firefox 75(Beta)
+
+  * 2020-02-26 New: `zoomFullPage` and `zoomSiteSpecific` of `browserSettings`
+    [1286953](https://bugzilla.mozilla.org/show_bug.cgi?id=1286953)
+  * 2020-03-05 New: `toFileName` property in argument of `saveAsPDF()` of `tabs` API
+    [1483590](https://bugzilla.mozilla.org/show_bug.cgi?id=1483590)
+
 
 ## Nightly (Not released to npm)
-
-* 2020-02-26 New: `zoomFullPage` and `zoomSiteSpecific` of `browserSettings`
-  [1286953](https://bugzilla.mozilla.org/show_bug.cgi?id=1286953)
-* 2020-03-05 New: `toFileName` property in argument of `saveAsPDF()` of `tabs` API
-  [1483590](https://bugzilla.mozilla.org/show_bug.cgi?id=1483590)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
