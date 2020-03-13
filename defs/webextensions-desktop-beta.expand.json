@@ -2255,8 +2255,12 @@
       }
     },
     "tabs.PageSettings": {
-      "!doc": "The page settings including: orientation, scale, background, margins, headers, footers.",
+      "!doc": "Defines the page settings to be used when saving a page as a pdf file.",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/PageSettings",
+      "toFileName": {
+        "!doc": "The name of the file. May include optional .pdf extension.",
+        "!type": "string"
+      },
       "paperSizeUnit": {
         "!doc": "The page size unit: 0 = inches, 1 = millimeters. Default: 0.",
         "!type": "number"
@@ -2656,6 +2660,14 @@
         "!doc": "This setting controls whether the document's fonts are used.",
         "!type": "+types.Setting",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browserSettings/useDocumentFonts"
+      },
+      "zoomFullPage": {
+        "!doc": "This boolean setting controls whether zoom is applied to the full page or to text only.",
+        "!type": "+types.Setting"
+      },
+      "zoomSiteSpecific": {
+        "!doc": "This boolean setting controls whether zoom is applied on a per-site basis or to the current tab only. If privacy.resistFingerprinting is true, this setting has no effect and zoom is applied to the current tab only.",
+        "!type": "+types.Setting"
       }
     },
     "clipboard": {
