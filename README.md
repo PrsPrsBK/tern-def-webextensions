@@ -179,6 +179,8 @@ Both are in `License` directory.
   * 2020-03-05 New: `toFileName` property in argument of `saveAsPDF()` of `tabs` API
     [1483590](https://bugzilla.mozilla.org/show_bug.cgi?id=1483590)
 
+* 2020-04-06 Firefox 76(Beta) - No Update
+
 
 ## Nightly (Not released to npm)
 
