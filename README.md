@@ -185,6 +185,10 @@ Both are in `License` directory.
   * New: `duplicateProperties` argument of `duplicate()` of `tabs` API
   * New: `goForward()` and `goBack()` functions of `tabs` API
 
+* 2020-05-31 Firefox 78(Beta) - ver.0.17.0
+
+  * New: `submitEncryptedPing()` function of `telemetry` API
+
 
 ## Nightly (Not released to npm)
 
