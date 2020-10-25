@@ -180,6 +180,10 @@ Both are in `License` directory.
     [1483590](https://bugzilla.mozilla.org/show_bug.cgi?id=1483590)
 
 * 2020-04-06 Firefox 76(Beta) - No Update
+* 2020-05-04 Firefox 77(Beta) - ver.0.16.0
+
+  * New: `duplicateProperties` argument of `duplicate()` of `tabs` API
+  * New: `goForward()` and `goBack()` functions of `tabs` API
 
 
 ## Nightly (Not released to npm)
