@@ -160,5 +160,36 @@ tern定義ファイル生成
   git push --tags
 
 
+更新の間が空いてしまったとき
+============================
+
+面倒なので半年分を一括して更新しようとしました。次のエラーが出て失敗します。
+
+.. code-block:: console
+
+  pwsh:$ X:\path\to\daily-check.ps1 x:/repository/mozilla-beta
+  https://hg.mozilla.org/releases/mozilla-beta/ から取り込み中
+  変更点を探索中
+  リビジョンを追加中
+  マニフェストを追加中
+  ファイルの変更を追加中
+  トランザクションを中断します!
+  ロールバックを完了しました
+  中止: HTTP 要求エラー (不完全な応答; 想定 8000 バイトに対して 157 バイト) # 数字は不定
+  (ネットワーク経路の切断が主要因です。同様のエラーが継続的に発生する場合は、ネットワークあ るいはサーバの管理者に問い合わせてください)
+
+https://hg.mozilla.org/releases/mozilla-beta/tags のタグ一覧から次のバージョンを見つけます。
+「FIREFOX_BETA_78_BASE」のような、BASEとサフィックスが付いているものにしました。
+もしかしたら「FIREFOX_NIGHTLY_78_END」のようなNightlyへのENDサフィックスが正解かもしれませんが、
+ここで時間をかけるとやる気を失うので調べずに進めました。
+
+タグが判明したら、 ``daily-check.ps1`` の ``hg pull`` を実行している行に ``--rev`` オプションを追加してから実行します。
+
+.. code-block:: PowerShell
+
+  Start-Process -FilePath "hg" -ArgumentList "pull -u -R $mozillaRepo --rev e4b11f027efc1f8c2710ae3f52487a8f10a8fb39" -NoNewWindow -PassThru | Wait-Process
+
+とりあえず ``hg pull`` に成功しました。
+
 .. vim:expandtab ff=dos fenc=utf-8 sw=2
 
