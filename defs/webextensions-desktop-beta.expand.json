@@ -2465,7 +2465,7 @@
       }
     },
     "urlbar.ResultType": {
-      "!doc": "Possible types of results. <code>remote_tab</code>: A synced tab from another device. <code>search</code>: A search suggestion from a search engine. <code>tab</code>: An open tab in the browser. <code>tip</code>: An actionable message to help the user with their query. <code>url</code>: A URL that's not one of the other types.",
+      "!doc": "Possible types of results. <code>dynamic</code>: A result whose view and payload are specified by the extension. <code>remote_tab</code>: A synced tab from another device. <code>search</code>: A search suggestion from a search engine. <code>tab</code>: An open tab in the browser. <code>tip</code>: An actionable message to help the user with their query. <code>url</code>: A URL that's not one of the other types.",
       "!type": "string"
     },
     "urlbar.SearchOptions": {
@@ -4355,6 +4355,10 @@
         "!doc": "Enumerate a module's slots, each with their name and whether a token is present",
         "!type": "fn(name: string)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/pkcs11/getModuleSlots"
+      },
+      "autoload": {
+        "!doc": "Controls whether or not the built-in PKCS#11 module (osclientcerts) is loaded.",
+        "!type": "+types.Setting"
       }
     },
     "geckoProfiler": {
@@ -4600,6 +4604,10 @@
         "!type": "fn(tabId: number, reloadProperties: object, callback: fn())",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/reload"
       },
+      "warmup": {
+        "!doc": "Warm up a tab",
+        "!type": "fn(tabId: number)"
+      },
       "remove": {
         "!doc": "Closes one or more tabs.",
         "!type": "fn(tabIds?: number, tabIds?: [number], callback: fn())",
@@ -4813,8 +4821,8 @@
         "!type": "fn(query: +urlbar.Query)"
       },
       "onResultPicked": {
-        "!doc": "Typically, a provider includes a <code>url</code> property in its results' payloads. When the user picks a result with a URL, Firefox automatically loads the URL. URLs don't make sense for every result type, however. When the user picks a result without a URL, this event is fired. The provider should take an appropriate action in response. Currently the only applicable <code>ResultType</code> is <code>tip</code>.",
-        "!type": "fn(payload: object)"
+        "!doc": "Typically, a provider includes a <code>url</code> property in its results' payloads. When the user picks a result with a URL, Firefox automatically loads the URL. URLs don't make sense for every result type, however. When the user picks a result without a URL, this event is fired. The provider should take an appropriate action in response. Currently the only applicable <code>ResultTypes</code> are <code>dynamic</code> and <code>tip</code>.",
+        "!type": "fn(payload: object, elementName: string)"
       },
       "engagementTelemetry": {
         "!doc": "Enables or disables the engagement telemetry.",
