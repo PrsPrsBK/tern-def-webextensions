@@ -4546,7 +4546,7 @@
       },
       "duplicate": {
         "!doc": "Duplicates a tab.",
-        "!type": "fn(tabId: number, callback: fn(tab: +tabs.Tab))",
+        "!type": "fn(tabId: number, duplicateProperties: object, callback: fn(tab: +tabs.Tab))",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/duplicate"
       },
       "query": {
@@ -4668,6 +4668,14 @@
         "!doc": "Removes an array of tabs from their lines of succession and prepends or appends them in a chain to another tab.",
         "!type": "fn(tabIds: [number], tabId: number, options: object)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/moveInSuccession"
+      },
+      "goForward": {
+        "!doc": "Navigate to next page in tab's history, if available",
+        "!type": "fn(tabId: number, callback: fn())"
+      },
+      "goBack": {
+        "!doc": "Navigate to previous page in tab's history, if available.",
+        "!type": "fn(tabId: number, callback: fn())"
       },
       "onCreated": {
         "!doc": "Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired, but you can listen to onUpdated events to be notified when a URL is set.",
