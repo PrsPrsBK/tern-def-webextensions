@@ -106,7 +106,7 @@ tern定義ファイル生成
 ``npm outdated`` と ``npm update --save`` でもいいです。
 
 続いて定義ファイル生成です。
-``npm run build -- --mozilla-repo d:/path/to/mozilla-beta --publish`` です。
+``npm run build -- --mozilla-repo d:/path/to/mozilla-beta --shrink`` です。
 パッケージサイズを小さくしたいのでこうしています。
 
 
