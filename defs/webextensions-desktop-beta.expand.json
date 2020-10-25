@@ -168,7 +168,7 @@
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/ImageFormat"
     },
     "extensionTypes.ImageDetails": {
-      "!doc": "Details about the format and quality of an image.",
+      "!doc": "Details about the format, quality, area and scale of the capture.",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/ImageDetails",
       "format": {
         "!doc": "The format of the resulting image.  Default is <code>\"jpeg\"</code>.",
@@ -176,6 +176,25 @@
       },
       "quality": {
         "!doc": "When format is <code>\"jpeg\"</code>, controls the quality of the resulting image.  This value is ignored for PNG images.  As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.",
+        "!type": "number"
+      },
+      "rect": {
+        "!doc": "The area of the document to capture, in CSS pixels, relative to the page.  If omitted, capture the visible viewport.",
+        "x": {
+          "!type": "number"
+        },
+        "y": {
+          "!type": "number"
+        },
+        "width": {
+          "!type": "number"
+        },
+        "height": {
+          "!type": "number"
+        }
+      },
+      "scale": {
+        "!doc": "The scale of the resulting image.  Defaults to <code>devicePixelRatio</code>.",
         "!type": "number"
       }
     },
@@ -4625,12 +4644,12 @@
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/toggleReaderMode"
       },
       "captureTab": {
-        "!doc": "Captures the visible area of a specified tab. You must have $(topic:declare_permissions)[&lt;all_urls&gt;] permission to use this method.",
+        "!doc": "Captures an area of a specified tab. You must have $(topic:declare_permissions)[&lt;all_urls&gt;] permission to use this method.",
         "!type": "fn(tabId: number, options: +extensionTypes.ImageDetails)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/captureTab"
       },
       "captureVisibleTab": {
-        "!doc": "Captures the visible area of the currently active tab in the specified window. You must have $(topic:declare_permissions)[&lt;all_urls&gt;] permission to use this method.",
+        "!doc": "Captures an area of the currently active tab in the specified window. You must have $(topic:declare_permissions)[&lt;all_urls&gt;] permission to use this method.",
         "!type": "fn(windowId: number, options: +extensionTypes.ImageDetails, callback: fn(dataUrl: string))",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/captureVisibleTab"
       },
