@@ -189,11 +189,16 @@ Both are in `License` directory.
 
   * New: `submitEncryptedPing()` function of `telemetry` API
 
-* 2020-06-31 Firefox 79(Beta) - ver.0.18.0
+* 2020-06-28 Firefox 79(Beta) - ver.0.18.0
 
   * New: `warmup()` functions of `tabs` API
   * New: `elementName` argument of `onResultPicked()` of `urlbar` API and new result `"dynamic"`
   * New: `autoload` property of `pkcs11` API
+
+* 2020-07-27 Firefox 80(Beta) - ver.0.19.0
+
+  * Removal: `autoload` property of `pkcs11` API
+
 
 ## Nightly (Not released to npm)
 
