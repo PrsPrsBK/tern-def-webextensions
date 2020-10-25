@@ -1136,6 +1136,28 @@
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea/clear"
       }
     },
+    "storage.StorageAreaSync": {
+      "get": {
+        "!doc": "Gets one or more items from storage.",
+        "!type": "fn(keys?: string, keys?: [string], keys?: object, callback: fn(items: object))"
+      },
+      "getBytesInUse": {
+        "!doc": "Gets the amount of space (in bytes) being used by one or more items.",
+        "!type": "fn(keys?: string, keys?: [string], callback: fn(bytesInUse: number))"
+      },
+      "set": {
+        "!doc": "Sets multiple items.",
+        "!type": "fn(items: object, callback: fn())"
+      },
+      "remove": {
+        "!doc": "Removes one or more items from storage.",
+        "!type": "fn(keys?: string, keys?: [string], callback: fn())"
+      },
+      "clear": {
+        "!doc": "Removes all items from storage.",
+        "!type": "fn(callback: fn())"
+      }
+    },
     "telemetry.ScalarType": {
       "!doc": "Type of scalar: 'count' for numeric values, 'string' for string values, 'boolean' for boolean values. Maps to <code>nsITelemetry.SCALAR_TYPE_*</code>.",
       "!type": "string"
@@ -3342,7 +3364,7 @@
       },
       "sync": {
         "!doc": "Items in the <code>sync</code> storage area are synced by the browser.",
-        "!type": "+storage.StorageArea",
+        "!type": "+storage.StorageAreaSync",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/storage/sync",
         "QUOTA_BYTES": {
           "!doc": "The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set $(ref:runtime.lastError).",
@@ -3393,6 +3415,10 @@
       "submitPing": {
         "!doc": "Submits a custom ping to the Telemetry back-end. See <code>submitExternalPing</code> inside TelemetryController.jsm for more details.",
         "!type": "fn(type: string, message: object, options: object)"
+      },
+      "submitEncryptedPing": {
+        "!doc": "Submits a custom ping to the Telemetry back-end, with an encrypted payload. Requires a telemetry entry in the manifest to be used.",
+        "!type": "fn(message: object, options: object)"
       },
       "canUpload": {
         "!doc": "Checks if Telemetry upload is enabled.",
