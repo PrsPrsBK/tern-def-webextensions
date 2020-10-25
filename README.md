@@ -200,9 +200,11 @@ Both are in `License` directory.
   * Removal: `autoload` property of `pkcs11` API
 
 * 2020-08-24 Firefox 81(Beta) - No Update
-* 2020-08-24 Firefox 82(Beta) - ver.0.20.0
+* 2020-09-20 Firefox 82(Beta) - ver.0.20.0
 
   * New: `options` argument of `captureTab()` and `captureVisibleTab()` of `tabs` API gets `rect` and `scale` properties.
+
+* 2020-10-19 Firefox 83(Beta) - No Update
 
 
 ## Nightly (Not released to npm)
