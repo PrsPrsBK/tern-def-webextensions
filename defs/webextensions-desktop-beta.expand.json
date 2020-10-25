@@ -4355,10 +4355,6 @@
         "!doc": "Enumerate a module's slots, each with their name and whether a token is present",
         "!type": "fn(name: string)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/pkcs11/getModuleSlots"
-      },
-      "autoload": {
-        "!doc": "Controls whether or not the built-in PKCS#11 module (osclientcerts) is loaded.",
-        "!type": "+types.Setting"
       }
     },
     "geckoProfiler": {
