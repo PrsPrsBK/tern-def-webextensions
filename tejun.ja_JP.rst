@@ -150,5 +150,15 @@ tern定義ファイル生成
 * ツールの一例として記載されたときのスレッド `2018-04-12 Extension development tools - Add-ons / Development - Mozilla Discourse <https://discourse.mozilla.org/t/extension-development-tools/27608>`__
 
 
+タグをつける
+======================
+
+.. code-block:: console
+
+  git tag 1.0.0
+  git push
+  git push --tags
+
+
 .. vim:expandtab ff=dos fenc=utf-8 sw=2
 
