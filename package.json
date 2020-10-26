@@ -4,8 +4,8 @@
   "version": "0.20.0",
   "author": "PrsPrsBK",
   "devDependencies": {
+    "@mdn/browser-compat-data": "^2.0.3",
     "eslint": "^7.0.0",
-    "mdn-browser-compat-data": ">=0.0.38",
     "strip-json-comments": "^3.0.0"
   },
   "files": [
