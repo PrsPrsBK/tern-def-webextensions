@@ -168,7 +168,7 @@
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/ImageFormat"
     },
     "extensionTypes.ImageDetails": {
-      "!doc": "Details about the format and quality of an image.",
+      "!doc": "Details about the format, quality, area and scale of the capture.",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/ImageDetails",
       "format": {
         "!doc": "The format of the resulting image.  Default is <code>\"jpeg\"</code>.",
@@ -176,6 +176,25 @@
       },
       "quality": {
         "!doc": "When format is <code>\"jpeg\"</code>, controls the quality of the resulting image.  This value is ignored for PNG images.  As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.",
+        "!type": "number"
+      },
+      "rect": {
+        "!doc": "The area of the document to capture, in CSS pixels, relative to the page.  If omitted, capture the visible viewport.",
+        "x": {
+          "!type": "number"
+        },
+        "y": {
+          "!type": "number"
+        },
+        "width": {
+          "!type": "number"
+        },
+        "height": {
+          "!type": "number"
+        }
+      },
+      "scale": {
+        "!doc": "The scale of the resulting image.  Defaults to <code>devicePixelRatio</code>.",
         "!type": "number"
       }
     },
@@ -1134,6 +1153,28 @@
         "!doc": "Removes all items from storage.",
         "!type": "fn(callback: fn())",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea/clear"
+      }
+    },
+    "storage.StorageAreaSync": {
+      "get": {
+        "!doc": "Gets one or more items from storage.",
+        "!type": "fn(keys?: string, keys?: [string], keys?: object, callback: fn(items: object))"
+      },
+      "getBytesInUse": {
+        "!doc": "Gets the amount of space (in bytes) being used by one or more items.",
+        "!type": "fn(keys?: string, keys?: [string], callback: fn(bytesInUse: number))"
+      },
+      "set": {
+        "!doc": "Sets multiple items.",
+        "!type": "fn(items: object, callback: fn())"
+      },
+      "remove": {
+        "!doc": "Removes one or more items from storage.",
+        "!type": "fn(keys?: string, keys?: [string], callback: fn())"
+      },
+      "clear": {
+        "!doc": "Removes all items from storage.",
+        "!type": "fn(callback: fn())"
       }
     },
     "telemetry.ScalarType": {
@@ -2443,7 +2484,7 @@
       }
     },
     "urlbar.ResultType": {
-      "!doc": "Possible types of results. <code>remote_tab</code>: A synced tab from another device. <code>search</code>: A search suggestion from a search engine. <code>tab</code>: An open tab in the browser. <code>tip</code>: An actionable message to help the user with their query. <code>url</code>: A URL that's not one of the other types.",
+      "!doc": "Possible types of results. <code>dynamic</code>: A result whose view and payload are specified by the extension. <code>remote_tab</code>: A synced tab from another device. <code>search</code>: A search suggestion from a search engine. <code>tab</code>: An open tab in the browser. <code>tip</code>: An actionable message to help the user with their query. <code>url</code>: A URL that's not one of the other types.",
       "!type": "string"
     },
     "urlbar.SearchOptions": {
@@ -2663,11 +2704,13 @@
       },
       "zoomFullPage": {
         "!doc": "This boolean setting controls whether zoom is applied to the full page or to text only.",
-        "!type": "+types.Setting"
+        "!type": "+types.Setting",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browserSettings/zoomFullPage"
       },
       "zoomSiteSpecific": {
         "!doc": "This boolean setting controls whether zoom is applied on a per-site basis or to the current tab only. If privacy.resistFingerprinting is true, this setting has no effect and zoom is applied to the current tab only.",
-        "!type": "+types.Setting"
+        "!type": "+types.Setting",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browserSettings/zoomSiteSpecific"
       }
     },
     "clipboard": {
@@ -3342,7 +3385,7 @@
       },
       "sync": {
         "!doc": "Items in the <code>sync</code> storage area are synced by the browser.",
-        "!type": "+storage.StorageArea",
+        "!type": "+storage.StorageAreaSync",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/storage/sync",
         "QUOTA_BYTES": {
           "!doc": "The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set $(ref:runtime.lastError).",
@@ -3393,6 +3436,10 @@
       "submitPing": {
         "!doc": "Submits a custom ping to the Telemetry back-end. See <code>submitExternalPing</code> inside TelemetryController.jsm for more details.",
         "!type": "fn(type: string, message: object, options: object)"
+      },
+      "submitEncryptedPing": {
+        "!doc": "Submits a custom ping to the Telemetry back-end, with an encrypted payload. Requires a telemetry entry in the manifest to be used.",
+        "!type": "fn(message: object, options: object)"
       },
       "canUpload": {
         "!doc": "Checks if Telemetry upload is enabled.",
@@ -4546,7 +4593,7 @@
       },
       "duplicate": {
         "!doc": "Duplicates a tab.",
-        "!type": "fn(tabId: number, callback: fn(tab: +tabs.Tab))",
+        "!type": "fn(tabId: number, duplicateProperties: object, callback: fn(tab: +tabs.Tab))",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/duplicate"
       },
       "query": {
@@ -4574,6 +4621,11 @@
         "!type": "fn(tabId: number, reloadProperties: object, callback: fn())",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/reload"
       },
+      "warmup": {
+        "!doc": "Warm up a tab",
+        "!type": "fn(tabId: number)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/warmup"
+      },
       "remove": {
         "!doc": "Closes one or more tabs.",
         "!type": "fn(tabIds?: number, tabIds?: [number], callback: fn())",
@@ -4595,12 +4647,12 @@
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/toggleReaderMode"
       },
       "captureTab": {
-        "!doc": "Captures the visible area of a specified tab. You must have $(topic:declare_permissions)[&lt;all_urls&gt;] permission to use this method.",
+        "!doc": "Captures an area of a specified tab. You must have $(topic:declare_permissions)[&lt;all_urls&gt;] permission to use this method.",
         "!type": "fn(tabId: number, options: +extensionTypes.ImageDetails)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/captureTab"
       },
       "captureVisibleTab": {
-        "!doc": "Captures the visible area of the currently active tab in the specified window. You must have $(topic:declare_permissions)[&lt;all_urls&gt;] permission to use this method.",
+        "!doc": "Captures an area of the currently active tab in the specified window. You must have $(topic:declare_permissions)[&lt;all_urls&gt;] permission to use this method.",
         "!type": "fn(windowId: number, options: +extensionTypes.ImageDetails, callback: fn(dataUrl: string))",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/captureVisibleTab"
       },
@@ -4668,6 +4720,14 @@
         "!doc": "Removes an array of tabs from their lines of succession and prepends or appends them in a chain to another tab.",
         "!type": "fn(tabIds: [number], tabId: number, options: object)",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/tabs/moveInSuccession"
+      },
+      "goForward": {
+        "!doc": "Navigate to next page in tab's history, if available",
+        "!type": "fn(tabId: number, callback: fn())"
+      },
+      "goBack": {
+        "!doc": "Navigate to previous page in tab's history, if available.",
+        "!type": "fn(tabId: number, callback: fn())"
       },
       "onCreated": {
         "!doc": "Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired, but you can listen to onUpdated events to be notified when a URL is set.",
@@ -4779,8 +4839,8 @@
         "!type": "fn(query: +urlbar.Query)"
       },
       "onResultPicked": {
-        "!doc": "Typically, a provider includes a <code>url</code> property in its results' payloads. When the user picks a result with a URL, Firefox automatically loads the URL. URLs don't make sense for every result type, however. When the user picks a result without a URL, this event is fired. The provider should take an appropriate action in response. Currently the only applicable <code>ResultType</code> is <code>tip</code>.",
-        "!type": "fn(payload: object)"
+        "!doc": "Typically, a provider includes a <code>url</code> property in its results' payloads. When the user picks a result with a URL, Firefox automatically loads the URL. URLs don't make sense for every result type, however. When the user picks a result without a URL, this event is fired. The provider should take an appropriate action in response. Currently the only applicable <code>ResultTypes</code> are <code>dynamic</code> and <code>tip</code>.",
+        "!type": "fn(payload: object, elementName: string)"
       },
       "engagementTelemetry": {
         "!doc": "Enables or disables the engagement telemetry.",

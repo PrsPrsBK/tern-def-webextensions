@@ -376,7 +376,7 @@
             "permissions": [
               "storage"
             ],
-            "types": 2,
+            "types": 3,
             "events": 1
           }
         ],
@@ -387,7 +387,7 @@
         "namespaceList": [
           {
             "name": "manifest",
-            "types": 1
+            "types": 2
           },
           {
             "name": "telemetry",
@@ -395,7 +395,7 @@
               "telemetry"
             ],
             "types": 3,
-            "functions": 12
+            "functions": 13
           }
         ],
         "license": "None"
@@ -903,12 +903,12 @@
         "namespaceList": [
           {
             "name": "manifest",
-            "types": 1
+            "types": 2
           },
           {
             "name": "tabs",
             "types": 12,
-            "functions": 33,
+            "functions": 36,
             "events": 13
           }
         ],
