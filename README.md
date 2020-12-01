@@ -212,4 +212,8 @@ Both are in `License` directory.
 
 ## Nightly (Not released to npm)
 
+* 2020-12-01
+
+  * New: `network.httpsOnlyMode` property of `privacy` API
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
