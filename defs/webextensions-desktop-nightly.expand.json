@@ -943,6 +943,10 @@
         "!type": "string"
       }
     },
+    "privacy.network.HTTPSOnlyModeOption": {
+      "!doc": "The mode for https-only mode.",
+      "!type": "string"
+    },
     "privacy.websites.TrackingProtectionModeOption": {
       "!doc": "The mode for tracking protection.",
       "!type": "string"
@@ -3171,6 +3175,10 @@
         },
         "tlsVersionRestriction": {
           "!doc": "This property controls the minimum and maximum TLS versions. This setting's value is an object of $(ref:tlsVersionRestrictionConfig).",
+          "!type": "+types.Setting"
+        },
+        "httpsOnlyMode": {
+          "!doc": "Allow users to query the mode for 'HTTPS-Only Mode'. This setting's value is of type HTTPSOnlyModeOption, defaulting to <code>never</code>.",
           "!type": "+types.Setting"
         }
       },
