@@ -215,9 +215,6 @@ Both are in `License` directory.
 * 2020-12-01
 
   * New: `network.httpsOnlyMode` property of `privacy` API
-<<<<<<< HEAD
     [1678306](https://bugzilla.mozilla.org/show_bug.cgi?id=1678306)
-=======
->>>>>>> 22b5ea20ed21a05b32ffb07c7c9af8457f368e7f
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
