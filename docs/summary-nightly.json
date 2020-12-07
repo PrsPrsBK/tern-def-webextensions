@@ -540,7 +540,7 @@
         "license": "BSD"
       },
       {
-        "file": "browser/components/extensions/schemas/browsing_data.json",
+        "file": "toolkit/components/extensions/schemas/browsing_data.json",
         "namespaceList": [
           {
             "name": "manifest",

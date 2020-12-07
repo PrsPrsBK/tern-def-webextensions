@@ -217,4 +217,8 @@ Both are in `License` directory.
   * New: `network.httpsOnlyMode` property of `privacy` API
     [1678306](https://bugzilla.mozilla.org/show_bug.cgi?id=1678306)
 
+* 2020-12-06
+  * `browsing_data.json` moved from `toolkit` dir to `browser` dir
+    [1625233](https://bugzilla.mozilla.org/show_bug.cgi?id=1625233)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
