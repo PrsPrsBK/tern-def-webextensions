@@ -306,7 +306,7 @@
             "permissions": [
               "privacy"
             ],
-            "types": 2
+            "types": 3
           },
           {
             "name": "privacy.services",
