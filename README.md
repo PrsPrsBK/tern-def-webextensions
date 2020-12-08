@@ -205,17 +205,17 @@ Both are in `License` directory.
   * New: `options` argument of `captureTab()` and `captureVisibleTab()` of `tabs` API gets `rect` and `scale` properties.
 
 * 2020-10-19 Firefox 83(Beta) - No Update
-* 2020-11-17 Firefox 84(Beta)
+* 2020-11-17 Firefox 84(Beta) - ver.0.21.0
 
   * New: `cookieStoreId` property of `browsingData.RemovalOptions` API
 
-
-## Nightly (Not released to npm)
-
-* 2020-12-01
+* 2020-12-08 Firefox 84(Beta) - ver.0.21.1
 
   * New: `network.httpsOnlyMode` property of `privacy` API
     [1678306](https://bugzilla.mozilla.org/show_bug.cgi?id=1678306)
+
+
+## Nightly (Not released to npm)
 
 * 2020-12-06
   * `browsing_data.json` moved from `toolkit` dir to `browser` dir
