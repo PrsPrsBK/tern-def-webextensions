@@ -4,7 +4,7 @@
   "version": "0.21.1",
   "author": "PrsPrsBK",
   "devDependencies": {
-    "@mdn/browser-compat-data": "^2.0.3",
+    "@mdn/browser-compat-data": "^3.0.0",
     "eslint": "^7.0.0",
     "strip-json-comments": "^3.0.0"
   },
