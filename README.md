@@ -214,11 +214,11 @@ Both are in `License` directory.
   * New: `network.httpsOnlyMode` property of `privacy` API
     [1678306](https://bugzilla.mozilla.org/show_bug.cgi?id=1678306)
 
-
-## Nightly (Not released to npm)
-
-* 2020-12-06
+* 2020-12-15 Firefox 85(Beta) - No Update
   * `browsing_data.json` moved from `toolkit` dir to `browser` dir
     [1625233](https://bugzilla.mozilla.org/show_bug.cgi?id=1625233)
+
+
+## Nightly (Not released to npm)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
