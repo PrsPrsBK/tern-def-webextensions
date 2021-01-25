@@ -218,6 +218,7 @@ Both are in `License` directory.
   * `browsing_data.json` moved from `toolkit` dir to `browser` dir
     [1625233](https://bugzilla.mozilla.org/show_bug.cgi?id=1625233)
 
+* 2021-01-26 Firefox 86(Beta) - No Update
 
 ## Nightly (Not released to npm)
 
