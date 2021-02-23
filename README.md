@@ -219,6 +219,7 @@ Both are in `License` directory.
     [1625233](https://bugzilla.mozilla.org/show_bug.cgi?id=1625233)
 
 * 2021-01-26 Firefox 86(Beta) - No Update
+* 2021-02-23 Firefox 87(Beta) - No Update
 
 ## Nightly (Not released to npm)
 
