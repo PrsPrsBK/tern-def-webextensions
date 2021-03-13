@@ -1,7 +1,6 @@
 <#
  # @fileoverview run as postpublish.
  # 1. update defs/which_is_used.txt
- # 2. delete cset_pub.log and rename cset.log to cset_pub.log
  # @author PrsPrsBK
 #>
 
@@ -34,12 +33,6 @@ Process {
     hg log -l 1 -R $repo --template "mozilla-beta changeset: {rev}:{node}" > $log
   } | Wait-Job | Receive-Job | Remove-Job
 
-  Start-Job -ArgumentList $cset_pubed -ScriptBlock {
-    Param($old)
-    Remove-Item $old
-  } | Wait-Job | Receive-Job | Remove-Job
-
-  Rename-Item $cset_today $cset_pubed
 }
 
 End {
