@@ -233,6 +233,10 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, useMdn, options = {}) =>
         const paramArr = [];
         if(exprAtSchema.parameters !== undefined) {
           for(const param of exprAtSchema.parameters) {
+            if(!param.name) {
+              // thunderbird tree has nameless arguments for callback functions. firefox may not have.
+              param.name = 'nameless';
+            }
             if(param.choices !== undefined) {
               for(const cho of param.choices) {
                 paramArr.push(`${param.name.trim()}?: ${toTernAtom(cho)}`);
