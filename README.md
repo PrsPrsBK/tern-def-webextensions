@@ -225,4 +225,7 @@ Both are in `License` directory.
 
 ## Nightly (Not released to npm)
 
+* 2021-06-02 Removal: `import()/export()` from `bookmarks` API
+    [1713674](https://bugzilla.mozilla.org/show_bug.cgi?id=1713674)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

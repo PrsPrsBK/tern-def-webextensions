@@ -3776,14 +3776,6 @@
         "!type": "fn(id: string, callback: fn())",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/bookmarks/removeTree"
       },
-      "import": {
-        "!doc": "Imports bookmarks from an html bookmark file",
-        "!type": "fn(callback: fn())"
-      },
-      "export": {
-        "!doc": "Exports bookmarks to an html bookmark file",
-        "!type": "fn(callback: fn())"
-      },
       "onCreated": {
         "!doc": "Fired when a bookmark or folder is created.",
         "!type": "fn(id: string, bookmark: +bookmarks.BookmarkTreeNode)",
