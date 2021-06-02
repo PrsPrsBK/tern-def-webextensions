@@ -221,6 +221,7 @@ Both are in `License` directory.
 * 2021-01-26 Firefox 86(Beta) - No Update
 * 2021-02-23 Firefox 87(Beta) - No Update
 * 2021-03-23 Firefox 88(Beta) - No Update: Only docstring about ftp protocol.
+* 2021-06-01 Firefox 90(Beta) - No Update
 
 ## Nightly (Not released to npm)
 
