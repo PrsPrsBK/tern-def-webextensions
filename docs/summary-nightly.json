@@ -525,16 +525,24 @@
         "namespaceList": [
           {
             "name": "manifest",
-            "types": 1
+            "types": 3
           },
           {
-            "name": "browserAction",
+            "name": "action",
             "permissions": [
+              "manifest:action",
               "manifest:browser_action"
             ],
             "types": 5,
             "functions": 15,
             "events": 1
+          },
+          {
+            "name": "browserAction",
+            "permissions": [
+              "manifest:action",
+              "manifest:browser_action"
+            ]
           }
         ],
         "license": "BSD"
@@ -735,8 +743,7 @@
             "name": "contextMenus",
             "permissions": [
               "contextMenus"
-            ],
-            "types": 1
+            ]
           },
           {
             "name": "menus",
