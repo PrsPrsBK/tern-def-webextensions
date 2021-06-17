@@ -226,6 +226,10 @@ Both are in `License` directory.
 ## Nightly (Not released to npm)
 
 * 2021-06-02 Removal: `import()/export()` from `bookmarks` API
-    [1713674](https://bugzilla.mozilla.org/show_bug.cgi?id=1713674)
+  [1713674](https://bugzilla.mozilla.org/show_bug.cgi?id=1713674)
+* 2021-06-17 Rename: `browserAction` API to `action` API only on Manifest V3.
+  On Manifest V2, `browserAction` API still remains.
+  **Now, the feature for browserAction API is completely broken, so needs fix.**
+  [1706398](https://bugzilla.mozilla.org/show_bug.cgi?id=1706398)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
