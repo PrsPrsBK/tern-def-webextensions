@@ -271,6 +271,10 @@
       "!doc": "After which mouse event context menus should popup.",
       "!type": "string"
     },
+    "browserSettings.ColorManagementMode": {
+      "!doc": "Color management mode.",
+      "!type": "string"
+    },
     "contentScripts.RegisteredContentScriptOptions": {
       "!doc": "Details of a content script registered programmatically",
       "matches": {
@@ -2713,6 +2717,17 @@
         "!doc": "This boolean setting controls whether zoom is applied on a per-site basis or to the current tab only. If privacy.resistFingerprinting is true, this setting has no effect and zoom is applied to the current tab only.",
         "!type": "+types.Setting",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browserSettings/zoomSiteSpecific"
+      },
+      "colorManagement": {
+        "!doc": "Use the <code>browserSettings.colorManagement</code> API to query and set items related to color management.",
+        "mode": {
+          "!doc": "This setting controls the mode used for color management and must be a string from $(ref:browserSettings.ColorManagementMode)",
+          "!type": "+types.Setting"
+        },
+        "useNativeSRGB": {
+          "!doc": "This boolean setting controls whether or not native sRGB color management is used.",
+          "!type": "+types.Setting"
+        }
       }
     },
     "clipboard": {

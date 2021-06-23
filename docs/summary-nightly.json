@@ -59,7 +59,13 @@
             "permissions": [
               "browserSettings"
             ],
-            "types": 2
+            "types": 3
+          },
+          {
+            "name": "browserSettings.colorManagement",
+            "permissions": [
+              "browserSettings"
+            ]
           }
         ],
         "license": "BSD"
