@@ -231,5 +231,7 @@ Both are in `License` directory.
   On Manifest V2, `browserAction` API still remains.
   **Now, the feature for browserAction API is completely broken, so needs fix.**
   [1706398](https://bugzilla.mozilla.org/show_bug.cgi?id=1706398)
+* 2021-06-23 New: `colorManagement` of `browserSettings` API
+  [1714428](https://bugzilla.mozilla.org/show_bug.cgi?id=1714428)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
