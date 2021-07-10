@@ -233,5 +233,7 @@ Both are in `License` directory.
   [1706398](https://bugzilla.mozilla.org/show_bug.cgi?id=1706398)
 * 2021-06-23 New: `colorManagement` of `browserSettings` API
   [1714428](https://bugzilla.mozilla.org/show_bug.cgi?id=1714428)
+* 2021-07-10 New: `useWebRenderCompositor` of `browserSettings` API
+  [1719688](https://bugzilla.mozilla.org/show_bug.cgi?id=1719688)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

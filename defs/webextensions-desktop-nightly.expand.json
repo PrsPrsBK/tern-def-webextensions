@@ -2727,6 +2727,10 @@
         "useNativeSRGB": {
           "!doc": "This boolean setting controls whether or not native sRGB color management is used.",
           "!type": "+types.Setting"
+        },
+        "useWebRenderCompositor": {
+          "!doc": "This boolean setting controls whether or not the WebRender compositor is used.",
+          "!type": "+types.Setting"
         }
       }
     },
