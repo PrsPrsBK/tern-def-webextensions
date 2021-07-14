@@ -2,7 +2,7 @@
 |------------------------------------------|
 
 This package will never be updated for `npmjs.com`,
-because local repository for development was totally broken at 2021-07-13.
+because local repository of `mozilla-beta` was totally broken at 2021-07-13.
 
 Update for Nightly may be happen. Thanks.
 
