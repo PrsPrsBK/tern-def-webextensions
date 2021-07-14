@@ -1,3 +1,11 @@
+| :exclamation:  Note: `deprecated` on npm |
+|------------------------------------------|
+
+This package will never be updated for `npmjs.com`,
+because local repository for development was totally broken at 2021-07-13.
+
+Update for Nightly may be happen. Thanks.
+
 # tern-def-webextensions
 ![Screenshot](images/2018-04-12_readme-img_01.jpg)
 
