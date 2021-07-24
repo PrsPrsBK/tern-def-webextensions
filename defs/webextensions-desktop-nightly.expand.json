@@ -479,6 +479,10 @@
         "!doc": "False if this download is recorded in the history, true if it is not recorded.",
         "!type": "bool"
       },
+      "cookieStoreId": {
+        "!doc": "The cookie store ID of the contextual identity.",
+        "!type": "string"
+      },
       "danger": {
         "!doc": "Indication of whether this download is thought to be safe or known to be suspicious.",
         "!type": "+downloads.DangerType"
@@ -623,6 +627,10 @@
       },
       "filename": {
         "!doc": "Absolute local path.",
+        "!type": "string"
+      },
+      "cookieStoreId": {
+        "!doc": "The cookie store ID of the contextual identity.",
         "!type": "string"
       },
       "danger": {
