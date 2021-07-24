@@ -243,5 +243,7 @@ Both are in `License` directory.
   [1714428](https://bugzilla.mozilla.org/show_bug.cgi?id=1714428)
 * 2021-07-10 New: `useWebRenderCompositor` of `browserSettings` API
   [1719688](https://bugzilla.mozilla.org/show_bug.cgi?id=1719688)
+* 2021-07-24 New: `cookieStoreId` property of `search()`, `erase()` `onCreated()` of `downloads` API.
+  [1669566](https://bugzilla.mozilla.org/show_bug.cgi?id=1669566)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
